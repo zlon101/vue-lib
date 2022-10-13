@@ -1,0 +1,13 @@
+{
+  "name": "@zl/form-item",
+  "version": "1.0.0",
+  "description": "form item 表单字段",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:4873"
+  }
+}

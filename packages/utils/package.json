@@ -1,0 +1,17 @@
+{
+  "name": "@zl/utils",
+  "version": "1.0.0",
+  "description": "工具函数",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "gene-note": "node scripts/gene-note.cjs",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://47.100.207.125:4873"
+  }
+}

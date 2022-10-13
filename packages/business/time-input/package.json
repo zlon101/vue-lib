@@ -1,0 +1,18 @@
+{
+  "name": "@zl/time-input",
+  "version": "1.0.0",
+  "description": "时间范围输入框组件",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../../basecmp/input"
+  },
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:4873"
+  },
+  "dependencies": {
+    "@zl/input": "*"
+  }
+}

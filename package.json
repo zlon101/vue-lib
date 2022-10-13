@@ -1,0 +1,80 @@
+{
+  "name": "pic-npm",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "pm2 start ./pm2.config.cjs",
+    "deploy": "node scripts/upload-server.js",
+    "dev": "vue-cli-service serve",
+    "predev": "node scripts/predev.js",
+    "build": "vue-cli-service build",
+    "build:lib": "node scripts/build-lib.js",
+    "minSvg": "node scripts/min-svg.js",
+    "build:icon": "node scripts/build-icon.js",
+    "edit:pkg": "node scripts/edit-package.js",
+    "link:all": "node scripts/link-local.js",
+    "update:registry": "node scripts/update-registry.js",
+    "create:comp": "node scripts/create.js",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,vue}": "eslint --cache --fix",
+    "packages/**/*.{js,jsx,vue}": "eslint --cache --fix"
+  },
+  "browserslist": {
+    "development": [
+      "> 1%",
+      "last 2 versions",
+      "not dead"
+    ],
+    "production": [
+      "ie >= 11"
+    ]
+  },
+  "engines": {
+    "node": "16.13.2 || 16.16.0"
+  },
+  "dependencies": {
+    "core-js": "3.24.1",
+    "crypto-js": "3.3.0",
+    "moment": "2.29.1",
+    "resize-observer-polyfill": "1.5.1",
+    "throttle-debounce": "3.0.1",
+    "vue": "2.6.14",
+    "vue-router": "3.5.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "5.0.8",
+    "@vue/cli-plugin-eslint": "4.5.0",
+    "@vue/cli-plugin-router": "4.5.0",
+    "@vue/cli-plugin-vuex": "4.5.0",
+    "@vue/cli-service": "4.5.9",
+    "@vue/eslint-config-standard": "6.1.0",
+    "axios": "0.27.2",
+    "babel-eslint": "10.1.0",
+    "body-parser": "1.20.0",
+    "css-loader": "5.2.7",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.0",
+    "eslint-plugin-vue": "7.20.0",
+    "font-carrier": "0.3.1",
+    "github-markdown-css": "5.1.0",
+    "husky": "8.0.0",
+    "less": "3.0.4",
+    "less-loader": "5.0.0",
+    "lint-staged": "13.0.3",
+    "prettier": "2.7.1",
+    "style-resources-loader": "1.4.1",
+    "svg-url-loader": "7.1.1",
+    "svgo": "2.8.0",
+    "vue-cli-plugin-style-resources-loader": "0.1.5",
+    "vue-loader": "15.10.0",
+    "vue-markdown-loader": "2.5.0",
+    "vue-template-compiler": "2.6.14"
+  }
+}

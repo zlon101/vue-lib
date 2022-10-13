@@ -1,0 +1,13 @@
+{
+  "name": "@zl/radio",
+  "version": "1.0.0",
+  "description": "单选",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:4873"
+  }
+}

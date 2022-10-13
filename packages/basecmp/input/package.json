@@ -1,0 +1,20 @@
+{
+  "name": "@zl/input",
+  "version": "1.0.0",
+  "description": "输入框, input",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../icon && npx link ../../utils && npx link ../../extends/toast"
+  },
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:4873"
+  },
+  "dependencies": {
+    "@zl/util": "*",
+    "@zl/extend-toast": "*",
+    "@zl/icon": "*"
+  }
+}

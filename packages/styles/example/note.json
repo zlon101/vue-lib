@@ -1,0 +1,54 @@
+[
+  {
+    "clsName": "g-self-center ",
+    "note": " 水平垂直居中自身 "
+  },
+  {
+    "clsName": "g-flex-center ",
+    "note": " flex 水平垂直居中子元素 "
+  },
+  {
+    "clsName": "g-single-text ",
+    "note": " 单行省略号"
+  },
+  {
+    "clsName": "g-require ",
+    "note": " 表单必填项"
+  },
+  {
+    "clsName": "g-button-wrap ",
+    "note": " 按钮组件包裹元素。内部按钮垂直居中对接，左边距8px"
+  },
+  {
+    "clsName": "g-table-mutil-btn ",
+    "note": " table 批量操作按钮"
+  },
+  {
+    "clsName": "g-page-bgfilter ",
+    "note": " 背景毛玻璃效果，backdrop-filter 实现，可能存在动画卡顿的问题"
+  },
+  {
+    "clsName": "g-error-msg ",
+    "note": " 全局文本报错信息样式"
+  },
+  {
+    "clsName": "g-full-parent ",
+    "note": " 绝对定位填满父元素"
+  },
+  {
+    "clsName": "g-success-msg ",
+    "note": " 成功提示文案"
+  },
+  {
+    "clsName": "g-processing-msg ",
+    "note": " 处理中提示文案"
+  },
+  {
+    "clsName": "g-background-grid ",
+    "note": " 全局网格背景"
+  },
+  {
+    "clsName": "icon_refresh_blue ",
+    "note": " loading icon"
+  }
+]

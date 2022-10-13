@@ -1,0 +1,19 @@
+{
+  "name": "@zl/v-copy",
+  "version": "1.0.0",
+  "description": "复制指令",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../../extends/copy",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:4873"
+  },
+  "dependencies": {
+    "@zl/extend-copy": "*"
+  }
+}

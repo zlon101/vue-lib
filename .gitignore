@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+dist
+docs
+.eslintcache
+**/package-lock.json
+.idea
+*__gen.go
+*__ignore.go
+*.swp
+*.swo
+~i_*
+ig_*
+zzzig_*

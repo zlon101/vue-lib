@@ -1,0 +1,19 @@
+{
+  "name": "@zl/tooltip",
+  "version": "1.0.0",
+  "description": "tooltip，hover 提示框",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../../directives/transfer && npx link ../../utils"
+  },
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:4873"
+  },
+  "dependencies": {
+    "@zl/transfer": "*",
+    "@zl/utils": "*"
+  }
+}

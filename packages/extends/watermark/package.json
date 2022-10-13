@@ -1,0 +1,19 @@
+{
+  "name": "@zl/extend-watermark",
+  "version": "1.0.0",
+  "description": "页面水印",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../../utils && npx link ../toast"
+  },
+  "keywords": [],
+  "author": "zlon101",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://127.0.0.1:4873"
+  },
+  "dependencies": {
+    "@zl/utils": "*",
+    "@zl/extend-toast": "*"
+  }
+}

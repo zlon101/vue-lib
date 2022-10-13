@@ -1,0 +1,41 @@
+/* transition 样式 */
+
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .5s;
+}
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* fade-transform-y */
+.fade-transform-y-leave-active,
+.fade-transform-y-enter-active {
+  transition: all .2s;
+}
+.fade-transform-y-enter {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.fade-transform-y-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+// slide-fade
+.slide-fade-enter-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  opacity: 0;
+}

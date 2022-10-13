@@ -1,0 +1,195 @@
+@keyframes loop-rotate {
+  0% {
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* 水平垂直居中自身 */
+.g-self-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* flex 水平垂直居中子元素 */
+.g-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 单行省略号
+.g-single-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 表单必填项
+.g-require {
+  &::after {
+    content: '*';
+    color: #F56C6C;
+    margin-left: 4px;
+  }
+}
+
+// 按钮组件包裹元素。内部按钮垂直居中对接，左边距8px
+.g-button-wrap {
+  display: flex;
+  align-items: center;
+  /deep/ .c-sdp-button + .c-sdp-button,
+  .c-sdp-button + .c-sdp-button {
+    margin: 0 0 0 8px;
+  }
+}
+
+// table 批量操作按钮
+.g-table-mutil-btn {
+  cursor: pointer;
+  font-size: 14px;
+  &.red {
+    color: #f56c6c;
+  }
+  &.green {
+    color: #67c23a;
+  }
+  & + & {
+    margin-left: 32px;
+  }
+}
+
+// 背景毛玻璃效果，backdrop-filter 实现，可能存在动画卡顿的问题
+.g-page-bgfilter {
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(3px);
+    z-index: 10;
+  }
+}
+
+// 全局文本报错信息样式
+.g-error-msg {
+  max-width: 358px;
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: #f56c6c;
+  line-height: 18px;
+  font-weight: 400;
+  &:empty {
+    display: none;
+  }
+  &::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    display: inline-block;
+    margin-right: 8px;
+    .bg-icon(16px, 16px);
+    background-image: url("data:image/svg+xml,%3csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0Zm0 11.25a.75.75 0 0 0-.75.75v.5l.007.102A.75.75 0 0 0 8.75 12.5V12l-.007-.102A.75.75 0 0 0 8 11.25Zm0-8.5a.75.75 0 0 0-.75.75v6l.007.102A.75.75 0 0 0 8.75 9.5v-6l-.007-.102A.75.75 0 0 0 8 2.75Z' fill='%23F56C6C' fill-rule='evenodd'/%3e%3c/svg%3e");
+  }
+}
+
+// 绝对定位填满父元素
+.g-full-parent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+// 成功提示文案
+.g-success-msg {
+  max-width: 358px;
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: #67c23a;
+  line-height: 18px;
+  font-weight: 400;
+  &:empty {
+    display: none;
+  }
+  &::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    display: inline-block;
+    margin-right: 8px;
+    .bg-icon(16px, 16px);
+    background-image: url("data:image/svg+xml,%3csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0Zm4.53 4.97a.75.75 0 0 0-1.06 0L7 9.439l-2.47-2.47-.084-.072A.75.75 0 0 0 3.47 8.03l3 3a.75.75 0 0 0 .935.101l.031-.02.008-.007a.756.756 0 0 0 .086-.074l5-5 .073-.084a.75.75 0 0 0-.073-.976Z' fill='%2367C23A' fill-rule='evenodd'/%3e%3c/svg%3e");
+  }
+}
+
+// 处理中提示文案
+.g-processing-msg {
+  max-width: 358px;
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: #7f8fa4;
+  line-height: 18px;
+  font-weight: 400;
+  &:empty {
+    display: none;
+  }
+  &::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    display: inline-block;
+    margin-right: 8px;
+    .bg-icon(16px, 16px);
+    background-image: url("data:image/svg+xml,%3csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0Zm0 2.75a.75.75 0 0 0-.75.75v5l.007.102A.75.75 0 0 0 8 9.25h5l.102-.007A.75.75 0 0 0 13 7.75H8.75V3.5l-.007-.102A.75.75 0 0 0 8 2.75Z' fill='%23C0C4CC' fill-rule='evenodd'/%3e%3c/svg%3e");
+  }
+}
+
+// 全局网格背景
+.g-background-grid {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100vw;
+    height: 50vh;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    background-image: linear-gradient(90deg,hsla(0,0%,60%,.06) 1px,rgba(0,0,0,0) 0),linear-gradient(1turn,hsla(0,0%,60%,.06) 1px,rgba(0,0,0,0) 0);
+    background-size: 32px 32px;
+    background-repeat: repeat;
+    -ms-transform: translate(-50%,-50%) rotate(-15deg);
+    transform: translate(-50%,-50%) rotate(-15deg);
+    background-position: 50%;
+  }
+}
+
+// loading icon
+.icon_refresh_blue {
+  .bg-icon(16px, 16px);
+  background-image: url("data:image/svg+xml,%3csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M8 1a7 7 0 0 0-7 7m7 7a7 7 0 0 0 7-7' stroke='%230D00FE' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+  animation: loop-rotate 2s linear infinite;
+}

@@ -1,0 +1,294 @@
+[
+  {
+    "subpath": "index",
+    "fnArr": [
+      {
+        "fnName": "export const copyString = (str)",
+        "note": "/**\n * 复制文字\n */\n"
+      },
+      {
+        "fnName": "export function deepClone(srcData, hash = new WeakMap()",
+        "note": "// 深度克隆\n"
+      },
+      {
+        "fnName": "export function debounce(func, wait, immediate)",
+        "note": "/**\n * 防抖\n * @param {Function} func\n * @param {number} wait\n * @param {boolean} immediate\n * @returns {Function}\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "crypto",
+    "fnArr": [
+      {
+        "fnName": "export function RandomString(size)",
+        "note": "\n// crypto-js4.0版本在ie11上有兼容性问题\n\n"
+      },
+      {
+        "fnName": "export function EncryptAESStr(msg, key)",
+        "note": ""
+      },
+      {
+        "fnName": "export function DecryptAesStr(msg, key)",
+        "note": ""
+      }
+    ]
+  },
+  {
+    "subpath": "date",
+    "fnArr": [
+      {
+        "fnName": "export function dateToString(date, format = 'YYYY-MM-DD HH:mm:ss')",
+        "note": "/**\n * 按utc8时区格式化时间\n * @param {number} date 时间戳或日期字符串或Date对象\n * @param {string} format 格式  hh(0~12) HH(0~23)\n */\n"
+      },
+      {
+        "fnName": "export function utf8TimeNowStr()",
+        "note": ""
+      },
+      {
+        "fnName": "export function stringToDate(str)",
+        "note": ""
+      },
+      {
+        "fnName": "export function isInRange({ startT, endT, curTime }",
+        "note": ""
+      },
+      {
+        "fnName": "export const MonthMap = {\n  Jan: 1,\n  Feb: 2,\n  Mar: 3,\n  Apr: 4,\n  May: 5,\n  Jun: 6,\n  Jul: 7,\n  Aug: 8,\n  Sep: 9,\n  Oct: 10,\n  Nov: 11,\n  Dec: 12,\n}",
+        "note": "// 月份映射\n"
+      },
+      {
+        "fnName": "export const WeekMap = {\n  Mon: 1,\n  Tue: 2,\n  Wed: 3,\n  Thu: 4,\n  Fri: 5,\n  Sat: 6,\n  Sun: 7,\n}",
+        "note": "// 星期映射\n"
+      },
+      {
+        "fnName": "export function dataToLocaleString(date)",
+        "note": "/**\n * 日期转换为常用语\n * @param date\n * @returns {string}\n */\n"
+      },
+      {
+        "fnName": "export function getDateRange({\n  dateNow = new Date(),\n  intervalDays,\n  format = 'YYYY-MM-DD',\n  isBefore = true,\n  besideNow = false,\n}",
+        "note": "/**\n * 获取指定日期范围\n * @param dateNow {String|Date} 当前日期，默认取当前系统日期\n * @param intervalDays {Number} 间隔天数\n * @param format {String} 返回格式\n * @param isBefore {Boolean} 是否在当前日期前\n * @param besideNow {Boolean} 范围计算是否排除当前日期\n * @returns {{start: (string|string|*), end: (string|string|*)}}\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "dom",
+    "fnArr": [
+      {
+        "fnName": "export class Dom ",
+        "note": ""
+      },
+      {
+        "fnName": "export function isOverflow(dom)",
+        "note": "// 文本是否溢出\n"
+      },
+      {
+        "fnName": "export function throttle(callFn, interval)",
+        "note": "// 节流\n"
+      },
+      {
+        "fnName": "export function computedStyle(el, cssProp)",
+        "note": ""
+      },
+      {
+        "fnName": "export function getMouseCoords(ev)",
+        "note": "// 计算鼠标的绝对位置，兼容 safair 和 firefax\n"
+      }
+    ]
+  },
+  {
+    "subpath": "ipCheck",
+    "fnArr": [
+      {
+        "fnName": "export default class IpCheck ",
+        "note": ""
+      }
+    ]
+  },
+  {
+    "subpath": "localStorage",
+    "fnArr": [
+      {
+        "fnName": "export function setStorage(key, value)",
+        "note": "/**\n * 存储\n */\n"
+      },
+      {
+        "fnName": "export function getStorage(key)",
+        "note": "/**\n * 获取\n */\n"
+      },
+      {
+        "fnName": "export function setStorageCrypto(key, value)",
+        "note": "/**\n * 加密存储\n */\n"
+      },
+      {
+        "fnName": "export function getStorageCrypto(key)",
+        "note": "/**\n * 获取加密数据\n */\n"
+      },
+      {
+        "fnName": "export function removeStorage(key)",
+        "note": "/**\n * 删除\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "number",
+    "fnArr": [
+      {
+        "fnName": "export function GbFromFloat(byteNum)",
+        "note": ""
+      }
+    ]
+  },
+  {
+    "subpath": "object",
+    "fnArr": [
+      {
+        "fnName": "export const isEmptyObj = (obj)",
+        "note": "/**\n * 是否为空对象\n */\n"
+      },
+      {
+        "fnName": "export const getObjectType = (value)",
+        "note": "/**\n * 获取某个数据的类型\n * @param value\n * @returns {string} 对应类型名称\n */\n"
+      },
+      {
+        "fnName": "export const isSame = (a, b)",
+        "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */\n"
+      },
+      {
+        "fnName": "export const deepClone = (srcData, hash = new WeakMap()",
+        "note": ""
+      },
+      {
+        "fnName": "export function isExist(value, source)",
+        "note": "/**\n * 检测某个值是否存在于某个指定的范围中\n * @param value {any} 被检测的值\n * @param source {any} 被检测的范围\n * @returns {Error|boolean}\n */\n"
+      },
+      {
+        "fnName": "export function cover(value, newValue)",
+        "note": "/**\n * 对象覆盖\n * @param value {any} 旧值\n * @param newValue {any} 新值\n * @returns {any}\n */\n"
+      },
+      {
+        "fnName": "export function getDefaultValue(value)",
+        "note": "/**\n * 获取某个值得默认值\n * @param value 指定的值\n * @returns {*} 值对应类型的默认值\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "rollPoll",
+    "fnArr": [
+      {
+        "fnName": "export default class RollPoll ",
+        "note": "// 轮询\n"
+      }
+    ]
+  },
+  {
+    "subpath": "time",
+    "fnArr": [
+      {
+        "fnName": "export default class TimeUtil ",
+        "note": ""
+      }
+    ]
+  },
+  {
+    "subpath": "tool",
+    "fnArr": [
+      {
+        "fnName": "export default class Tool ",
+        "note": ""
+      }
+    ]
+  },
+  {
+    "subpath": "tree",
+    "fnArr": [
+      {
+        "fnName": "export function tree2list(root, list)",
+        "note": ""
+      },
+      {
+        "fnName": "export function getChildNodeId(parent, idList)",
+        "note": ""
+      }
+    ]
+  },
+  {
+    "subpath": "upload",
+    "fnArr": [
+      {
+        "fnName": "export default function uploadApi(req)",
+        "note": "/**\n * 文件上传api\n * @param {*} req\n * @param {prefix} api 前缀\n * @param {file} req.file 上传文件\n * @param {string} req.actionName 方法名称\n * @param {function} req.process 进度回调函数\n * @param {bool} req.dontShowErrorTips 不显示报错弹窗\n * @param {json} req.data 额外数据\n * @returns\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "url",
+    "fnArr": [
+      {
+        "fnName": "export function getParams(url)",
+        "note": ""
+      },
+      {
+        "fnName": "export function setUrlQuery(args)",
+        "note": "// args: { k: v }\n"
+      },
+      {
+        "fnName": "export function updateUrlQuery(query)",
+        "note": "// 设置URL上的query，但是不刷新页面\n// query: { k: v }\n"
+      },
+      {
+        "fnName": "export function preventBrowserBack()",
+        "note": "// 阻止浏览器回退\n"
+      },
+      {
+        "fnName": "export function urlencoded(obj)",
+        "note": "// url拼接\n"
+      }
+    ]
+  },
+  {
+    "subpath": "xss",
+    "fnArr": [
+      {
+        "fnName": "export function xssH(s)",
+        "note": "\n// 针对普通文本的编码\n"
+      },
+      {
+        "fnName": "export function xssUrlv(s)",
+        "note": "// 针对url里面query key，value的编码\n"
+      }
+    ]
+  },
+  {
+    "subpath": "zz-array",
+    "fnArr": [
+      {
+        "fnName": "export function unique(srcArr, noEmpty = false)",
+        "note": "\n// 数组去重\n"
+      },
+      {
+        "fnName": "export function arrayIntersection(...arrWarp)",
+        "note": "// 数组交集\n// arrayIntersection(arr1, arr2)\n"
+      },
+      {
+        "fnName": "export function flat(arr)",
+        "note": "// 数组扁平化处理\n"
+      },
+      {
+        "fnName": "export function gradient(arr, { _id = 'id', _pid = 'pid', _child = 'children' } = {})",
+        "note": "/**\n * 将扁平化数组转为树形结构\n * @param arr {Array} 需要转换的扁平化数组\n * @param config {Object} 配置项\n * @param config._id {String} 元素唯一标识的名称 默认为：id\n * @param config._pid {String} 元素父级唯一标识的名称 默认为：pid\n * @param config._child {String} 返回值中父元素存储子元素数组名称 默认为：pid\n * @returns {Error|Array}\n */\n"
+      },
+      {
+        "fnName": "export function filter(arr, filters, logic = 'and')",
+        "note": "/*\n  filters对象采用键值对的形式传递过滤参数，例如:\n  {\n    name:'张',\n    age:{\n      min:18,\n      max:24\n    },\n    address:['中国','四川','成都']\n  }\n  以上举例为filters的value可传递模式，\n  1.字符串默认使用模糊匹配（见name)\n  2.数字可限制范围，min和max可以只有其中一个(见age)\n  3.具体的值可用数组进行包裹，代表匹配数组中任意一个即返回(见address)\n  4.对象过滤内部使用JSON.stringify()判断，请注意兼容性\n  5.其他情况使用===强制判断\n */\n/**\n * 数组过滤方法\n * @param {array} arr 需要过滤的数组\n * @param {object} filters 过滤参数，\n * @param {string} logic 参数之间的逻辑关系，可选'and'和'or'\n * @returns {array}  返回过滤之后的数组\n */\n"
+      },
+      {
+        "fnName": "export function merge(a, b)",
+        "note": "/**\n * 数组合并\n * @param a {array} 数组a\n * @param b {array} 数组b\n * @returns {Error|array}\n */\n"
+      },
+      {
+        "fnName": "export function intersect()",
+        "note": "/**\n * 多个数组求交集\n * @params 数组 用,分隔\n * @returns {*}\n */\n"
+      }
+    ]
+  }
+]
