@@ -32,6 +32,7 @@ export default {
     },
     width: [Number, String],
     height: [Number, String],
+    inputSty: [String, Object],
     indent: Boolean,
     // 是否是textarea
     textarea: {
@@ -54,6 +55,7 @@ export default {
       clsPrefix: 'c-input',
       hasChanged: false, // 处理ie bug
       firstFocus: false, // focus一次之后不再显示faker value
+      nowFocus: false,
     };
   },
   computed: {
@@ -69,11 +71,11 @@ export default {
       return {
         ...propsListeners,
         input: e => this.handleVal(e, 'input'),
-        blur: e => this.handleVal(e, 'blur'),
+        blur: e => this.handleBlur(e),
         focus: this.handleFocus,
       };
     },
-    inputStyle() {
+    contentStyle() {
       const dst = {};
       ['width', 'height'].forEach(k => {
         const propVal = this[k];
@@ -137,7 +139,12 @@ export default {
     handleFocus() {
       this.hasChanged = true;
       this.firstFocus = true;
+      this.nowFocus = true;
       this.$emit('focus');
+    },
+    handleBlur(e) {
+      this.nowFocus = false;
+      this.handleVal(e, 'blur')
     },
     // 供父组件调用
     focus() {
@@ -152,21 +159,23 @@ export default {
     <div :class="[`${clsPrefix}-search`, { search }]">
       <IconSearch v-if="search" s="24px" class="icon_search" />
       <div class="c-input-desc-wrap">
-        <div :class="[`${clsPrefix}-content`, { textarea, copy }]" :style="inputStyle">
+        <div :class="[`${clsPrefix}-content`, { textarea, copy, focus: nowFocus }]" :style="contentStyle">
           <textarea
             v-if="textarea"
+            class="input"
+            :style="inputSty"
             v-bind="attrs"
             :value="value"
             v-on="listeners"
-            class="input"
             :placeholder="visibleFakerVal ? '' : placeholder"
           ></textarea>
           <input
             v-else
+            :class="['input', { indent }]"
+            :style="inputSty"
             v-bind="attrs"
             :value="value"
             v-on="listeners"
-            :class="['input', { indent }]"
             :placeholder="visibleFakerVal ? '' : placeholder"
           />
           <span v-if="textarea && attrs.maxlength" :class="`${clsPrefix}-count`">
@@ -228,10 +237,17 @@ export default {
   .c-input-content {
     min-height: 40px;
     position: relative;
-    background: #ffffff;
     font-size: 14px;
+    background: #ffffff;
     color: #06003b;
-    // overflow: hidden;
+
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    transition: border 0.15s ease-out;
+     overflow: hidden;
+    &.focus {
+      border-color: #3a51e0;
+    }
     .faker-value {
       position: absolute;
       top: 0;
@@ -244,16 +260,14 @@ export default {
     input {
       width: 100%;
       height: 40px;
-      border: 1px solid #dcdfe6;
-      border-radius: 4px;
       vertical-align: middle;
-      transition: border 0.15s ease-out;
+      border: none;
       outline: none;
       font-size: 14px;
       color: #06003b;
-      &:focus {
-        border-color: #3a51e0;
-      }
+      //&:focus {
+      //  border-color: #3a51e0;
+      //}
       &.indent {
         text-indent: 12px;
       }
@@ -264,12 +278,10 @@ export default {
       min-height: 90px;
       padding: 8px 8px 8px 12px;
       position: relative;
-      border: 1px solid #dcdfe6;
-      border-radius: 4px;
       vertical-align: middle;
       overflow: auto; // 隐藏ie滚动条
-      transition: border 0.15s ease-out;
       outline: none;
+      border: none;
       resize: none;
       .min-placeholder {
         font-size: 14px;
@@ -285,9 +297,9 @@ export default {
       &:-ms-input-placeholder {
         .min-placeholder();
       }
-      &:focus {
-        border-color: #3a51e0;
-      }
+      //&:focus {
+      //  border-color: #3a51e0;
+      //}
     }
     .copy_icon {
       position: absolute;

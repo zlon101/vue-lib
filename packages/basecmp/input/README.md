@@ -4,21 +4,22 @@
 - 原生 input标签 的监听事件只有 input事件 抛出的参数有变化，input 抛出两个参数: value 和 event，其他监听器不变
 
 
-| Name       | Tpye          | Default | 必填  | Describe  |
-|:-----------|:--------------|:--------|:----|:----------|
-| width      | Number\String | -       | 否   | 宽度          |
-| height     | Number\String | 40px    | 否   | 高度          |
-| search     | Boolean       | false   | 否   | 是否有搜索Icon |
-| copy       | Boolean       | false   | 否   | 是否可以复制输入框的值 |
-| desc       | String        | ''      | 否   | 字段描述        |
-| textarea   | Boolean       | false   | 否   | 是否是textarea |
-| cleanBlank | Boolean       | true    | 否   | 清除首尾空格      |
-| errMsg     | String        | ''      | 否   | 报错信息        |
-| purenumber | Boolean       | false   | 否   | 纯数字类型，只有0-9 |
-| min        | Number        | -       | 否   | 输入数字时使用，最小值 |
-| max        | Number        | -       | 否   | 最大值         |
-| fakerValue | String        | ''      | 否   | 模糊处理的字符     |
-| indent     | Boolean       | false   | 否   | 是否缩进        |
+| Name       | Tpye          | Default | 必填  | Describe                |
+|:-----------|:--------------|:--------|:----|:------------------------|
+| width      | Number\String | -       | 否   | 宽度                      |
+| height     | Number\String | 40px    | 否   | 高度                      |
+| inputSty     | String\Object | -       | 否   | 作用到原生input、textarea上的样式 |
+| search     | Boolean       | false   | 否   | 是否有搜索Icon               |
+| copy       | Boolean       | false   | 否   | 是否可以复制输入框的值             |
+| desc       | String        | ''      | 否   | 字段描述                    |
+| textarea   | Boolean       | false   | 否   | 是否是textarea             |
+| cleanBlank | Boolean       | true    | 否   | 清除首尾空格                  |
+| errMsg     | String        | ''      | 否   | 报错信息                    |
+| purenumber | Boolean       | false   | 否   | 纯数字类型，只有0-9             |
+| min        | Number        | -       | 否   | 输入数字时使用，最小值             |
+| max        | Number        | -       | 否   | 最大值                     |
+| fakerValue | String        | ''      | 否   | 模糊处理的字符                 |
+| indent     | Boolean       | false   | 否   | 是否缩进                    |
 
 ## 主要功能
 
