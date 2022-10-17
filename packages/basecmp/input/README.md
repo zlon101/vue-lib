@@ -1,31 +1,29 @@
-##  参数
+## Props
 
-| Name  |    Type  | Default  | Describe |
-| :-----| :--------| :------- | :--- |
-| value | String,Number | - | 双向绑定的值 |
-| search | Boolean | - | 是否显示搜索按钮 |
-| clean | Boolean | - | 是否显示清空按钮 |
-| copy | Boolean | - | 是否显示复制按钮 |
-| cleanBlank | Boolean | - | 失焦是否清楚输入内容两侧空格|
-| type | String | text | 输入框类型 可选：`text`,`number`,`password`,`textarea`, `num`, num取消了number的原生效果，用正则规定只能输入数字 |
-| min | Number | - | 限制可输入的最小值，仅在type为`numebr`时有效 |
-| max | Number | - | 限制可输入的最大值，仅在type为`number`时有效 |
-| showCount | Boolean | false | 是否显示字数统计 |
-| size | String | large | 尺寸 可选：`large(l)`,`small(s)`|
-| 其他同原生Input属性
+- 原生 input标签 的属性不变，type maxlength 等其他属性用法不变；
+- 原生 input标签 的监听事件只有 input事件 抛出的参数有变化，input 抛出两个参数: value 和 event，其他监听器不变
 
-## 事件
 
-| Name | Describe|
-| :--- | :---|
-| change | 选中项发生更改时触发，返回当前选中的值 |
-| focus | 获得焦点时触发 |
-| blur | 失去焦点时触发 |
-| clean | 点击清空按钮时触发 |
-| search | 点击搜索按钮时触发 |
-| inputChange | 原生input事件 |
+| Name       | Tpye          | Default | 必填  | Describe  |
+|:-----------|:--------------|:--------|:----|:----------|
+| width      | Number\String | -       | 否   | 宽度          |
+| height     | Number\String | 40px    | 否   | 高度          |
+| search     | Boolean       | false   | 否   | 是否有搜索Icon |
+| copy       | Boolean       | false   | 否   | 是否可以复制输入框的值 |
+| desc       | String        | ''      | 否   | 字段描述        |
+| textarea   | Boolean       | false   | 否   | 是否是textarea |
+| cleanBlank | Boolean       | true    | 否   | 清除首尾空格      |
+| errMsg     | String        | ''      | 否   | 报错信息        |
+| purenumber | Boolean       | false   | 否   | 纯数字类型，只有0-9 |
+| min        | Number        | -       | 否   | 输入数字时使用，最小值 |
+| max        | Number        | -       | 否   | 最大值         |
+| fakerValue | String        | ''      | 否   | 模糊处理的字符     |
+| indent     | Boolean       | false   | 否   | 是否缩进        |
 
-## 插槽
-| Name | Describe |
-| :--- | :--- |
-| - | 输入框右侧区域|
+## 主要功能
+
+- 根据传入的 errMsg 是否为空显示报错文案
+- 复制输入框内容
+- 自动计算 textarea 的字符数量
+- type 为 number 只能输入数字，不能输入特殊字符
+- 失焦自动清除首尾空格

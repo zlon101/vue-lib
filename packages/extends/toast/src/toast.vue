@@ -1,6 +1,6 @@
 <template>
   <transition name="slide-fade">
-    <div :class="['sdp-toast', type]" v-show="visible">
+    <div :class="['c-toast', type]" v-show="visible">
       <div :class="['iconfont', icon || iconClassMap[type]]"></div>
       <span class="toast-text">{{ text }}</span>
     </div>
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.sdp-toast {
+.c-toast {
   display: flex;
   justify-content: center;
   align-items: center;

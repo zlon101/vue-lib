@@ -38,31 +38,6 @@
   }
 }
 
-// 按钮组件包裹元素。内部按钮垂直居中对接，左边距8px
-.g-button-wrap {
-  display: flex;
-  align-items: center;
-  /deep/ .c-sdp-button + .c-sdp-button,
-  .c-sdp-button + .c-sdp-button {
-    margin: 0 0 0 8px;
-  }
-}
-
-// table 批量操作按钮
-.g-table-mutil-btn {
-  cursor: pointer;
-  font-size: 14px;
-  &.red {
-    color: #f56c6c;
-  }
-  &.green {
-    color: #67c23a;
-  }
-  & + & {
-    margin-left: 32px;
-  }
-}
-
 // 背景毛玻璃效果，backdrop-filter 实现，可能存在动画卡顿的问题
 .g-page-bgfilter {
   position: relative;

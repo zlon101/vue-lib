@@ -56,7 +56,7 @@ module.exports = {
     // svgRule.use('url-loader').loader('url-loader').options({ limit: 200 });
   },
   devServer: {
-    port: '9810',
+    port: '9920',
     before: serverMiddle,
     overlay: {
       warnings: false,
@@ -68,52 +68,52 @@ module.exports = {
   },
 };
 
-
-// entry: './src/basecmp/button/index.js',
-// output: {
-//   filename: 'js/[name]-[hash:6].js',
-//   chunkFilename: 'js/[name]-chunk-[hash:6].js',
-// },
-// 本地运行注释
-// externals: ['vue'],
-// optimization: {
-//   splitChunks: {
-//     chunks: 'all',
-//   },
-//   runtimeChunk: 'single',
-//   splitChunks: {
-//     cacheGroups: {
-//       vendor: {
-//         test: /[\\/]node_modules[\\/]/,
-//         name: 'vendors',
-//         chunks: 'all',
-//       },
-//     },
-//   },
-// },
-// rules: [
-//   {
-//     test: /\.(gif|png|jpe?g|svg)$/i,
-//     use: [
-//       'file-loader',
-//       {
-//         loader: 'image-webpack-loader',
-//         options: {
-//           // disable: true,
-//           mozjpeg: {
-//             enabled: false,
-//           },
-//           svgo: {
-//             multipass: true,
-//             datauri: 'base64', // 'base64' (default), 'enc' or 'unenc'.
-//             js2svg: {
-//               indent: 2, // string with spaces or number of spaces. 4 by default
-//               pretty: true, // boolean, false by default
-//             },
-//           },
-//         },
-//       },
-//     ],
-//   },
-//   config.module.rule('svg').exclude.add(selfResolve('src/icons')),
-// ],
+/*
+entry: './src/basecmp/button/index.js',
+output: {
+  filename: 'js/[name]-[hash:6].js',
+  chunkFilename: 'js/[name]-chunk-[hash:6].js',
+},
+本地运行注释
+externals: ['vue'],
+optimization: {
+  splitChunks: {
+    chunks: 'all',
+  },
+  runtimeChunk: 'single',
+  splitChunks: {
+    cacheGroups: {
+      vendor: {
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendors',
+        chunks: 'all',
+      },
+    },
+  },
+},
+rules: [
+  {
+    test: /\.(gif|png|jpe?g|svg)$/i,
+    use: [
+      'file-loader',
+      {
+        loader: 'image-webpack-loader',
+        options: {
+          // disable: true,
+          mozjpeg: {
+            enabled: false,
+          },
+          svgo: {
+            multipass: true,
+            datauri: 'base64', // 'base64' (default), 'enc' or 'unenc'.
+            js2svg: {
+              indent: 2, // string with spaces or number of spaces. 4 by default
+              pretty: true, // boolean, false by default
+            },
+          },
+        },
+      },
+    ],
+  },
+  config.module.rule('svg').exclude.add(selfResolve('src/icons')),
+], */

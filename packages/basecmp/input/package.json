@@ -1,20 +1,23 @@
 {
   "name": "@zl/input",
   "version": "1.0.0",
-  "description": "输入框, input",
+  "description": "input 组件",
   "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
   "scripts": {
-    "link-local": "npx link ../icon && npx link ../../utils && npx link ../../extends/toast"
+    "link-local": "npx link ../icon && npx link ../../directives/copy",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "zlon101",
-  "license": "ISC",
+  "author": "zlong1010",
+  "license": "MIT",
   "publishConfig": {
     "registry": "http://127.0.0.1:4873"
   },
   "dependencies": {
-    "@zl/util": "*",
-    "@zl/extend-toast": "*",
+    "@zl/v-copy": "*",
     "@zl/icon": "*"
   }
 }

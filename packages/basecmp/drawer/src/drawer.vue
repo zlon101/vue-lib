@@ -1,17 +1,17 @@
 <template>
   <transition name="slide-fade">
     <div v-if="innerVisible" class="c-drawer" @mousedown.self="handleMouseDown('c-drawer')" @mouseup.self="handleMouseUp">
-      <div :class="['sdp-drawer-content', modeMap[mode], animation]" :style="contentSize">
-        <header class="sdp-drawer-header">
+      <div :class="['drawer-content', modeMap[mode], animation]" :style="contentSize">
+        <header class="drawer-header">
           <slot v-if="$slots.title" name="title">{{title}}</slot>
           <h3 v-else>{{ title }}</h3>
-          <div v-if="desc" class="sdp-drawer-desc">{{ desc }}</div>
+          <div v-if="desc" class="drawer-desc">{{ desc }}</div>
           <div class="icon_close" @click="close"></div>
         </header>
-        <div ref="body" class="sdp-drawer-body">
+        <div ref="body" class="drawer-body">
           <slot></slot>
         </div>
-        <div class="sdp-drawer-footer" v-if="$slots.footer">
+        <div class="drawer-footer" v-if="$slots.footer">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -109,10 +109,10 @@ export default {
         if (val) {
           this.innerVisible = val;
           this.timerId = setTimeout(() => {
-            this.animation = 'sdp-drawer-open';
+            this.animation = 'drawer-open';
           }, 10);
         } else {
-          this.animation = 'sdp-drawer-close';
+          this.animation = 'drawer-close';
           this.timerId = setTimeout(() => {
             this.innerVisible = false;
           }, 250);
@@ -155,7 +155,7 @@ export default {
   height: 100vh;
   background: rgba(255, 255, 255, 0.88);
   z-index: 100;
-  .sdp-drawer-content {
+  .drawer-content {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -191,7 +191,7 @@ export default {
     }
 
     /** animation */
-    &.sdp-drawer-open {
+    &.drawer-open {
       transition: transform .1s ease-out;
       &.top-bottom,
       &.bottom-top,
@@ -200,7 +200,7 @@ export default {
         transform: translate(0, 0);
       }
     }
-    &.sdp-drawer-close {
+    &.drawer-close {
       transition: transform .1s ease-out;
       &.top-bottom {
         transform: translate(0, -100%);
@@ -216,7 +216,7 @@ export default {
       }
     }
 
-    .sdp-drawer-header {
+    .drawer-header {
       margin-bottom: 24px;
       & > h3 {
         font-size: 20px;
@@ -224,7 +224,7 @@ export default {
         font-weight: bold;
         color: #06003B;
       }
-      .sdp-drawer-desc {
+      .drawer-desc {
         font-size: 14px;
         color: #7F8FA4;
         margin: 8px 0 0;
@@ -238,11 +238,11 @@ export default {
         cursor: pointer;
       }
     }
-    .sdp-drawer-body {
+    .drawer-body {
       flex: auto;
       overflow: auto;
     }
-    .sdp-drawer-footer{
+    .drawer-footer{
       margin-top: 32px;
     }
   }

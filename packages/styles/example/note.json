@@ -16,14 +16,6 @@
     "note": " 表单必填项"
   },
   {
-    "clsName": "g-button-wrap ",
-    "note": " 按钮组件包裹元素。内部按钮垂直居中对接，左边距8px"
-  },
-  {
-    "clsName": "g-table-mutil-btn ",
-    "note": " table 批量操作按钮"
-  },
-  {
     "clsName": "g-page-bgfilter ",
     "note": " 背景毛玻璃效果，backdrop-filter 实现，可能存在动画卡顿的问题"
   },

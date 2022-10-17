@@ -1,6 +1,6 @@
 <script>
 import Modal from '@zl/modal';
-import SdpButton from '@zl/button';
+import ZlBtn from '@zl/button';
 import { IconCross, IconQuestion, IconSuccess2, IconExpoint } from '@zl/icon';
 
 const defaultConfig = {
@@ -27,7 +27,7 @@ const defaultConfig = {
 
 export default {
   name: 'Dialog',
-  components: { Modal, SdpButton, IconCross, IconQuestion, IconSuccess2, IconExpoint },
+  components: { Modal, ZlBtn, IconCross, IconQuestion, IconSuccess2, IconExpoint },
   props: {
     value: Boolean,
     config: Object,
@@ -147,8 +147,8 @@ export default {
           <slot></slot>
         </div>
         <div v-if="innerConfig.buttonShow" :class="['button-wrap', innerConfig.reverse && 'reverse', innerConfig.column && 'column']">
-          <SdpButton v-if="innerConfig.cancel" :class="[innerConfig.cancelClass]" color="normal" :bold="false" :loading="cancelLoading" @click="cancel">{{ innerConfig.cancel }}</SdpButton>
-          <SdpButton v-if="innerConfig.confirm" :class="[innerConfig.confirmClass]" :color="innerConfig.confirmColor" :loading="confirmLoading" @click="confirm">{{ innerConfig.confirm }}</SdpButton>
+          <ZlBtn v-if="innerConfig.cancel" :class="[innerConfig.cancelClass]" color="normal" :bold="false" :loading="cancelLoading" @click="cancel">{{ innerConfig.cancel }}</ZlBtn>
+          <ZlBtn v-if="innerConfig.confirm" :class="[innerConfig.confirmClass]" :color="innerConfig.confirmColor" :loading="confirmLoading" @click="confirm">{{ innerConfig.confirm }}</ZlBtn>
         </div>
       </div>
     </Modal>
@@ -203,7 +203,7 @@ export default {
     &.reverse {
       flex-direction: column-reverse;
     }
-    .c-sdp-button {
+    .c-button {
       margin: 6px 8px;
     }
   }
@@ -216,7 +216,7 @@ export default {
     &.reverse {
       direction: rtl;
     }
-    .c-sdp-button {
+    .c-button {
       margin: 0 8px;
     }
   }

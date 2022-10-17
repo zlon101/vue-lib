@@ -21,26 +21,6 @@ export const copyString = (str) => {
   return false;
 };
 
-// 深度克隆
-export function deepClone(srcData, hash = new WeakMap()) {
-  if (srcData === null || typeof srcData !== 'object') {
-    return srcData;
-  }
-  if (srcData instanceof Date) return new Date(srcData);
-  if (srcData instanceof RegExp) return new RegExp(srcData);
-  if (hash.get(srcData)) {
-    return hash.get(srcData);
-  }
-
-  const newData = new srcData.constructor();
-  hash.set(srcData, newData);
-  const keys = [...Object.keys(srcData), ...Object.getOwnPropertySymbols(srcData)];
-  keys.forEach(k => {
-    newData[k] = deepClone(srcData[k], hash);
-  });
-  return newData;
-}
-
 /**
  * 防抖
  * @param {Function} func

@@ -7,10 +7,6 @@
         "note": "/**\n * 复制文字\n */\n"
       },
       {
-        "fnName": "export function deepClone(srcData, hash = new WeakMap()",
-        "note": "// 深度克隆\n"
-      },
-      {
         "fnName": "export function debounce(func, wait, immediate)",
         "note": "/**\n * 防抖\n * @param {Function} func\n * @param {number} wait\n * @param {boolean} immediate\n * @returns {Function}\n */\n"
       }
@@ -154,8 +150,8 @@
         "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */\n"
       },
       {
-        "fnName": "export const deepClone = (srcData, hash = new WeakMap()",
-        "note": ""
+        "fnName": "export function deepClone(srcData, hash = new WeakMap()",
+        "note": "// 深度克隆\n"
       },
       {
         "fnName": "export function isExist(value, source)",

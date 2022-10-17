@@ -1,5 +1,4 @@
 // 轮询
-
 export default class RollPoll {
   constructor({ url, param, stepTime, updateCallBack }) {
     this.url = url + `&ud3q=${+new Date()}`;

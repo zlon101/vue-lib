@@ -1,24 +1,34 @@
 <template>
   <div class="c-time-input">
-    <SdpInput v-model="start.hour" size="s" width="40px" placeholder="" maxlength="2" class="m-r-8" @inputChange="hourValidate" @blur="handleBlur('start', 'hour')"></SdpInput>
-    <span class="m-r-8">:</span>
-    <SdpInput v-model="start.min" size="s" width="40px" placeholder="" maxlength="2" class="m-r-8" @inputChange="minValidate" @blur="handleBlur('start', 'min')"></SdpInput>
-    <span class="m-r-8">-</span>
-    <SdpInput v-model="end.hour" size="s" width="40px" placeholder="" maxlength="2" class="m-r-8" @inputChange="hourValidate" @blur="handleBlur('end', 'hour')"></SdpInput>
-    <span class="m-r-8">:</span>
-    <SdpInput v-model="end.min" size="s" width="40px" placeholder="" maxlength="2" @inputChange="minValidate" @blur="handleBlur('end', 'min')"></SdpInput>
+    <template v-for="(item, ind) in Cfg">
+      <ZInput
+        :key="ind"
+        class="input-item"
+        purenumber
+        v-model="$data[item[0]][item[1]]"
+        :min="0"
+        :max="item[1] === 'hour' ? 23 : 59"
+        width="40px"
+        maxlength="2"
+        @input="handleInput"
+        @blur="handleBlur(item[0], item[1])"
+      />
+      <span v-if="ind !== Cfg.length - 1" class="input-item" :key="`:${ind}`">:</span>
+    </template>
   </div>
 </template>
 
 <script>
-import SdpInput from '@zl/input';
+import ZInput from '@zl/input';
+
+const Cfg = [['start', 'hour'], ['start', 'min'], ['end', 'hour'], ['end', 'min']]
 
 export default {
-  name: 'TimeInput',
   props: ['value'],
-  components: { SdpInput },
+  components: { ZInput },
   data() {
     return {
+      Cfg,
       start: { hour: '', min: '' },
       end: { hour: '', min: '' },
     };
@@ -34,20 +44,6 @@ export default {
     },
   },
   methods: {
-    hourValidate(e) {
-      e.target.value = e.target.value.replace(/[^\d]/, '');
-      if (e.target.value > 23) {
-        e.target.value = '23';
-      }
-      this.handleInput();
-    },
-    minValidate(e) {
-      e.target.value = e.target.value.replace(/[^\d]/, '');
-      if (e.target.value > 59) {
-        e.target.value = '59';
-      }
-      this.handleInput();
-    },
     handleBlur(type, time) {
       this[type][time] = this[`${type + time}Rule`](this[type][time]);
       this.handleInput('blur');
@@ -98,11 +94,11 @@ export default {
       }
       return str;
     },
-
     format(str) {
       if (str.length === 1) {
         return `0${str}`;
-      } if (!str) {
+      }
+      if (!str) {
         return '00';
       }
       return str;
@@ -116,8 +112,12 @@ export default {
 
 <style lang="less" scoped>
 .c-time-input {
-  .m-r-8 {
+  .input-item {
     margin: 0 8px 0 0;
+    display: inline-block;
+    &:last-child {
+      margin-right: 0;
+    }
   }
   /deep/ input {
     padding: 0 8px !important;

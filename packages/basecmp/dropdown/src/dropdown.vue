@@ -115,9 +115,9 @@ export default {
       if (!this.autoClose) { return; }
 
       const { $el } = this;
-      const sdpDelectPopup = this.$refs['c-dropdown-popup'];
+      const delectPopup = this.$refs['c-dropdown-popup'];
 
-      if (!$el.contains(target) && (!sdpDelectPopup || !sdpDelectPopup.contains(target))) {
+      if (!$el.contains(target) && (!delectPopup || !delectPopup.contains(target))) {
         this.popupVisible = false;
       }
     },

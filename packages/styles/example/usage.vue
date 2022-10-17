@@ -21,11 +21,6 @@
         <div class="g-single-text">文本文本文本文本文本文本文本文本文本文本文本文本</div>
       </div>
       <div class="example-item">
-        <p>g-table-mutil-btn</p>
-        <span class="g-table-mutil-btn red">删除</span>
-        <span class="g-table-mutil-btn green">删除</span>
-      </div>
-      <div class="example-item">
         <p>g-error-msg</p>
         <div class="g-error-msg">错误信息</div>
       </div>

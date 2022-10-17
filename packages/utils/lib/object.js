@@ -33,7 +33,8 @@ export const isSame = (a, b) => {
   return a === b;
 };
 
-export const deepClone = (srcData, hash = new WeakMap()) => {
+// 深度克隆
+export function deepClone(srcData, hash = new WeakMap()) {
   if (srcData === null || typeof srcData !== 'object') {
     return srcData;
   }
@@ -50,7 +51,7 @@ export const deepClone = (srcData, hash = new WeakMap()) => {
     newData[k] = deepClone(srcData[k], hash);
   });
   return newData;
-};
+}
 
 /**
  * 检测某个值是否存在于某个指定的范围中

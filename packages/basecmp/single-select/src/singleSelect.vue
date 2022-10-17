@@ -7,7 +7,7 @@
     </div>
     <div :class="['xahhums2w3', popupClass]" slot="options">
       <div v-if="search" class="search-wrap">
-        <PicInput v-model="searchText" width="100%" search :placeholder="searchPlaceholder" />
+        <ZInput v-model="searchText" width="100%" search :placeholder="searchPlaceholder" />
       </div>
       <div class="single-list">
         <div
@@ -34,11 +34,11 @@
 <script>
 import { IconFold, IconHook } from '@zl/icon';
 import Dropdown from '@zl/dropdown';
-import PicInput from '@zl/input';
+import ZInput from '@zl/input';
 
 export default {
   name: 'SingleSelect',
-  components: { Dropdown, IconFold, IconHook, PicInput },
+  components: { Dropdown, IconFold, IconHook, ZInput },
   props: {
     options: Array,
     value: [String, Number],

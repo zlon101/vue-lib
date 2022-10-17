@@ -1,389 +1,335 @@
-<template>
-  <div
-    :style="{ width }"
-    :class="[
-      'c-sdp-input',
-      search && 'search',
-      clean && 'clean',
-      sizeMap[size],
-      focus && 'focus',
-      disabled && 'disabled',
-      type === 'textarea' && 'textarea',
-    ]"
-  >
-    <div class="inputBox">
-      <IconSearch v-if="search" class="sdp-input-search-icon" @click="$emit('search')" s="24px" />
-      <input
-        v-if="type !== 'textarea'"
-        :tabindex="tabindex"
-        ref="input"
-        :type="innerType"
-        v-bind="$attrs"
-        :disabled="disabled"
-        v-on="{ ...$listeners, input: handleInput, change: handleChange, focus: handleFocus, blur: handleBlur }"
-        :value="value"
-        :autocomplete="autocomplete"
-        :maxlength="maxlength"
-      />
-      <textarea
-        v-else
-        :tabindex="tabindex"
-        ref="input"
-        :value="value"
-        :disabled="disabled"
-        v-on="{ ...$listeners, input: handleInput, change: handleChange, focus: handleFocus, blur: handleBlur }"
-        :autocomplete="autocomplete"
-        v-bind="$attrs"
-        :maxlength="maxlength"
-      ></textarea>
-      <IconCross v-if="clean" @click="cleanValue" :fill="{0: '#C0C4CC'}" class="sdp-input-close-icon" />
-    </div>
-    <span v-show="showCount" :class="['sdp-input-counter', type === 'textarea' && 'textarea']">
-      {{ textLength }}/{{ maxlength }}
-    </span>
-    <slot></slot>
-    <i
-      v-if="type === 'password' && password"
-      class="input-icon"
-      :class="showPwd ? 'icon-eye-close-gray' : 'icon-eye-blue'"
-      @click="showPwd = !showPwd"
-    ></i>
-    <IconCopy2 v-if="copy" class="input-icon copy_icon_black" @click="handleCopy" />
-    <i v-if="iconClass" :class="['input-icon', iconClass]" @click="handleClickIcon"></i>
-  </div>
-</template>
-
 <script>
-import { copyString } from '@zl/utils';
-import toast from '@zl/extend-toast';
-import { IconSearch, IconCross, IconCopy2 } from '@zl/icon';
-import Emitter from './emitter';
+import vCopy from '@zl/v-copy'
+import { IconSearch } from '@zl/icon';
 
-const sizeMap = {
-  large: 'large',
-  l: 'large',
-  small: 'small',
-  s: 'small',
+const DefaultAttr = {
+  type: 'text',
 };
+
 export default {
+  name: 'Input',
   inheritAttrs: false,
-  name: 'SdpInput',
-  components: { IconSearch, IconCross, IconCopy2 },
-  mixins: [Emitter],
+  directives: { copy: vCopy },
+  components: { IconSearch },
   props: {
+    value: [String, Number],
     search: {
       type: Boolean,
       default: false,
     },
-    clean: {
+    copy: {
       type: Boolean,
       default: false,
     },
-    password: {
-      type: Boolean,
-      default: false,
-    },
-    copy: Boolean,
-    min: [String, Number],
-    max: [String, Number],
-    value: [String, Number],
-    tabindex: String,
-    type: {
+    // 字段描述
+    desc: {
       type: String,
-      default: 'text',
-    },
-    disabled: Boolean,
-    autocomplete: {
-      type: String,
-      default: 'off',
-    },
-    showCount: {
-      type: Boolean,
-      default: false,
-    },
-    width: String,
-    size: {
-      type: String,
-      default: 'large',
-      validator(val) {
-        return Object.keys(sizeMap).includes(val);
-      },
-    },
-    maxlength: {
-      type: [String, Number],
       default: '',
     },
+    errMsg: {
+      type: String,
+      default: '',
+    },
+    width: [Number, String],
+    height: [Number, String],
+    indent: Boolean,
+    // 是否是textarea
+    textarea: {
+      type: Boolean,
+      default: false,
+    },
+    // 失焦时自动清除空白
     cleanBlank: {
       type: Boolean,
       default: true,
     },
-    iconClass: String,
+    fakerValue: String,
+    placeholder: String,
+    purenumber: Boolean,
+    min: Number,
+    max: Number,
   },
   data() {
     return {
-      sizeMap,
-      currentValue: this.value,
-      isInput: false,
-      showPwd: false,
-      focus: false,
+      clsPrefix: 'c-input',
+      hasChanged: false, // 处理ie bug
+      firstFocus: false, // focus一次之后不再显示faker value
     };
   },
   computed: {
-    textLength() {
-      if (typeof this.value === 'number') {
-        return String(this.value).length;
+    attrs() {
+      const mergedAttr = { ...DefaultAttr, ...this.$attrs };
+      if (this.purenumber) {
+        mergedAttr.type = 'text';
       }
+      return mergedAttr;
+    },
+    listeners() {
+      const propsListeners = this.$listeners;
+      return {
+        ...propsListeners,
+        input: e => this.handleVal(e, 'input'),
+        blur: e => this.handleVal(e, 'blur'),
+        focus: this.handleFocus,
+      };
+    },
+    inputStyle() {
+      const dst = {};
+      ['width', 'height'].forEach(k => {
+        const propVal = this[k];
+        if (typeof propVal !== 'undefined') {
+          if (Number.isNaN(Number(propVal))) {
+            dst[k] = propVal;
+          } else {
+            dst[k] = `${propVal}px`;
+          }
+        }
+      });
+      return dst;
+    },
+    visibleFakerVal() {
+      return !this.firstFocus && this.fakerValue && !this.value;
+    },
+    numWord() {
       return (this.value || '').length;
-    },
-    innerType() {
-      if (this.type === 'password') {
-        return this.showPwd ? 'text' : 'password';
-      } else if (this.type === 'num') {
-        return 'text';
-      }
-      return this.type;
-    },
-  },
-  watch: {
-    value(val) {
-      this.setCurrentValue(val);
     },
   },
   methods: {
-    handleInput(e) {
-      if (this.type === 'num') {
-        e.target.value = e.target.value.replace(/[^\d]/g, '');
+    handleVal(e, eventName) {
+      if (this.$attrs.disabled) return;
+
+      const dom = e.target;
+      let val = dom.value;
+      // console.debug(0, val);
+      if (this.purenumber) {
+        val = val.replace(/\D/g, '');
       }
-      if ((this.type === 'number' || this.type === 'num') && e.target.value.length) {
-        if (this.min !== undefined && Number(e.target.value) < Number(this.min)) {
-          e.target.value = Number(this.min);
-        }
-        if (this.max !== undefined && Number(e.target.value) > Number(this.max)) {
-          e.target.value = Number(this.max);
-        }
+      // console.debug(1, val);
+      const maxlength = Number(this.$attrs.maxlength || 0);
+      if (maxlength && val.length > maxlength) {
+        val = val.slice(0, maxlength);
       }
-      if (this.maxlength) {
-        e.target.value = String(e.target.value).substring(0, Number(this.maxlength));
-      }
-      this.$emit('inputChange', e);
-      this.$emit('input', e.target.value, e);
-      this.dispatch('FormItem', 'on-form-input', e.target.value);
-      this.setCurrentValue(e.target.value);
-    },
-    handleChange(e) {
-      this.$emit('change', e);
-      this.dispatch('FormItem', 'on-form-change', e.target.value);
-    },
-    handleFocus(e) {
-      this.focus = true;
-      this.$emit('focus', e);
-    },
-    handleBlur(e) {
-      this.focus = false;
-      // 失焦时去掉两端的空格
       if (this.cleanBlank) {
-        const newVal = e.target.value.trim();
-        e.target.value = newVal;
+        val = val.trim();
       }
-      if (this.type === 'number' || this.type === 'num') {
-        if (this.min !== undefined && Number(e.target.value) < Number(this.min)) {
-          e.target.value = Number(this.min);
+      // console.debug(2, val);
+      // min max 校验
+      const { min, max } = this;
+      if (this.purenumber || this.$attrs.type === 'number') {
+        const valNumber = parseFloat(val);
+        // console.debug('parseFloat', val);
+        if (typeof min === 'number' && valNumber < min) {
+          val = min;
         }
-      } else {
-        this.$emit('input', e.target.value, e);
+        if (typeof max === 'number' && valNumber > max) {
+          val = max;
+        }
       }
-      this.dispatch('FormItem', 'on-form-blur', e);
-      this.$emit('blur', e);
-    },
-    handleCopy() {
-      if (copyString(this.value || '')) {
-        toast('复制成功');
-      } else {
-        toast('复制失败');
+
+      const nValStr = String(val);
+      if (dom.value !== nValStr) {
+        dom.value = nValStr;
+      }
+      if (this.hasChanged) {
+        this.$emit(eventName, nValStr, e);
       }
     },
-    cleanValue() {
-      this.$emit('input', '');
-      this.$emit('change', '');
-      this.setCurrentValue('');
-      this.$emit('clean');
+    handleFocus() {
+      this.hasChanged = true;
+      this.firstFocus = true;
+      this.$emit('focus');
     },
-    setCurrentValue(value) {
-      if (value === this.currentValue) return;
-      this.currentValue = value;
-      this.dispatch('FormItem', 'on-form-change', value);
+    // 供父组件调用
+    focus() {
+      this.$el.querySelector('.input').focus();
     },
-    startInput() {
-      this.isInput = true;
-    },
-    endInput() {
-      this.isInput = false;
-    },
-    handleClickIcon() {
-      this.$emit('clickIcon');
-    },
-  },
-  mounted() {
-    this.$refs.input.addEventListener('compositionstart', this.startInput);
-    this.$refs.input.addEventListener('compositionend', this.endInput);
-  },
-  beforeDestroy() {
-    this.$refs.input.removeEventListener('compositionstart', this.startInput);
-    this.$refs.input.removeEventListener('compositionend', this.endInput);
   },
 };
 </script>
 
-<style lang="less" scoped>
-.c-sdp-input {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #dcdfe6;
-  padding: 1px;
-  border-radius: 4px;
-  transition: border 0.15s ease-out;
-  &.large {
-    width: 360px;
-    height: 40px;
-    .inputBox {
-      > input {
-        font-size: 14px;
-        height: 36px;
-      }
-    }
-    &.textarea {
-      height: 100px;
-    }
-  }
-  .input-icon {
-    margin-right: 8px;
-    cursor: pointer;
-    user-select: none;
-    &:last-child {
-      margin-right: 12px;
-    }
-    &.copy_icon_black {
-      width: 16px;
-      height: 16px;
-    }
-  }
-  &.focus {
-    border-color: #3a51e0;
-  }
-  &.small {
-    width: 200px;
-    height: 32px;
-    &.search {
-      .inputBox {
-        > input {
-          padding-left: 30px;
-        }
-      }
-    }
-    &.clean {
-      .inputBox {
-        > input {
-          padding-right: 24px;
-        }
-      }
-    }
-    &.textarea {
-      height: 80px;
-    }
-    .inputBox {
-      > input {
-        font-size: 12px;
-        height: 29px;
-      }
-      > textarea {
-        height: 70px;
-      }
-    }
-    .sdp-input-close-icon {
-      width: 12px;
-      height: 12px;
-    }
-  }
-  &.search {
-    .inputBox {
-      > input {
-        padding-left: 36px;
-      }
-    }
-  }
-  &.clean {
-    .inputBox {
-      > input {
-        padding-right: 30px;
-      }
-    }
-  }
-  &.disabled {
-    pointer-events: auto;
-    .inputBox {
-      > input,
-      textarea {
-        color: #7f8fa4;
-      }
-    }
-  }
+<template>
+  <div class="c-input">
+    <div :class="[`${clsPrefix}-search`, { search }]">
+      <IconSearch v-if="search" s="24px" class="icon_search" />
+      <div class="c-input-desc-wrap">
+        <div :class="[`${clsPrefix}-content`, { textarea, copy }]" :style="inputStyle">
+          <textarea
+            v-if="textarea"
+            v-bind="attrs"
+            :value="value"
+            v-on="listeners"
+            class="input"
+            :placeholder="visibleFakerVal ? '' : placeholder"
+          ></textarea>
+          <input
+            v-else
+            v-bind="attrs"
+            :value="value"
+            v-on="listeners"
+            :class="['input', { indent }]"
+            :placeholder="visibleFakerVal ? '' : placeholder"
+          />
+          <span v-if="textarea && attrs.maxlength" :class="`${clsPrefix}-count`">
+            {{ `${numWord}/${attrs.maxlength}` }}
+          </span>
+          <span v-if="copy" v-copy="value" class="copy_icon iconfont icon-copy2"></span>
+          <div class="more-btn">
+            <slot name="morebtn"></slot>
+          </div>
+          <p v-if="visibleFakerVal" class="faker-value">{{ fakerValue }}</p>
+        </div>
+        <p :class="`${clsPrefix}-desc`">{{ desc }}</p>
+      </div>
+    </div>
+    <div v-if="errMsg" :class="`${clsPrefix}-error iconfont icon-err`"><span style="margin-left:4px">{{errMsg}}</span></div>
+  </div>
+</template>
 
-  .inputBox {
+<style lang="less">
+.c-input {
+  position: relative;
+  .c-input-search {
     position: relative;
-    display: flex;
-    flex: auto;
-    height: 100%;
-    > input,
+    .icon_search {
+      margin-left: 8px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    &.search {
+      input {
+        padding-left: 36px;
+        text-indent: 0;
+      }
+    }
+  }
+  .c-input-desc-wrap {
+    position: relative;
+    .c-input-desc {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 440px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      word-break: break-all;
+      font-size: 12px;
+      color: #7f8fa4;
+      line-height: 18px;
+      font-weight: 400;
+      &:empty {
+        display: none;
+      }
+    }
+  }
+  .c-input-content {
+    min-height: 40px;
+    position: relative;
+    background: #ffffff;
+    font-size: 14px;
+    color: #06003b;
+    // overflow: hidden;
+    .faker-value {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      padding: 12px 8px 8px 12px;
+    }
+    input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      vertical-align: middle;
+      transition: border 0.15s ease-out;
+      outline: none;
+      font-size: 14px;
+      color: #06003b;
+      &:focus {
+        border-color: #3a51e0;
+      }
+      &.indent {
+        text-indent: 12px;
+      }
+    }
     textarea {
       width: 100%;
-      display: inline-block;
-      padding: 0 12px;
-      color: #06003b;
-      text-indent: 0;
-      border-width: 0;
-      line-height: 24px;
+      height: 100%;
+      min-height: 90px;
+      padding: 8px 8px 8px 12px;
+      position: relative;
+      border: 1px solid #dcdfe6;
       border-radius: 4px;
-      &::placeholder {
-        color: #c0c4cc;
+      vertical-align: middle;
+      overflow: auto; // 隐藏ie滚动条
+      transition: border 0.15s ease-out;
+      outline: none;
+      resize: none;
+      .min-placeholder {
         font-size: 14px;
+        color: #c0c4cc;
+        line-height: 24px;
+        font-weight: 400;
+      }
+      &::placeholder {
+        .min-placeholder();
+      }
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &:-ms-input-placeholder {
+        .min-placeholder();
       }
       &:focus {
-        outline: none;
+        border-color: #3a51e0;
       }
     }
-    textarea {
-      padding-top: 8px;
-      height: 90px;
+    .copy_icon {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      text-decoration: none !important;
+    }
+    .c-input-count {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-size: 10px;
+      color: #bfc4cd;
+      text-align: right;
+      line-height: 14px;
+      font-weight: 400;
+    }
+    .more-btn {
+      position: absolute;
+      top: 50%;
+      right: 0px;
+      transform: translate(0, -50%);
+    }
+    &.copy {
+      input,
+      textarea {
+        padding-right: 32px;
+      }
     }
   }
-  .sdp-input-counter {
-    display: inline-block;
-    position: absolute;
-    font-size: 10px;
-    color: #bfc4cd;
-    letter-spacing: 0;
-    text-align: right;
-    line-height: 14px;
-    font-weight: normal;
-    right: 5px;
-    &.textarea {
-      bottom: 5px;
-    }
-  }
-  .sdp-input-search-icon,
-  .sdp-input-close-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    user-select: none;
-  }
-  .sdp-input-search-icon {
-    left: 8px;
-  }
-  .sdp-input-close-icon {
-    right: 8px;
+  .c-input-error {
+    max-width: 358px;
+    display: flex;
+    margin-top: 8px;
+    align-items: center;
+    font-size: 12px;
+    color: #f56c6c;
+    line-height: 18px;
+    font-weight: 400;
+    word-break: break-all;
   }
 }
 </style>
