@@ -2,7 +2,7 @@
 node_modules
 dist
 .eslintcache
-**/package-lock.json
+# **/package-lock.json
 .idea
 *__gen.go
 *__ignore.go
