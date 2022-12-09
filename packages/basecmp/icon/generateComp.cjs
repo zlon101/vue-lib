@@ -27,6 +27,15 @@ const mixin = {
     },
     w: String,
     h: String,
+    idPrefix: {
+      type: String,
+      default: '',
+    },
+  },
+  data() {
+    return {
+      stamp: String(Date.now()).slice(-2),
+    };
   },
   computed: {
     mergeStyle() {
@@ -42,14 +51,22 @@ const mixin = {
         styObj.height = this.h;
       }
       return Object.keys(styObj).reduce((str, attr) => {
-        // eslint-disable-line
-        return str + attr+':'+styObj[attr]+'; ';
+        return \`\${str}\${attr}:\${styObj[attr]};\`;
+        // return str + attr+':'+ styObj[attr]+ '; ';
       }, '');
     },
   },
   methods: {
     handleClick(e) {
       this.$emit('click', e);
+    },
+    getId(val, anchor, isUrl) {
+      const frags = [this.idPrefix, val, this.stamp].filter(Boolean);
+      const id = frags.join('-');
+      if (anchor) {
+        return id;
+      }
+      return isUrl ? \`url(#\${id})\` : \`#\${id}\`;
     },
   },
 };`;
@@ -59,7 +76,24 @@ const mixin = {
  * 因为@vue/cli-plugin-babel可以直接使用jsx
  */
 /**/
-function generateIconCom(comName, svgTxt) {
+function generateIconCom(comName, svgTxt, fileName) {
+  // 添加id前缀，确保一个页面中元素的id值唯一
+  svgTxt = svgTxt.replace(/\s+id=["']([^"']+)["']/g, ` id={this.getId("$1", true)}`);
+  // 1.url形式: filter="url(#icon-loading-arrow-a)"
+  svgTxt = svgTxt.replace(/\s+([^=]+)=["']url\(#([^)]+)\)["']\s*/g, ` $1={this.getId("$2", false, true)} `);
+  // 2.其他形式
+  // <use fill="#fff" xlink:href="#qr-b" />
+  svgTxt = svgTxt.replaceAll(/\s+([^=\s]+)=["']#([^'"]+)["']/g, (matchVal, attrName, attrVal) => {
+    const isColor = ['fill', 'stroke'].includes(attrName);
+    if (isColor) return matchVal;
+    return ` ${attrName}={this.getId("${attrVal}", false)}`;
+  });
+  /*
+  // <use fill="#FFF" xlink:href="#b" />
+  svgTxt = svgTxt.replace(/\s+([\w:]+?href)=["']#([^'"]+)["']/g, ` $1={this.getId("$2", false)}`);
+  // <use xlink="#qr-b-50"></use>
+  svgTxt = svgTxt.replace(/\s+xlink=["']#([^'"]+)["']/g, ` xlink={this.getId("$1", false)}`); */
+
   // 搜索fill
   const regFill = /fill=".*?"/g;
   const fillAttrs = svgTxt.match(regFill) || [];
@@ -77,7 +111,17 @@ function generateIconCom(comName, svgTxt) {
     svgTxt = svgTxt.replace(new RegExp(attr), `stroke={this.mergeStroke[${ind}]}`);
   });
   // svgTxt = svgTxt.replace(/\n+/g, '').replace(/>\s+</g, '><'); // 删除换行和多余空格
-  // console.log(DefaultStroke);
+
+
+
+  // jsx 格式，将短横线和:改为驼峰格式
+  svgTxt = svgTxt.replace(/\s+xlink:href=/g, ' xlinkHref=');
+  /*
+  svgTxt = svgTxt.replace(/\s+(\w+)[-:](\w+)+=/g, (...param) => {
+    if (param[0].includes('xmlns')) return param[0];
+    return ` ${param[1]}${param[2].replace(/^\w/, chat => chat.toUpperCase())}=`;
+  }); */
+
   // 设置width height
   const svgTag = '<svg';
   const tagIdx = svgTxt.indexOf(svgTag);
@@ -111,14 +155,14 @@ function setup() {
     if (/\.svg$/.test(svg)) {
       const svgPath = path.resolve(SvgDir, svg);
       const svgTxt = fs.readFileSync(svgPath, 'utf-8');
-      let comName = svg.split('.')[0];
-      comName = comName[0].toUpperCase() + comName.slice(1);
+      const fileName = svg.split('.')[0];
+      let comName = fileName[0].toUpperCase() + fileName.slice(1);
       comName = comName.replace(/[-|_]([A-Za-z]){1}/g, w => w.slice(1).toUpperCase());
 
       // 压缩svg
       // const minedSvg = minSvg(svgPath, svgTxt);
       // 生成组件代码
-      const comStr = generateIconCom(comName, svgTxt);
+      const comStr = generateIconCom(comName, svgTxt, fileName);
       IconFileStr += `${comStr}\n`;
     }
   }

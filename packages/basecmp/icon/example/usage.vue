@@ -2,7 +2,7 @@
   <div class="c-icon-example">
     <h2>组件方式</h2>
     <div>
-      <IconCross s="40px" :fill="{0: 'green', 1: 'blue'}" />
+      <IconCross s="40px" :fill="{0: 'green', 1: 'blue'}" idPrefix="xxx"/>
     </div>
     <div class="icon-item" v-for="name in compNames" :key="name">
       <p>{{ name }}</p>

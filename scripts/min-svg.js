@@ -44,7 +44,34 @@ function handleDir(dir) {
             return;
           }
           // 压缩svg
-          const minedSvg = minSvg(svgTxt);
+          let minedSvg = minSvg(svgTxt);
+
+          // 替换id属性值
+          const prefix = file.replace(/\.svg$/, '').toLowerCase().replace(/^icon-/, '');
+          minedSvg = minedSvg.replace(/\s+id=["']([^"']+)["']/g, (matchVal, attriVal) => {
+            if (new RegExp(`^${prefix}`).test(attriVal)) return matchVal;
+            return ` id="${prefix}-${attriVal}"`;
+          });
+          // 引用了id的地方，不匹配颜色
+          // 1.url(#xx)
+          minedSvg = minedSvg.replace(/\s+([^=\s]+)=["']url\(#([^)]+)\)["']/g, (matchVal, attrName, attrVal) => {
+            if (new RegExp(`^${prefix}`).test(attrVal)) return matchVal;
+            return ` ${attrName}="url(#${prefix}-${attrVal})"`
+          });
+          // 2.其他
+          minedSvg = minedSvg.replace(/\s+([^=\s]+)=["']#([^'"]+)["']/g, (matchVal, attrName, attrVal) => {
+            const isColor = ['fill', 'stroke'].includes(attrName);
+            if (isColor || new RegExp(`^${prefix}`).test(attrVal)) return matchVal;
+            return ` ${attrName}="#${prefix}-${attrVal}"`;
+          });
+          /*
+          // url(#xx) #fff
+          minedSvg = minedSvg.replace(/url\(#([^)]+)\)/g, `url(#${prefix}-$1)`);
+          // href="#xx"
+          minedSvg = minedSvg.replace(/href=["']#([^'"]+)["']/g, `href="#${prefix}-$1"`);
+          // <use xlink="#qr-b-50"></use>
+          minedSvg = minedSvg.replace(/xlink=["']#([^'"]+)["']/g, `xlink="#${prefix}-$1"`); */
+
           // 写入文件
           fs.writeFile(svgPath, minedSvg, err => {
             err && console.log(`❌ ${svgPath.split('picnpm').pop()}`);
