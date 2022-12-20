@@ -6,8 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const serverMiddle = require('./plugin/server-middle.js');
 
-const isProd = process.env.NODE_ENV == 'production';
-window._IsProd = isProd;
+const isProd = process.env.NODE_ENV === 'production';
 console.log(`$ ${isProd ? '生产' : '开发'}环境`);
 
 const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
@@ -20,8 +19,11 @@ const commonCfg = {
   context: getAbsPath('./'),
   entry: './src/main.js',
   output: {
-    publicPath: '/',
+    publicPath: './',
     path: getAbsPath('docs'),
+    filename: isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js',
+    clean: true,
+    pathinfo: false,
   },
   resolve: {
     alias: {
