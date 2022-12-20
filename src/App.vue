@@ -105,9 +105,8 @@ export default {
         <router-link to="/tool">工具函数</router-link>
         <router-link to="/style">全局样式</router-link>
         <router-link to="/image">所有图像</router-link>
-        <a href="https://github.com/zlon101/vue-components" target="_blank" rel="noopener noreferrer" class="repo-link">
-          <span class="iconfont icon-github" style="color:#000;font-size:24px;line-height:24px"></span>
-        </a>
+        <a href="http://10.10.71.158:4873" target="_blank" rel="noopener noreferrer">Registry</a>
+        <a href="https://v12w.x34y.com/pikachu/picnpm" target="_blank" rel="noopener noreferrer">GitLab</a>
       </div>
     </header>
     <div class="page-wrap">

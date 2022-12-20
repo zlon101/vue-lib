@@ -3,6 +3,8 @@ export { default as example } from './example/usage.vue';
 
 
 componentCfg.install = function(Vue) {
+  if (componentCfg.installed) return;
+  componentCfg.installed = true;
   Vue.component(componentCfg.name, componentCfg);
 };
 

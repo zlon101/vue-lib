@@ -1,0 +1,13 @@
+{
+  "name": "@pic/tree",
+  "version": "1.0.0",
+  "description": "tree 树",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.10.71.158:4873"
+  }
+}

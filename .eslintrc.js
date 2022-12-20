@@ -29,5 +29,6 @@ module.exports = {
     'no-redeclare': 2, // 禁止多次声明同一变量
     'no-dupe-keys': 2, // 在创建对象字面量时不允许键重复
     eqeqeq: ['error', 'always', { null: 'ignore' }], // 强制使用全等
+    'vue/multi-word-component-names': 'off',
   },
 };

@@ -1,13 +1,13 @@
 {
-  "name": "@zl/extend-toast",
+  "name": "@pic/extend-toast",
   "version": "1.0.0",
   "description": "$toast，全局方法",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
   }
 }

@@ -1,13 +1,17 @@
 {
-  "name": "@zl/scrollbar",
+  "name": "@pic/scrollbar",
   "version": "1.0.0",
   "description": "自定义滚动条",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
+  },
+  "peerDependencies": {
+    "throttle-debounce": "3.0.1",
+    "resize-observer-polyfill": "1.5.1"
   }
 }

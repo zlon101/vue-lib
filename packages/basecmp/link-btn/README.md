@@ -2,7 +2,7 @@
 
 ## Props
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :--------| :------- | :--- |
 | to     | String 或 Object | - | 跳转路由，和 `$router.push` 相同的参数 |
 | _blank | Boolean | false | 是否强制用新标签页打开 |
@@ -13,6 +13,6 @@
 
 ## Slot
 
-| Name     | Describe |
+| Name     | Description |
 | :-------- | :--------|
 | Default | 子元素 |

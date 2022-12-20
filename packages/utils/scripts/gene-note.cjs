@@ -4,7 +4,7 @@ const path = require('path');
 const resolvePath = relaPath => path.resolve(__dirname, relaPath);
 const isDir = absPath => fs.lstatSync(absPath).isDirectory();
 
-const LibDir = '../lib';
+const LibDir = '../src';
 const IgnoreFile = ['popper.js'];
 const LibPath = resolvePath(LibDir);
 const list = fs.readdirSync(LibPath);

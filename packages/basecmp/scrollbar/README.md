@@ -4,6 +4,6 @@
 
 ## 插槽
 
-| Name | Describe|
+| Name | Description|
 | :--- | :---|
 | default | 容器内容块 |

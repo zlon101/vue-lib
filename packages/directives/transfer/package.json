@@ -1,5 +1,5 @@
 {
-  "name": "@zl/transfer",
+  "name": "@pic/transfer",
   "version": "1.0.0",
   "description": "移动dom在dom树中的位置",
   "main": "index.js",
@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
   }
 }

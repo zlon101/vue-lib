@@ -1,17 +1,18 @@
 <template>
   <transition name="slide-fade">
     <div v-if="innerVisible" class="c-drawer" @mousedown.self="handleMouseDown('c-drawer')" @mouseup.self="handleMouseUp">
-      <div :class="['drawer-content', modeMap[mode], animation]" :style="contentSize">
-        <header class="drawer-header">
+      <slot name="center"></slot>
+      <div :class="['sdp-drawer-content', modeMap[mode], animation]" :style="contentSize">
+        <header class="sdp-drawer-header">
           <slot v-if="$slots.title" name="title">{{title}}</slot>
           <h3 v-else>{{ title }}</h3>
-          <div v-if="desc" class="drawer-desc">{{ desc }}</div>
-          <div class="icon_close" @click="close"></div>
+          <div v-if="desc" class="sdp-drawer-desc">{{ desc }}</div>
+          <IconCross class="icon_close" s="24px" :fill="{ 1: '#C0C4CC', 0: '#fff' }" @click="close" />
         </header>
-        <div ref="body" class="drawer-body">
+        <div ref="body" class="sdp-drawer-body">
           <slot></slot>
         </div>
-        <div class="drawer-footer" v-if="$slots.footer">
+        <div class="sdp-drawer-footer" v-if="$slots.footer">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+import { IconCross } from '@pic/icon';
 const modeMap = {
   tb: 'top-bottom',
   bt: 'bottom-top',
@@ -28,6 +30,7 @@ const modeMap = {
 };
 
 export default {
+  components: { IconCross },
   name: 'Drawer',
   props: {
     visible: Boolean,
@@ -109,10 +112,10 @@ export default {
         if (val) {
           this.innerVisible = val;
           this.timerId = setTimeout(() => {
-            this.animation = 'drawer-open';
+            this.animation = 'sdp-drawer-open';
           }, 10);
         } else {
-          this.animation = 'drawer-close';
+          this.animation = 'sdp-drawer-close';
           this.timerId = setTimeout(() => {
             this.innerVisible = false;
           }, 250);
@@ -153,9 +156,10 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.88);
+  background-color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(3px);
   z-index: 100;
-  .drawer-content {
+  .sdp-drawer-content {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -191,7 +195,7 @@ export default {
     }
 
     /** animation */
-    &.drawer-open {
+    &.sdp-drawer-open {
       transition: transform .1s ease-out;
       &.top-bottom,
       &.bottom-top,
@@ -200,7 +204,7 @@ export default {
         transform: translate(0, 0);
       }
     }
-    &.drawer-close {
+    &.sdp-drawer-close {
       transition: transform .1s ease-out;
       &.top-bottom {
         transform: translate(0, -100%);
@@ -216,7 +220,7 @@ export default {
       }
     }
 
-    .drawer-header {
+    .sdp-drawer-header {
       margin-bottom: 24px;
       & > h3 {
         font-size: 20px;
@@ -224,7 +228,7 @@ export default {
         font-weight: bold;
         color: #06003B;
       }
-      .drawer-desc {
+      .sdp-drawer-desc {
         font-size: 14px;
         color: #7F8FA4;
         margin: 8px 0 0;
@@ -233,16 +237,14 @@ export default {
         position: absolute;
         top: 56px;
         right: 32px;
-        width: 24px;
-        height: 24px;
         cursor: pointer;
       }
     }
-    .drawer-body {
+    .sdp-drawer-body {
       flex: auto;
       overflow: auto;
     }
-    .drawer-footer{
+    .sdp-drawer-footer{
       margin-top: 32px;
     }
   }

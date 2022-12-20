@@ -1,0 +1,19 @@
+{
+  "name": "@pic/datepicker",
+  "version": "1.0.1",
+  "description": "日期时间范围组件",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../../utils && npx link ../../basecmp/icon"
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.10.71.158:4873"
+  },
+  "dependencies": {
+    "@pic/utils": "latest",
+    "@pic/icon": "latest"
+  }
+}

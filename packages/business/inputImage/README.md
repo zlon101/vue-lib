@@ -1,6 +1,6 @@
 ## Props
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :------ | :------- | :---     |
 | value     | String  |     -    | 图像的base64  |
 | maxSize   | Number  |     3    | 图像尺寸大小，默认单位MB |
@@ -12,13 +12,13 @@
 | disabled  | Boolean |     -    | 是否禁用 |
 
 ##  事件
-| Name | Describe|
+| Name | Description|
 | :--- | :---|
 | input | 上传成功或者删除时触发，返回图片base64和图片信息 |
 | error | 上传图片报错时触发，返回报错信息 |
 
 ## Slot
-| Name     | Describe |
+| Name     | Description |
 | :------- | :------- |
 | default      | 主要内容  |
 | empty    | 数据为空时显示的内容 |

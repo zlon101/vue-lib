@@ -1,6 +1,6 @@
 {
-  "name": "@zl/utils",
-  "version": "1.0.0",
+  "name": "@pic/utils",
+  "version": "1.1.0",
   "description": "工具函数",
   "type": "module",
   "main": "index.js",
@@ -9,9 +9,13 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://47.100.207.125:4873"
+    "registry": "http://10.10.71.158:4873"
+  },
+  "peerDependencies": {
+    "crypto-js": "3.3.0",
+    "moment": "2.29.1"
   }
 }

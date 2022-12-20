@@ -1,6 +1,5 @@
 import dialog from './src';
 import DialogComponent from './src/dialog.vue';
-export { default as example } from './example/usage.vue';
 
 /**
  * 可以使用模板和命令两种方式调用

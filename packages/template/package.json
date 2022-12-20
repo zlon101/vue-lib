@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://47.100.207.125:4873"
+    "registry": "http://10.10.71.158:4873"
   }
 }

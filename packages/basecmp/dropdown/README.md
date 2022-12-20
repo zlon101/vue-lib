@@ -1,6 +1,6 @@
 ## Props
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :--------| :------- | :---     |
 | disable   | Boolean  |          | 是否禁用   |
 | text      | String   |  点我下拉  | 文本展示内容 |
@@ -15,14 +15,14 @@
 | autoOpen | Boolean   |          |  弹出层默认打开或者关闭 |
 
 ### 事件
-| Name | Describe|
+| Name | Description|
 | :--- | :---|
 | change | 选中项发生更改时触发，返回当前选中的值 |
 | changeVisible | 选弹出层的状态更改时触发，返回当前状态和当前组件的的元素 |
 | switchPopup | 点击展示层的内容触发，返回弹出层的状态 |
 
 ### Slot
-| Name     | Describe |
+| Name     | Description |
 | :------- | :------- |
 | -        | 展示层内容  |
 | icon      | 展示层图标 |

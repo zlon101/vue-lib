@@ -1,23 +1,22 @@
-// 上传文件到服务器，有点慢，建议手动压缩后上传到服务器
+// 上传文件到服务器
 
 const { spawnSync } = require('child_process');
 const path = require('path');
-const fs = require('fs');
 
 const getAbsPath = relaPath => path.resolve(__dirname, relaPath);
+const cwd = getAbsPath('../');
 
-const ServerDir = 'root@47.100.207.125:/work/picnpm';
-const Blacklist = ['node_modules', '.git', '.DS_Store'];
+const zipPath = `./zip.zip`;
 
-fs.readdir(getAbsPath('../'), (err, list) => {
-  if (err) {
-    console.log(`❌ 目录读取失败，`, err);
-    return;
-  }
-  list.forEach(item => {
-    if (Blacklist.includes(item)) return;
-    const res = spawnSync('scp', ['-r', getAbsPath(`../${item}`), ServerDir]);
-    console.log(res.error ? `❌ 上传${item}失败` : `✅ 上传${item}成功`)
-  });
-});
+const zipCmd = spawnSync('zip', ['-r', '-q', `${zipPath}`, './', '-x', './node_modules/*', '-x', './.git/*', '-x', './.DS_Store'], { cwd });
+if (zipCmd.error) {
+  console.log('❌ 压缩失败', zipCmd.error);
+  spawnSync('rm', ['-rf', `${zipPath}`], { cwd });
+  process.exit(1);
+}
 
+console.log('✅ 压缩完成');
+const scpCmd = spawnSync('scp', ['-r', `${zipPath}`, 'root@10.10.71.158:/work-pic'], { cwd });
+console.log(scpCmd.error ? `❌ 上传失败` : `✅ 上传成功`)
+
+spawnSync('rm', ['-rf', `${zipPath}`], { cwd });

@@ -4,11 +4,11 @@
       class="content"
       v-for="item in data"
       :key="item.value"
-      :class="{ selected: item.value == select, disable: disable || item.disable }"
+      :class="{ selected: item.value === select, disable: disable || item.disable }"
       @click="clickSelect(item)"
     >
       <span class="gir-radio"></span>
-      <span class="gir-value">{{ item.label || item.text }}</span>
+      <span v-if="item.label || item.text" class="gir-value">{{ item.label || item.text }}</span>
     </div>
   </div>
 </template>

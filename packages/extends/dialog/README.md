@@ -1,13 +1,13 @@
 ## Props
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :--------| :------- | :--- |
 | value     | Boolean |  false | 是否显示 |
 | config    |   Object |  -  | 对话框配置 |
 
 
 ## Slot
-| Name     | Describe |
+| Name     | Description |
 | :-------- | :--------|
 | icon     | 对话框header图标，props.config.type 无法满足时使用，自定义图标 |
 | title     | 对话框标题，当 props.config.title 无法满足时使用，自定义标题 |

@@ -1,6 +1,6 @@
 ## Props
 
-| Name  |  Type  | Default  | Describe |
+| Name  |  Type  | Default  | Description |
 | :-----| :--------| :------- | :--- |
 | type  |  String |  warning  | 状态类型，目前只能从['warning', 'success', 'error']中选择 |
 | icon  |  String | - | 状态自定义图标class |
@@ -8,7 +8,7 @@
 
 ## 插槽
 
-| Name  | Describe |
+| Name  | Description |
 | :-----| :--- |
 | icon  | 状态自定义图标class |
 | default | 子节点 |

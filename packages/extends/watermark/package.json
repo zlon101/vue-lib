@@ -1,5 +1,5 @@
 {
-  "name": "@zl/extend-watermark",
+  "name": "@pic/extend-watermark",
   "version": "1.0.0",
   "description": "页面水印",
   "main": "index.js",
@@ -7,13 +7,13 @@
     "link-local": "npx link ../../utils && npx link ../toast"
   },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@zl/utils": "*",
-    "@zl/extend-toast": "*"
+    "@pic/utils": "latest",
+    "@pic/extend-toast": "latest"
   }
 }

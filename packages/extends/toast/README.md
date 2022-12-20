@@ -5,7 +5,7 @@ Toast为单例，重复调用会重置Toast状态。
 
 ## 参数
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :--------| :------- | :--- |
 | type     | String |  success | toast类型，可选success,warning,error |
 | text      |   String |  -  | 提示文字 |
@@ -13,6 +13,6 @@ Toast为单例，重复调用会重置Toast状态。
 | timeout | Number | 15000 | 超时时间 |
 
 ### 方法
-| Name     | Describe |
+| Name     | Description |
 | :-------- | :--------|
 | close     | 关闭toast |

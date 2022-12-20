@@ -1,13 +1,18 @@
 {
-  "name": "@zl/drawer",
-  "version": "1.0.0",
+  "name": "@pic/drawer",
+  "version": "1.0.6",
   "description": "抽屉|侧边栏",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "link-local": "npx link ../icon"
+  },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
+  },
+  "dependencies": {
+    "@pic/icon": "latest"
   }
 }

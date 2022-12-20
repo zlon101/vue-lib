@@ -10,8 +10,8 @@ module.exports = {
     // cron_restart: '20 8 * * *', // 定时重启 https://pm2.fenxianglu.cn/docs/general/restart-strategies/
     merge_logs: true, // 追加日志而不是新建日志
   }, {
-    name: 'verdaccio',
-    script: 'verdaccio',
+    name: 'verda',
+    script: 'verdaccio -c ./verdaccio-config.yaml',
     cwd: './',
     watch: false,
     error_file: './log/verdaccio-error.log',

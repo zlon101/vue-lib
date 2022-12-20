@@ -1,4 +1,4 @@
-import Popper from './popper';
+import Popper from '@pic/utils/lib/popper';
 
 const isServer = false;
 export default {

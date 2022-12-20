@@ -1,6 +1,6 @@
 ## Props
 
-| Name  |  Type  | Default  | Describe |
+| Name  |  Type  | Default  | Description |
 | :-----| :--------| :------- | :--- |
 | list  |  Array |  -  | tab 数组，[Object<name, id, class, icon>] |
 | curTab  |  String | - | 当前tab |
@@ -8,14 +8,14 @@
 
 ## 事件
 
-| Name  | Describe |
+| Name  | Description |
 | :-----| :--- |
 | active | 切换tab |
 
 
 ## 插槽
 
-| Name  | Describe |
+| Name  | Description |
 | :-----| :--- |
 | default | 右侧插槽 |
 

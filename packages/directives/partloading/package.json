@@ -1,5 +1,5 @@
 {
-  "name": "@zl/part-loading",
+  "name": "@pic/part-loading",
   "version": "1.0.0",
   "description": "局部loading指令",
   "main": "index.js",
@@ -7,12 +7,12 @@
     "link-local": "npx link ../../utils"
   },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@zl/utils": "*"
+    "@pic/utils": "latest"
   }
 }

@@ -1,6 +1,6 @@
 ## Props
 
-| Name  |    Type  | Default  | Describe |
+| Name  |    Type  | Default  | Description |
 | :-----| :--------| :------- | :--- |
 | title | String |  -  | 标题 |
 | mode  |   String |  rl  | 一共四种模式对应的方向缩写 tb | bt | lr | rl |
@@ -9,13 +9,13 @@
 | escKeyClosable | Boolean | false | 按键esc是否可以关闭 |
 
 ### Slot
-| Name     | Describe |
+| Name     | Description |
 | :-------- | :--------|
 | title | 自定义标题内容,将会导致参数title无效 |
 | footer | 自定义底部内容 |
 | default  | 自定义抽屉内容 |
 
 ### 方法
-| Name     | Describe |
+| Name     | Description |
 | :-------- | :--------|
 | close     | 关闭 |

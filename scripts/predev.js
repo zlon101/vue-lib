@@ -4,8 +4,6 @@ const path = require('path');
 const { spawn } = require('node:child_process');
 const Cfg = require('./cfg.js');
 const { lockVersion, checkPackage } = require('./util.js');
-const generateSvgIcon = require('../packages/basecmp/icon/generateComp.cjs');
-const generateIconFont = require('../packages/basecmp/icon/icon-font.cjs');
 
 const resolvePath = relaPath => path.resolve(__dirname, relaPath);
 
@@ -34,8 +32,7 @@ ls.on('close', code => {
   console.log(!code ? '✅ svg压缩完成' : '❌ svg压缩失败');
   if (!code && hasFix && !hasErr) {
     // 生成icon组件和iconfont css
-    generateSvgIcon();
-    generateIconFont();
+    spawn('npm', ['run', 'build:icon']);
   }
 });
 

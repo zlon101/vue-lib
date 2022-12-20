@@ -1,5 +1,5 @@
 {
-  "name": "@zl/extend-dialog",
+  "name": "@pic/extend-dialog",
   "version": "1.0.0",
   "description": "dialog，对话框",
   "main": "index.js",
@@ -7,14 +7,14 @@
     "link-local": "npx link ../../basecmp/icon && npx link ../../basecmp/button && npx link ../../basecmp/modal"
   },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@zl/icon": "*",
-    "@zl/button": "*",
-    "@zl/modal": "*"
+    "@pic/icon": "latest",
+    "@pic/button": "latest",
+    "@pic/modal": "latest"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "name": "@pic/select",
+  "version": "1.0.0",
+  "description": "下拉选择组件",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../input && npx link ../checkbox && npx link ../tooltip && npx link ../../utils  && npx link ../../directives/transfer"
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.10.71.158:4873"
+  },
+  "dependencies": {
+    "@pic/input": "latest",
+    "@pic/transfer": "latest",
+    "@pic/utils": "latest",
+    "@pic/checkbox": "latest",
+    "@pic/tooltip": "latest"
+  }
+}

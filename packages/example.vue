@@ -18,14 +18,19 @@ export default {
   },
   computed: {
     deps() {
-      const { dependencies } = this.packageJson;
-      const list = [];
-      if (dependencies) {
-        Object.keys(dependencies).forEach(k => {
-          list.push(`${k}: ${dependencies[k]}`);
-        });
-      }
-      return list;
+      const { packageJson } = this;
+      const result = {};
+      ['dependencies', 'peerDependencies', 'devDependencies'].forEach(k => {
+        const dep = packageJson[k];
+        if (dep) {
+          const list = [];
+          Object.keys(dep).forEach(k2 => {
+            list.push(`${k2}: ${dep[k2]}`);
+          });
+          result[k] = list;
+        }
+      })
+      return result;
     },
   },
   mounted() {
@@ -36,6 +41,7 @@ export default {
       const codeStr = res.data.codeStr;
       if (!this.oldCode) {
         this.oldCode = codeStr;
+        !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
       }
       this.canHlight = window.hljs;
       if (window.hljs) {
@@ -49,12 +55,18 @@ export default {
     onUpdateCode() {
       const nCode = this.$refs.code.textContent;
       Api.setCode(this.compPath, nCode);
+      setTimeout(() => window.location.reload(), 300);
     },
     onReset() {
       if (!this.canGetCode) return;
-      const nCode = this.$refs.code.textContent;
-      if (nCode !== this.oldCode) {
-        Api.setCode(this.compPath, this.oldCode);
+
+      const { compPath } = this;
+      const oldCode = sessionStorage.getItem(compPath);
+      if (oldCode) {
+        Api.setCode(compPath, oldCode);
+        // setTimeout(() => window.location.reload(), 300);
+      } else {
+        console.debug('\n未查找到旧代码');
       }
     },
   },
@@ -68,10 +80,15 @@ export default {
       <p>name: {{ packageJson.name }}</p>
       <p>version: {{ packageJson.version }}</p>
       <p>description: {{ packageJson.description }}</p>
-      <p v-if="deps.length"><b>依赖：</b></p>
-      <ul style="margin-left:16px">
-        <li v-for="item in deps" :key="item">{{item}}</li>
-      </ul>
+      <template v-if="Object.keys(deps).length">
+        <p><b>依赖：</b></p>
+        <div v-for="k in Object.keys(deps)" :key="k">
+          <p>{{k}}</p>
+          <ul style="margin-left:16px">
+            <li v-for="dep in deps[k]" :key="dep">{{dep}}</li>
+          </ul>
+        </div>
+      </template>
     </div>
 
     <h1 class="margin-top">2.使用方法</h1>
@@ -165,6 +182,7 @@ export default {
     }
     pre code {
       background-color: #000;
+      color: #e9e9f4;
     }
   }
   details {

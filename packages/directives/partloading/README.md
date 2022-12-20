@@ -2,7 +2,7 @@
 
 指令没有提供参数，只提供指令值，指令值是一个对象，具体属性如下
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :--------| :------- | :--- |
 | isLoading     | Boolean |  false | 是否显示 |
 | title     | String |  加载中... | 标题 |

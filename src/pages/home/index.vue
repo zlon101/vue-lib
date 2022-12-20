@@ -14,5 +14,9 @@ export default {
   pre {
     background-color: #111419;
   }
+  ul,
+  ol {
+    list-style: decimal;
+  }
 }
 </style>

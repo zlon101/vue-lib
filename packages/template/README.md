@@ -1,7 +1,7 @@
 # 组件模板
 
 ## Props
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :--------| :------- | :---     |
 | xxx   | xxx  |      xxx    | xxx   |
 

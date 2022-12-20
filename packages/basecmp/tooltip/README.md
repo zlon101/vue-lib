@@ -1,6 +1,6 @@
 ## Props
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :--------| :------- | :---     |
 | placement   | String  |  bottom    | 提示框位置，可选值有：top、top-start、top-end、bottom、bottom-start、bottom-end、left、left-start、left-end、right、right-start、right-end |
 | content   | String  |  -    | 提示框内容 |
@@ -18,7 +18,7 @@
 
 ## Slot
 
-| Name        | Default  | Describe |
+| Name        | Default  | Description |
 | :-------- | :------- | :---     |
 | content   | -  | 弹窗内容   |
 | default   | -  | 默认子节点，必填 |

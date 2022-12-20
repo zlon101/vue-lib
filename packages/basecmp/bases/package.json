@@ -1,0 +1,24 @@
+{
+  "name": "@pic/bases",
+  "version": "1.0.0",
+  "description": "空组件，用于批量安装基础组件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.10.71.158:4873"
+  },
+  "dependencies": {
+    "@pic/style": "latest",
+    "@pic/utils": "latest",
+    "@pic/icon": "latest",
+    "@pic/input": "latest",
+    "@pic/inputv2": "latest",
+    "@pic/extend-dialog": "latest",
+    "@pic/extend-toast": "latest"
+  }
+}

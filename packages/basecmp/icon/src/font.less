@@ -19,6 +19,24 @@
     vertical-align: top;
   }
 }
+
+// 当转换为字体后显示异常时可以改用背景图像
+.bg-icon(@width, @height, @name) {
+  display: inline-block;
+  width: @width;
+  height: @height;
+  font-size: 0;
+  line-height: 0;
+  vertical-align: top;
+  background-image: url('../assets/@{name}');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  &::before {
+    display: none;
+  }
+}
+
 .icon-cross {
   color: #F56C6C;
   background: #ffffff;
@@ -38,6 +56,9 @@
   color: #3A51E0;
   border-radius: 50%;
 }
+.iconfont.icon-fold {
+  .bg-icon(16px, 16px, 'icon-fold.svg');
+}
 //====== 以下内容为自动生成 ======
 
 .iconfont.icon-add::before {
@@ -52,57 +73,30 @@
 .iconfont.icon-cross::before {
   content: '\e004';
 }
-.iconfont.icon-dele::before {
+.iconfont.icon-edit::before {
   content: '\e005';
 }
-.iconfont.icon-edit::before {
+.iconfont.icon-err::before {
   content: '\e006';
 }
-.iconfont.icon-err::before {
+.iconfont.icon-expoint::before {
   content: '\e007';
 }
-.iconfont.icon-expoint::before {
+.iconfont.icon-fold::before {
   content: '\e008';
 }
-.iconfont.icon-fold::before {
+.iconfont.icon-net-err::before {
   content: '\e009';
 }
-.iconfont.icon-github::before {
+.iconfont.icon-processing::before {
   content: '\e00a';
 }
-.iconfont.icon-hook::before {
+.iconfont.icon-success::before {
   content: '\e00b';
 }
-.iconfont.icon-loading-arrow::before {
+.iconfont.icon-success2::before {
   content: '\e00c';
 }
-.iconfont.icon-loading::before {
-  content: '\e00d';
-}
-.iconfont.icon-net-err::before {
-  content: '\e00e';
-}
-.iconfont.icon-processing::before {
-  content: '\e00f';
-}
-.iconfont.icon-prohibite::before {
-  content: '\e010';
-}
-.iconfont.icon-question::before {
-  content: '\e011';
-}
-.iconfont.icon-refresh::before {
-  content: '\e012';
-}
-.iconfont.icon-search::before {
-  content: '\e013';
-}
-.iconfont.icon-success::before {
-  content: '\e014';
-}
-.iconfont.icon-success2::before {
-  content: '\e015';
-}
 .iconfont.icon-yes::before {
-  content: '\e016';
+  content: '\e00d';
 }

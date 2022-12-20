@@ -1,5 +1,5 @@
 {
-  "name": "@zl/link-btn",
+  "name": "@pic/link-btn",
   "version": "1.0.0",
   "description": "路由跳转",
   "main": "index.js",
@@ -7,12 +7,12 @@
     "link-local": "npx link ../../extends/routerJump"
   },
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@zl/extend-router": "*"
+    "@pic/extend-router": "latest"
   }
 }

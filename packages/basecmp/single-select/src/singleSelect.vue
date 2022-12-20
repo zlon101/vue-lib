@@ -1,5 +1,8 @@
 <template>
-  <Dropdown ref="c-single-select-ref" class="c-single-select" :style="{ width }" equalWidth @changeVisible="changeVisible">
+  <Dropdown ref="c-single-select-ref" class="c-single-select" :style="{ width }" equalWidth
+    @changeVisible="changeVisible"
+    :popupClass="popupClsTop"
+  >
     <div class="input" :style="{ width, height }">
       <p v-if="current" class="g-single-text" :style="{ color: current.color }">{{ current.label }}</p>
       <p v-else class="placeholder g-single-text">{{ placeholder }}</p>
@@ -7,7 +10,7 @@
     </div>
     <div :class="['xahhums2w3', popupClass]" slot="options">
       <div v-if="search" class="search-wrap">
-        <ZInput v-model="searchText" width="100%" search :placeholder="searchPlaceholder" />
+        <PicInput v-model="searchText" width="100%" search :placeholder="searchPlaceholder" />
       </div>
       <div class="single-list">
         <div
@@ -32,13 +35,13 @@
 </template>
 
 <script>
-import { IconFold, IconHook } from '@zl/icon';
-import Dropdown from '@zl/dropdown';
-import ZInput from '@zl/input';
+import { IconFold, IconHook } from '@pic/icon';
+import Dropdown from '@pic/dropdown';
+import PicInput from '@pic/input';
 
 export default {
   name: 'SingleSelect',
-  components: { Dropdown, IconFold, IconHook, ZInput },
+  components: { Dropdown, IconFold, IconHook, PicInput },
   props: {
     options: Array,
     value: [String, Number],
@@ -67,6 +70,7 @@ export default {
       type: String,
       default: 'xahhums2w3',
     },
+    popupClsTop: String,
   },
   data() {
     return {

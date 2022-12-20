@@ -1,13 +1,13 @@
 {
-  "name": "@zl/modal",
+  "name": "@pic/modal",
   "version": "1.0.0",
   "description": "modal 弹窗",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
-  "author": "zlon101",
+  "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://127.0.0.1:4873"
+    "registry": "http://10.10.71.158:4873"
   }
 }

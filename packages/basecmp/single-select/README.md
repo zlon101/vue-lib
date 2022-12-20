@@ -4,7 +4,7 @@
 
 ## Props
 
-| Name  |    Type  | Default  | Describe |
+| Name  |    Type  | Default  | Description |
 | :-----| :--------| :------- | :--- |
 | options |   Array |  -  | 可选项列表，详情见下面 |
 | value |   String|Number |  -  | 当前选中的值 |
@@ -12,13 +12,14 @@
 | width |   String |  360px  | 宽度 |
 | height |   String |  40px  | 高度 |
 | padding |  String|Number |  24  | 内边距 |
-| popupClass |  String |  xahhums2w3  | 弹层类名 |
+| popupClsTop |  String |  -  | 弹层类名，应用z-index |
+| popupClass |  String |  xahhums2w3  | 弹层子元素类名 |
 | search |   Boolean |  false  | 是否可搜索 |
 | searchPlaceholder |   String |  搜索  | 搜索框提示语 |
 
 
 ##  事件
-| Name | Describe|
+| Name | Description|
 | :--- | :---|
 | input | 切换选中项 |
 | change | 切换选中项 |

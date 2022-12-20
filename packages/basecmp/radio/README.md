@@ -1,6 +1,6 @@
 ## Props
 
-| Name      |    Type  | Default  | Describe |
+| Name      |    Type  | Default  | Description |
 | :-------- | :------ | :------- | :---     |
 | data      | Array   |     -    | 选项数据 { value, (label | text), disable }  |
 | select    | String, Boolean, Number  |     -    | 当地选中数据 |
@@ -9,6 +9,6 @@
 
 ##  事件
 
-| Name | Describe|
+| Name | Description|
 | :--- | :---|
 | change | 选中选项时触发，返回当前选中数据 |

@@ -7,7 +7,7 @@ const Cfg = require('./cfg');
 const Log = (...args) => console.log('\n🔥', ...args);
 const LogErr = (...args) => console.log(`\n❌`, ...args);
 const LogLine = str => {
-  console.log(`\n\n$ ========== ${str} =============`);
+  console.log(`\n$ ========== ${str} =============`);
 };
 
 const getAbsPath = (...args) => path.resolve(...args);
