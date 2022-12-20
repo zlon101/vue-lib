@@ -26,7 +26,8 @@ export default {
       if (modItem.subpath === 'index') {
         return PkgJson.name;
       }
-      return `${PkgJson.name}/lib/${modItem.subpath}`;
+      return `${PkgJson.name}/${modItem.subpath}`;
+      // return `${PkgJson.name}/lib/${modItem.subpath}`;
     },
     getCode(code) {
       if (window.hljs) {

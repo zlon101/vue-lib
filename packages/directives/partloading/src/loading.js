@@ -10,7 +10,7 @@
  * }
  */
 
-import { xssH } from '@zl/utils/lib/xss';
+import { xssH } from '@zl/utils/xss';
 import './index.less';
 
 // 默认参数

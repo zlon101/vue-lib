@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import { isOverflow } from '@zl/utils/lib/dom';
+import { isOverflow } from '@zl/utils/dom';
 import TransferDom from '@zl/transfer';
 import { transferIndex, transferIncrease } from './transfer-queue';
 import popperMixins from './popperMixins';

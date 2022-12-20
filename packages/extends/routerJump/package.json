@@ -1,5 +1,5 @@
 {
-  "name": "@pic/extend-router",
+  "name": "@zl/extend-router",
   "version": "1.0.0",
   "description": "路由跳转",
   "main": "index.js",
@@ -13,6 +13,6 @@
     "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@pic/utils": "latest"
+    "@zl/utils": "latest"
   }
 }

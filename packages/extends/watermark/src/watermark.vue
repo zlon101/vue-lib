@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { dateToString } from '@zl/utils/lib/date';
+import { dateToString } from '@zl/utils/date';
 import extendToast from '@zl/extend-toast';
 import './watermark.less';
 

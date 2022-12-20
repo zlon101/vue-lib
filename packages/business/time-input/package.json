@@ -1,5 +1,5 @@
 {
-  "name": "@pic/time-input",
+  "name": "@zl/time-input",
   "version": "1.0.0",
   "description": "时间范围输入框组件",
   "main": "index.js",
@@ -13,6 +13,6 @@
     "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@pic/input": "latest"
+    "@zl/input": "latest"
   }
 }

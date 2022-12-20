@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import { IconFold, IconCalender, IconCross } from '@pic/icon';
-import { dateToString } from '@pic/utils/lib/date';
+import { IconFold, IconCalender, IconCross } from '@zl/icon';
+import { dateToString } from '@zl/utils/date';
 import TimePickerDetail from './timepickerdetail.vue';
 
 export default {

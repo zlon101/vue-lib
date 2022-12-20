@@ -1,9 +1,13 @@
 {
-  "name": "@pic/utils",
+  "name": "@zl/utils",
   "version": "1.1.0",
   "description": "工具函数",
   "type": "module",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./*": "./src/*.js"
+  },
   "scripts": {
     "gene-note": "node scripts/gene-note.cjs",
     "test": "echo \"Error: no test specified\" && exit 0"

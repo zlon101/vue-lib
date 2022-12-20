@@ -150,8 +150,8 @@
         "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */\n"
       },
       {
-        "fnName": "export function deepClone(srcData, hash = new WeakMap()",
-        "note": "// 深度克隆\n"
+        "fnName": "export const deepClone = (srcData, hash = new WeakMap()",
+        "note": ""
       },
       {
         "fnName": "export function isExist(value, source)",

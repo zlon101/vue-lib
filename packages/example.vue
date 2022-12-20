@@ -34,7 +34,7 @@ export default {
     },
   },
   mounted() {
-    this.canGetCode = Boolean(this.$slots.usage) && process.env.NODE_ENV === 'development';
+    this.canGetCode = Boolean(this.$slots.usage) && !window._IsProd;
     if (!this.canGetCode) return;
 
     Api.getCode(this.compPath).then(res => {

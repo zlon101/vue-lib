@@ -105,7 +105,7 @@ export default {
         <router-link to="/tool">工具函数</router-link>
         <router-link to="/style">全局样式</router-link>
         <router-link to="/image">所有图像</router-link>
-        <a href="http://10.10.71.158:4873" target="_blank" rel="noopener noreferrer">Registry</a>
+        <!--<a href="http://127.0.0.1:xx" target="_blank" rel="noopener noreferrer">Registry</a>-->
         <a href="https://v12w.x34y.com/pikachu/picnpm" target="_blank" rel="noopener noreferrer">GitLab</a>
       </div>
     </header>

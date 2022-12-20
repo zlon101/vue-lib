@@ -1,5 +1,5 @@
 {
-  "name": "@pic/extend-copy",
+  "name": "@zl/extend-copy",
   "version": "1.0.0",
   "description": "$copy，全局方法",
   "main": "index.js",
@@ -13,7 +13,7 @@
     "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@pic/utils": "latest",
-    "@pic/extend-toast": "latest"
+    "@zl/utils": "latest",
+    "@zl/extend-toast": "latest"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@pic/extend-dialog",
+  "name": "@zl/extend-dialog",
   "version": "1.0.0",
   "description": "dialog，对话框",
   "main": "index.js",
@@ -13,8 +13,8 @@
     "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@pic/icon": "latest",
-    "@pic/button": "latest",
-    "@pic/modal": "latest"
+    "@zl/icon": "latest",
+    "@zl/button": "latest",
+    "@zl/modal": "latest"
   }
 }

@@ -1,18 +1,7 @@
-# picNpm
-
-皮卡丘内部npm私有仓库
-
-## TODO
+<h1 style="text-align:center">npm 组件库</h1>
 
 - [ ] gitlab Hook 自动上传到服务器？
-- [ ] 补充组件描述、example、README
 - [x] ie浏览器测试图标是否正常
-
-## 测试通过的组件
-
-> ~~在测试项目中安装并正常使用的组件，记录在列表中~~
-> 目前的开发形式，若组件的 example 能正常显示和交互，应该就不需要在 pic-npm-test 中测试
-
 ----------------------------------------------------------------
 
 <h1 style="text-align:center">私有源部署文档</h1>
@@ -109,14 +98,13 @@ npm config set @private-scope:registry http://private-address
 
 ## Git 规范
 
-- 所有命令使用原生 git 操作，包括 clone、add、commit、push 等，因为该项目配置了 git hooks，使用 kmg git 会导致 git hooks 失效。
-- git commit 会触发 pre-commit 钩子，对暂存区中的文件进行 eslint 检查，并且执行 scripts/check-package.js 脚本检查组件的 README.md 和 package.json 文件，还会删除项目根目录中的 package.json 中 dependencies、devDependencies 中版本号前面的 ^、~ 等，避免依赖自动升级。
+git commit 会触发 pre-commit 钩子，对暂存区中的文件进行 eslint 检查，并且执行 scripts/check-package.js 脚本检查组件的 README.md 和 package.json 文件，还会删除项目根目录中的 package.json 中 dependencies、devDependencies 中版本号前面的 ^、~ 等，避免依赖自动升级。
 
 ## 开发规范
 
 - 首次执行 `npm install` 后，需要执行 `npm run link:all type=c`（注：不要在 Webstorm 的终端中执行，IDE 会执行 npm install）
 - `scripts/cfg.js` 中配置和项目相关的信息，包括 private-address、private-scope
-- 组件的 package.json 中 name 字段必须以 `@pic/` 为前缀，并且必须配置 publishConfig 字段
+- 组件的 package.json 中 name 字段必须以 `@zl/` 为前缀，并且必须配置 publishConfig 字段
 - 组件 A 使用组件 B 时，在 A 的 package.json 中将组件 B 配置到 `dependencies` 字段，并在 A 的 packages.json -> scripts.link-local 中添加命令（参考已有示例）
 - 组件的 example 写法参考 button 组件写法，只需要修改 example/index.vue 中的 `compPath` 参数。
 
@@ -137,7 +125,7 @@ npm login --registry=http://private-address --scope=@private-scope
 > 删除已经发布到私有源上的组件
 
 ```shell
-npm unpublish @pic/xxx --force
+npm unpublish @zl/xxx --force
 ```
 
 > 本地测试组件
@@ -150,7 +138,7 @@ npm unpublish @pic/xxx --force
 其他项目需要安装私有组件时，先登录，然后执行
 
 ```shell
-npm install @pic/xx
+npm install @zl/xx
 ```
 
 > 可执行命令
@@ -176,13 +164,13 @@ npm install @pic/xx
 ## 使用该组件库开发其他业务项目
 
 - 业务项目依赖的包最好和组件库中的依赖使用相同版本（直接复制组件库中的 package.json、package-lock.json 和 vue.config.js 文件）
-- 在 `src/main.js` 中引入全局样式 `import '@pic/style';`
+- 在 `src/main.js` 中引入全局样式 `import '@zl/style';`
 - 执行 `vue add style-resources-loader` 并配置 `vue.config.js`
   ```javascript
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
-      patterns: [path.resolve(__dirname, './node_modules/@pic/style/var.less')],
+      patterns: [path.resolve(__dirname, './node_modules/@zl/style/var.less')],
     },
   },
   ```
@@ -199,7 +187,7 @@ npm install @pic/xx
 
 ## Q
 
-> 使用场景：项目 A 使用 @pic 组件库进行开发
+> 使用场景：项目 A 使用 @zl 组件库进行开发
 
-1. 项目A 使用编译后的组件代码开发，不用关心组件的依赖（包括样式变量），但是项目A 编译生成的代码可能包含不需要的代码，特别是 @pic/icon 和 @pic/tool 这类会 `export` 很多独立模块的 npm 包。
-2. 项目A 使用组件源码（未编译）代码开发，可以解决第一条问题，但是需要在组件的 package.json 中声明依赖（dependencies、peerDependencies），当组件内使用了@pic/style/var.less 中的变量，需要在组件内引入该文件，或者在项目A中配置style-resources-loader
+1. 项目A 使用编译后的组件代码开发，不用关心组件的依赖（包括样式变量），但是项目A 编译生成的代码可能包含不需要的代码，特别是 @zl/icon 和 @zl/tool 这类会 `export` 很多独立模块的 npm 包。
+2. 项目A 使用组件源码（未编译）代码开发，可以解决第一条问题，但是需要在组件的 package.json 中声明依赖（dependencies、peerDependencies），当组件内使用了@zl/style/var.less 中的变量，需要在组件内引入该文件，或者在项目A中配置style-resources-loader

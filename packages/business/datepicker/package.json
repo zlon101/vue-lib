@@ -1,5 +1,5 @@
 {
-  "name": "@pic/datepicker",
+  "name": "@zl/datepicker",
   "version": "1.0.1",
   "description": "日期时间范围组件",
   "main": "index.js",
@@ -13,7 +13,7 @@
     "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@pic/utils": "latest",
-    "@pic/icon": "latest"
+    "@zl/utils": "latest",
+    "@zl/icon": "latest"
   }
 }

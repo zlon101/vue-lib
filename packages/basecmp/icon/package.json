@@ -1,5 +1,5 @@
 {
-  "name": "@pic/icon",
+  "name": "@zl/icon",
   "version": "1.0.0",
   "description": "svg和icon-font图标",
   "main": "index.js",

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * d: 删除本地 @pic 软链接
+ * d: 删除本地 @zl 软链接
  * c: 执行组件内部的 npm run link-local，为所有组件的依赖创建本地软链接
  */
 
@@ -79,7 +79,7 @@ function traverseDir(dir) {
   });
 }
 
-// 删除全局node_modules下 @pic 目录
+// 删除全局node_modules下 @zl 目录
 function deleteSymLink() {
   const res = spawnSync('rm', ['-rf', 'packages/**/**/node_modules'], { cwd: resolvePath('../') });
   if (res.error) {

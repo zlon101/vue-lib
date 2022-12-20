@@ -1,7 +1,7 @@
 /**
  * 打开新标签页
  */
-import { getObjectType } from '@zl/utils/lib/object';
+import { getObjectType } from '@zl/utils/object';
 
 function jump (routeConfig, args) {
   const defaultArgs = { blank: false, replace: false, event: {} };

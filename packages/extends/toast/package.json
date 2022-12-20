@@ -1,5 +1,5 @@
 {
-  "name": "@pic/extend-toast",
+  "name": "@zl/extend-toast",
   "version": "1.0.0",
   "description": "$toast，全局方法",
   "main": "index.js",

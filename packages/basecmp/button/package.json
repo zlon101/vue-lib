@@ -1,10 +1,11 @@
 {
-  "name": "@zl/part-loading",
+  "name": "@zl/button",
   "version": "1.0.0",
-  "description": "局部loading指令",
+  "description": "按钮",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../../utils"
+    "link-local": "npx link ../icon",
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],
   "author": "Pikachu",
@@ -13,6 +14,6 @@
     "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@zl/utils": "latest"
+    "@zl/icon": "latest"
   }
 }

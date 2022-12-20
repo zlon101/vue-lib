@@ -1,4 +1,4 @@
-import { isOverflow } from '@pic/utils/lib/dom';
+import { isOverflow } from '@zl/utils/dom';
 
 export default {
   props: {

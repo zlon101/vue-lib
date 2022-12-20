@@ -1,5 +1,5 @@
 {
-  "name": "@pic/transfer",
+  "name": "@zl/transfer",
   "version": "1.0.0",
   "description": "移动dom在dom树中的位置",
   "main": "index.js",

@@ -7,6 +7,8 @@ const { VueLoaderPlugin } = require('vue-loader');
 const serverMiddle = require('./plugin/server-middle.js');
 
 const isProd = process.env.NODE_ENV == 'production';
+window._IsProd = isProd;
+console.log(`$ ${isProd ? '生产' : '开发'}环境`);
 
 const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
 
@@ -19,7 +21,7 @@ const commonCfg = {
   entry: './src/main.js',
   output: {
     publicPath: '/',
-    path: getAbsPath('dist'),
+    path: getAbsPath('docs'),
   },
   resolve: {
     alias: {
@@ -154,7 +156,8 @@ const prodCfg = {
   },
 };
 
-module.exports = () => {
+module.exports = (env) => {
+  console.log('\n env:', env);
   let dstCfg = null;
   if (isProd) {
     dstCfg = { ...commonCfg, ...prodCfg };

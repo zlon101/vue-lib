@@ -1,5 +1,5 @@
 {
-  "name": "@pic/rich-text",
+  "name": "@zl/rich-text",
   "version": "1.0.0",
   "description": "富文本",
   "main": "index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "@pic/input-img",
+  "name": "@zl/input-img",
   "version": "1.0.0",
   "description": "上传图像",
   "main": "index.js",

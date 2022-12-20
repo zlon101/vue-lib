@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { stringToDate, dateToString } from '@pic/utils/lib/date';
+import { stringToDate, dateToString } from '@zl/utils/date';
 import Calendar from './calendar';
 
 const shortcutOptions = {

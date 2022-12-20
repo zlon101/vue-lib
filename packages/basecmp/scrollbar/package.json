@@ -1,5 +1,5 @@
 {
-  "name": "@pic/scrollbar",
+  "name": "@zl/scrollbar",
   "version": "1.0.0",
   "description": "自定义滚动条",
   "main": "index.js",

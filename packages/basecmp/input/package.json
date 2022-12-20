@@ -1,10 +1,10 @@
 {
-  "name": "@zl/style",
+  "name": "@zl/input",
   "version": "1.0.0",
-  "description": "@pic全局样式",
-  "main": "index.less",
+  "description": "input 组件",
+  "main": "index.js",
   "scripts": {
-    "gene-note": "node script/gene-note.cjs",
+    "link-local": "npx link ../icon && npx link ../../directives/copy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,8 +13,8 @@
   "publishConfig": {
     "registry": "http://10.10.71.158:4873"
   },
-  "devDependencies": {
-    "less": "3.0.4",
-    "less-loader": "5.0.0"
+  "dependencies": {
+    "@zl/v-copy": "latest",
+    "@zl/icon": "latest"
   }
 }

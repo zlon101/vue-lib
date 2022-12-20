@@ -1,5 +1,5 @@
 {
-  "name": "@pic/v-copy",
+  "name": "@zl/v-copy",
   "version": "1.0.0",
   "description": "复制指令",
   "main": "index.js",
@@ -14,6 +14,6 @@
     "registry": "http://10.10.71.158:4873"
   },
   "dependencies": {
-    "@pic/extend-copy": "latest"
+    "@zl/extend-copy": "latest"
   }
 }
