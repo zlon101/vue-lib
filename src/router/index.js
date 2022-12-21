@@ -98,7 +98,7 @@ const routeList = [
   },
 ];
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes: routeList,
 });
 
