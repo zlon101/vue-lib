@@ -14,7 +14,7 @@
     "registry": "http://10.10.71.158:4873"
   },
   "devDependencies": {
-    "less": "3.0.4",
-    "less-loader": "5.0.0"
+    "less": ">=3.0.4",
+    "less-loader": ">=5.0.0"
   }
 }

@@ -17,8 +17,12 @@
         <div class="icon_refresh_blue"></div>
       </div>
       <div class="example-item">
-        <p>g-single-text</p>
-        <div class="g-single-text">文本文本文本文本文本文本文本文本文本文本文本文本</div>
+        <p>single-ellipsis</p>
+        <div class="single-ellipsis">单行省略单行省略单行省略单行省略单行省略单行省略单行省略单行省略单行省略</div>
+      </div>
+      <div class="example-item">
+        <p>multi-ellipsis</p>
+        <div class="multi-ellipsis" style="max-width:100%">多行省略多行省略多行省略多行省略多行省略多行省略多行省略多行省略多行省略</div>
       </div>
       <div class="example-item">
         <p>g-error-msg</p>
@@ -33,9 +37,9 @@
         <p>g-processing-msg</p>
         <div class="g-processing-msg">文本</div>
       </div>
-      <div class="example-item contain">
-        <p>g-self-center</p>
-        <div class="g-self-center"></div>
+      <div class="example-item contain" style="position:relative;">
+        <p>g-abs-center</p>
+        <div class="g-abs-center"></div>
       </div>
       <div class="example-item contain">
         <p>g-background-grid</p>
@@ -45,7 +49,19 @@
         <p style="color: #fff">g-page-bgfilter</p>
         <div class="g-page-bgfilter" style="height: 100%;"></div>
       </div>
+      <div class="example-item contain">
+        <p style="color: #fff">polygon-border</p>
+        <div class="polygon-border" style="height: 100%;"></div>
+      </div>
     </div>
+    <section class="apzk">
+      <h2>内凹平滑圆角</h2>
+      <div class="g-container">
+        <div class="g-content">
+          <div class="g-filter"></div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -93,13 +109,39 @@ export default {
         position: relative;
       }
     }
-    .g-self-center {
+    .g-abs-center {
       width: 50%;
       height: 50%;
       background-color: #67C23A;
     }
     .g-single-text {
       max-width: 100%;
+    }
+  }
+
+  .apzk {
+    .g-container {
+      position: relative;
+      width: 300px;
+      height: 100px;
+      margin: 100px auto 0;
+    }
+    .g-content {
+      height: 100px;
+      filter: contrast(20);
+      background-color: white;
+      overflow: hidden;
+    }
+    .g-filter {
+      filter: blur(10px);
+      height: 100px;
+      background: radial-gradient(
+        circle at 50% -10px,
+        transparent 0,
+        transparent 29px,
+        #000 40px,
+        #000
+      );
     }
   }
 }

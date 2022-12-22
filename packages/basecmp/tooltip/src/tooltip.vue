@@ -207,7 +207,7 @@ export default {
   font-size: 14px;
   line-height: 1.5;
   position: absolute;
-  z-index: @zLeveTooltip;
+  z-index: 250;
   &[x-placement^="top"] {
     padding: 5px 0 8px 0;
   }

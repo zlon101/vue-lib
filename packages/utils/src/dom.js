@@ -1,140 +1,110 @@
-export class Dom {
-  static __traversingEleAction(fn, domList) {
-    domList.forEach(dom => {
-      fn(dom);
-    });
-  }
-
-  static removeClass(dom, cl) {
-    if (!dom || !cl) {
-      return;
-    }
-    if (!dom.length) {
-      dom = [dom];
-    }
-    const remove = (d, c) => {
-      if (d.classList) {
-        d.classList.remove(c);
-      } else {
-        const reg = new RegExp(c, 'g');
-        d.className = d.className.replace(reg, '');
-      }
-    };
-    Dom.__traversingEleAction((d) => {
-      if (Array.isArray(cl)) {
-        cl.forEach(c => {
-          remove(d, c);
-        });
-      } else {
-        remove(d, cl);
-      }
-    }, dom);
-  }
-
-  static addClass(dom, cl) {
-    if (!dom || !cl) {
-      return;
-    }
-    if (!dom.length) {
-      dom = [dom];
-    }
-    const add = (d, c) => {
-      if (d.classList) {
-        d.classList.add(c);
-      } else {
-        d.className += ` ${c}`;
-      }
-    };
-    Dom.__traversingEleAction((d) => {
-      if (Array.isArray(cl)) {
-        cl.forEach(c => {
-          add(d, c);
-        });
-      } else {
-        add(d, cl);
-      }
-    }, dom);
-  }
-
-  static insertHtmlBeforeParent(el, htmlStr) {
-    if (el) {
-      el.insertAdjacentHTML('beforebegin', htmlStr);
-    }
-  }
-
-  static insertHtmlInParentBegin(el, htmlStr) {
-    if (el) {
-      el.insertAdjacentHTML('afterbegin', htmlStr);
-    }
-  }
-
-  static insertHtmlInParentEnd(el, htmlStr) {
-    if (el) {
-      el.insertAdjacentHTML('beforeend', htmlStr);
-    }
-  }
-
-  static insertHtmlAfterParent(el, htmlStr) {
-    if (el) {
-      el.insertAdjacentHTML('afterend', htmlStr);
-    }
-  }
-
-  static removeSelf(el) {
-    if (el) {
-      el.remove();
-    }
-  }
-
-  static removeDom(selector) {
-    const domList = document.querySelectorAll(selector);
-    domList.forEach(dom => {
-      dom.remove();
-    });
-  }
-}
-
-// 文本是否溢出
+// 判断dom元素文本是否溢出
 export function isOverflow(dom) {
   if (!dom) {
     return false;
   }
-  // height 可能存在误差：即两行刚刚可以显示完整的时候也会判断为需要hover。但是该情况出现影响不是特别大
-  // tooltips组件另外需要多行省略号的情况下，需要重写c-tooltip-rel，覆盖组件内部css。因为组件内部是按照默认一行编写的
+  // clientWidth
   const widthDiff = dom.scrollWidth - dom.offsetWidth;
   const heightDiff = dom.scrollHeight - dom.offsetHeight;
-  if (widthDiff > 2 || heightDiff > 2) {
-    return true;
+  return widthDiff > 2 || heightDiff > 2;
+}
+
+// 复制
+export function copyString(str) {
+  if (navigator.clipboard) {
+    return navigator.clipboard.writeText(str);
+  }
+  const input = document.createElement('textarea');
+  input.readOnly = 'readonly';
+  input.style.position = 'fixed';
+  input.style.clip = 'rect(0 0 0 0)';
+  input.style.top = '10px';
+  input.value = str;
+  document.body.appendChild(input);
+  input.select();
+  const isSuccess = document.execCommand('copy');
+  document.body.removeChild(input);
+  return isSuccess;
+}
+
+/**
+ * 检查浏览器是否支持CSS
+ * 浏览器遇到不支持的属性值时，浏览器会直接把这个值抛弃
+ */
+export const supportsCSS = (attribute, value) => {
+  if (window.CSS && window.CSS.supportsCSS) {
+    if (typeof value === 'undefined') return window.CSS.supportsCSS(attribute);
+    return window.CSS.supportsCSS(attribute, value);
+  }
+
+  const elem = document.createElement('div');
+  if (attribute in elem.style) {
+    elem.style[attribute] = value;
+    // window.getComputedStyle
+    return elem.style[attribute] === value;
   }
   return false;
-}
+};
 
-// 节流
-export function throttle(callFn, interval) {
-  let timer = null;
-  return function(...args) {
-    if (!timer) {
-      timer = setTimeout(() => {
-        clearTimeout(timer);
-        timer = null;
-        callFn.apply(this, args);
-      }, interval);
-    }
-  };
-}
-
-export function computedStyle(el, cssProp) {
-  if (!el || !cssProp) return;
-  return document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(el, '')[cssProp] : el.currentStyle[cssProp];
-}
-
-// 计算鼠标的绝对位置，兼容 safair 和 firefax
-export function getMouseCoords(ev) {
-  if (ev.pageX || ev.pageY) {
-    return { x: ev.pageX, y: ev.pageY };
+// 监听页面可见性变化，切换标签页或浏览器窗口
+export function listenVisible(cb) {
+  let hidden, visibilityEventName;
+  // Opera 12.10 and Firefox 18 and later support
+  if (typeof document.hidden !== 'undefined') {
+    hidden = 'hidden';
+    visibilityEventName = 'visibilitychange';
+  } else if (typeof document.msHidden !== 'undefined') {
+    hidden = 'msHidden';
+    visibilityEventName = 'msvisibilitychange';
+  } else if (typeof document.webkitHidden !== 'undefined') {
+    hidden = 'webkitHidden';
+    visibilityEventName = 'webkitvisibilitychange';
   }
-  return {
-    x: ev.clientX + document.body.scrollLeft - document.body.clientLeft,
-    y: ev.clientY + document.body.scrollTop - document.body.clientTop,
-  };
+
+  const onVisibilityChange = (e) => cb(document[hidden], e);
+
+  // 如果浏览器不支持 addEventListener 或 Page Visibility API 给出警告
+  if (typeof document.addEventListener !== 'function' || typeof document[hidden] === 'undefined') {
+    throw new Error('The browser not support Visibility API.');
+  }
+  document.addEventListener(visibilityEventName, onVisibilityChange, false);
+  return () => document.removeEventListener(visibilityEventName, onVisibilityChange, false);
 }
+
+export const isFullScreen = () => {
+  return !!(
+    document.fullScreen ||
+    document.webkitIsFullScreen ||
+    document.mozFullScreen ||
+    document.msFullscreenElement ||
+    document.fullscreenElement
+  );
+};
+// 全屏某个元素
+export const handleFullscreen = (container) => {
+  // If fullscreen mode is active...
+  if (isFullScreen()) {
+    // ...exit fullscreen mode
+    // (Note: this can only be called on document)
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+    else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();
+    else if (document.msExitFullscreen) document.msExitFullscreen();
+  } else {
+    // ...otherwise enter fullscreen mode
+    // (Note: can be called on document, but here the specific element is used as it will also ensure that the element's children, e.g. the custom controls, go fullscreen also)
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.mozRequestFullScreen) {
+      container.mozRequestFullScreen();
+    } else if (container.webkitRequestFullScreen) {
+      // Safari 5.1 only allows proper fullscreen on the video element. This also works fine on other WebKit browsers as the following CSS (set in styles.css) hides the default controls that appear again, and
+      // ensures that our custom controls are visible:
+      // figure[data-fullscreen=true] video::-webkit-media-controls { display:none !important; }
+      // figure[data-fullscreen=true] .controls { z-index:2147483647; }
+      container.webkitRequestFullScreen();
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen();
+    }
+  }
+};

@@ -1,27 +1,12 @@
 // 全局变量less, 该文件只定义全局变量和全局函数
-
-@theme: #3A51E0;
-
-@status_color_success: #67c23a;
-@status_color_warning: #faad14;
-@status_color_danger: #f56c6c;
-
-@text_color_desc: #7f8fa4;
-@text_color_basic: #06003b;
-
-// z-index
-// 下列变量表示等级，尽量用现有的变量，比如不是下拉框的组件，但是和下拉框属于同一层级就直接用@zLeveDropBox，不用新增变量
-@zLeve10: 10; // table-header
-@zLeve20: 50; // tab
-@zLeveSticky: 100; // v-sticky
-@zLeveBreadcrumb: 130; // 面包屑
-@zLeveSidebar: 150; // 左侧边栏
-@zLeve50: 200; // 新手导航
-@zLeveTooltip: 250; // Tooltip 从 250 开始递增
-@zLeveMask: 300; // mask | drawer
-@zLeveDropBox: 350; // 下拉框
-@zLeveLoading: 1000; // 页面全局loading toast
-@zLeveWatermark: 9999; // 水印
+@keyframes loop-rotate {
+  0% {
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 
 // 只有设置伪元素时才用背景图像
 .bg-icon(@width, @height) {
@@ -33,4 +18,3 @@
   background-position: center;
   background-repeat: no-repeat;
 }
-

@@ -51,6 +51,6 @@ export default {
   right: 0;
   bottom: 0;
   background-color: rgba(2, 0, 5, 0.88);
-  z-index: @zLeveMask;
+  z-index: 300;
 }
 </style>

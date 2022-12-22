@@ -1,0 +1,15 @@
+{
+  "name": "@zl/adapt-layout",
+  "version": "1.0.0",
+  "description": "自适应二维布局",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.10.71.158:4873"
+  }
+}

@@ -1,24 +1,100 @@
-import moment from 'moment';
+/*
+ * 创建指定时区的日期对象
+ * 东八: 8
+ * */
+export const createDate = (val, timezone = 8) => {
+  let timestamp = 0;
+
+  const type = Object.prototype.toString.call(val).slice(8, -1);
+  console.log(type);
+  if (type === 'Date') {
+    timestamp = val.getTime();
+  } else if (type === 'Number') {
+    // 时间戳，毫秒
+    timestamp = val;
+  } else if (type === 'String') {
+    // YYYY-MM-DDTHH:mm:ss
+    val = val.replace(/\D/g, '');
+    if (val.length < 14) {
+      throw new Error('参数格式错误，YYYY-MM-DD HH:mm:ss');
+    }
+    const y = Number(val.slice(0, 4));
+    val = val.slice(4);
+    // 月-日-时-分-秒-毫秒
+    const rest = [0, 0, 0, 0, 0, 0];
+    let ind = 0;
+    let len = 2;
+    while (val) {
+      if (ind === rest.length - 1) {
+        len = val.length;
+      }
+      rest[ind++] = Number(val.slice(0, len));
+      val = val.slice(len);
+    }
+    rest.unshift(y);
+    timestamp = Date.UTC(...rest);
+  } else {
+    if (!val) {
+      timestamp = Date.now();
+    } else {
+      throw new Error('未知的参数格式，请输入时间戳、字符串、Date');
+    }
+  }
+  // 本地时区 getTimezoneOffset
+  const localTimezone = (new Date(0)).getTimezoneOffset(); // 分
+  const targetTimestamp = (timezone * 60 + localTimezone) * 60 * 1000 + timestamp;
+  return new Date(targetTimestamp);
+};
 
 /**
- * 按utc8时区格式化时间
- * @param {number} date 时间戳或日期字符串或Date对象
- * @param {string} format 格式  hh(0~12) HH(0~23)
+ * 格式化时间
+ * @param date 输入时间, 支持Date和String类型, 日的占位符必须用M, 因为m表示分
+ * @param format 时间格式
+ * @returns string 格式化后的字符串时间
  */
-export function dateToString(date, format = 'YYYY-MM-DD HH:mm:ss') {
-  if (!date) return '-';
-  const dateString = `${date}`;
-  if (/^\d+$/.test(dateString) && dateString.length > 13) { // 超大时间戳
-    date = date / (1000 ** 2);
+export function dateToString(date, format = 'YYYY-MM-DD') {
+  function formatStr(dateStr) {
+    const str = `${dateStr}0000000000000000`.replace(/\D/g, '');
+    const Y = str.slice(0, 4);
+    const M = str.slice(4, 6);
+    const D = str.slice(6, 8);
+    const h = str.slice(8, 10);
+    const m = str.slice(10, 12);
+    const s = str.slice(12, 14);
+    let result = format;
+    result = result.replace(/[Yy]+/, Y);
+    result = result.replace(/M+/, M);
+    result = result.replace(/[Dd]+/, D);
+    result = result.replace(/[Hh]+/, h);
+    result = result.replace(/m+/, m);
+    result = result.replace(/[Ss]+/, s);
+    return result;
   }
-  return moment(date).utcOffset(8).format(format);
+
+  if (typeof date === 'string') {
+    return formatStr(date);
+  }
+  if (date === null) {
+    return '';
+  }
+  if (date instanceof Date) {
+    const Y = date.getFullYear();
+    const M = `00${date.getMonth() + 1}`.slice(-2);
+    const D = `00${date.getDate()}`.slice(-2);
+    const h = `00${date.getHours()}`.slice(-2);
+    const m = `00${date.getMinutes()}`.slice(-2);
+    const s = `00${date.getSeconds()}`.slice(-2);
+
+    return formatStr([Y, M, D, h, m, s].join('-'));
+  }
+  return date;
 }
 
-export function utf8TimeNowStr() {
-  const now = new Date();
-  return moment(now).utcOffset(8).format('YYYY-MM-DD HH:mm:ss');
-}
-
+/**
+ * 字符串转Date类型
+ * @param str 输入时间字符串
+ * @returns Date类型日期
+ */
 export function stringToDate(str) {
   if (str instanceof Date || !str) {
     return str;
@@ -32,6 +108,7 @@ export function stringToDate(str) {
   const s = Number(str.slice(12, 14));
   return new Date(year, month - 1, d, h, m, s);
 }
+
 export function isInRange({ startT, endT, curTime }) {
   startT = String(startT || '').replace(/\D/g, '');
   endT = String(endT || '').replace(/\D/g, '');
@@ -60,7 +137,6 @@ export const MonthMap = {
   Nov: 11,
   Dec: 12,
 };
-
 // 星期映射
 export const WeekMap = {
   Mon: 1,
@@ -92,7 +168,7 @@ export function dataToLocaleString(date) {
   const hourC = diffValue / hour;
   const minC = diffValue / minute;
   if (monthC >= 1) {
-    result = dateToString(date, 'YYYY-MM-DD');
+    result = dateToString(date);
   } else if (weekC >= 1) {
     result = `${parseInt(weekC, 12)}周前`;
   } else if (dayC >= 1) {

@@ -1,15 +1,23 @@
 [
   {
-    "clsName": "g-self-center ",
-    "note": " 水平垂直居中自身 "
+    "clsName": "g-abs-center ",
+    "note": " 使用绝对定位水平垂直居中"
   },
   {
     "clsName": "g-flex-center ",
-    "note": " flex 水平垂直居中子元素 "
+    "note": " 使用flex水平垂直居中"
   },
   {
-    "clsName": "g-single-text ",
-    "note": " 单行省略号"
+    "clsName": "single-ellipsis ",
+    "note": " 单行省略"
+  },
+  {
+    "clsName": "multi-ellipsis ",
+    "note": " 多行省略"
+  },
+  {
+    "clsName": "g-mask-popup ",
+    "note": " mask"
   },
   {
     "clsName": "g-require ",
@@ -42,5 +50,9 @@
   {
     "clsName": "icon_refresh_blue ",
     "note": " loading icon"
+  },
+  {
+    "clsName": "polygon-border ",
+    "note": " 多边形边框"
   }
 ]

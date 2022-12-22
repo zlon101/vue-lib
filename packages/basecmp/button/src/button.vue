@@ -203,7 +203,7 @@ export default {
 
   /** color */
   &.normal {
-    color: @text_color_basic;
+    color: #06003b;
     border: 1px solid #dcdfe6;
     background: #fff;
     .sdp-button-icon,
@@ -213,26 +213,26 @@ export default {
   }
   &._blue {
     color: #fff;
-    border: 1px solid @theme;
-    background: @theme;
+    border: 1px solid #3A51E0;
+    background: #3A51E0;
     &.plain {
-      color: @theme;
+      color: #3A51E0;
     }
   }
   &.red {
     color: #fff;
-    border: 1px solid @status_color_danger;
-    background: @status_color_danger;
+    border: 1px solid #f56c6c;
+    background: #f56c6c;
     &.plain {
-      color: @status_color_danger;
+      color: #f56c6c;
     }
   }
   &.green {
     color: #fff;
-    border: 1px solid @status_color_success;
-    background: @status_color_success;
+    border: 1px solid #67c23a;
+    background: #67c23a;
     &.plain {
-      color: @status_color_success;
+      color: #67c23a;
     }
   }
   &.white {

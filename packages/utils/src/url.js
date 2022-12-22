@@ -1,4 +1,8 @@
-// 把浏览器URL上的query转换为对象
+/**
+ * 获取url参数
+ * @param {string} url 可选
+ * @returns Object
+ */
 export function getParams(url) {
   const params = {};
   const _url = url || window.location.search;
@@ -6,7 +10,11 @@ export function getParams(url) {
   return params;
 }
 
-// args: { k: v }
+/**
+ * 设置url参数
+ * @param {Object} args: { k, v }
+ * @returns url: string
+ */
 export function setUrlQuery(args) {
   const { location } = window;
   if (typeof args !== 'object') {
@@ -15,22 +23,15 @@ export function setUrlQuery(args) {
 
   const newQuery = getParams();
   const newKList = Object.keys(args);
-  newKList.forEach((k) => {
+  newKList.forEach(k => {
     newQuery[k] = args[k];
   });
   let newPath = `${location.pathname}?`;
   const list = Object.keys(newQuery)
-    .filter((k) => newQuery[k])
-    .map((k) => `${k}=${newQuery[k]}`);
+    .filter(k => newQuery[k])
+    .map(k => `${k}=${newQuery[k]}`);
   newPath += list.join('&');
   return newPath;
-}
-
-// 设置URL上的query，但是不刷新页面
-// query: { k: v }
-export function updateUrlQuery(query) {
-  const newUrl = setUrlQuery(query);
-  window.history.replaceState({}, '', newUrl);
 }
 
 // 阻止浏览器回退
@@ -46,12 +47,27 @@ export function preventBrowserBack() {
   };
 }
 
-// url拼接
-export function urlencoded(obj) {
-  const arr = [];
-  Object.keys(obj).forEach(k => {
-    const val = encodeURIComponent(obj[k]);
-    arr.push(`${k}=${val}`);
-  });
-  return arr.join('&');
+/**
+ * 获取上传文件的 url, 处理使用 <base> 的情况
+ * <base href="http://google.com" />
+ * <a target="_blank" href="/aa/bb">debug</a>
+ * args:
+ *  doc: document
+ *  relativeUrl: /aa/bb
+ */
+export function getAbsUrl(doc, relativeUrl) {
+  // In the case of data: URL-based pages, relativeUrl === absoluteURL.
+  if (doc.location.protocol === 'data:') {
+    return doc.location.href;
+  }
+  let urlNormalizer = doc['__k5645hx'];
+  if (!urlNormalizer) {
+    urlNormalizer = doc.createElement('a');
+    doc['__k5645hx'] = urlNormalizer;
+  }
+
+  // Use the magical quality of the <a> element. It automatically converts
+  // relative URLs into absolute ones.
+  urlNormalizer.href = relativeUrl;
+  return urlNormalizer.href;
 }

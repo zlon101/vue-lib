@@ -3,29 +3,30 @@
     "subpath": "index",
     "fnArr": [
       {
-        "fnName": "export const copyString = (str)",
-        "note": "/**\n * 复制文字\n */\n"
-      },
-      {
-        "fnName": "export function debounce(func, wait, immediate)",
-        "note": "/**\n * 防抖\n * @param {Function} func\n * @param {number} wait\n * @param {boolean} immediate\n * @returns {Function}\n */\n"
+        "fnName": "",
+        "note": ""
       }
     ]
   },
   {
-    "subpath": "crypto",
+    "subpath": "array",
     "fnArr": [
       {
-        "fnName": "export function RandomString(size)",
-        "note": "\n// crypto-js4.0版本在ie11上有兼容性问题\n\n"
+        "fnName": "export function unique(srcArr, noEmpty = false)",
+        "note": "\n// 数组去重\n"
       },
       {
-        "fnName": "export function EncryptAESStr(msg, key)",
-        "note": ""
-      },
+        "fnName": "export function arrayIntersection(...arrWarp)",
+        "note": "/**\n * 数组交集\n * arrayIntersection(arr1, arr2)\n * @returns Array\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "client",
+    "fnArr": [
       {
-        "fnName": "export function DecryptAesStr(msg, key)",
-        "note": ""
+        "fnName": "export default ()",
+        "note": "/*\r\n * 用户代理检测\r\n * 渲染引擎\r\n * 浏览器\r\n * 平台\r\n * */\r\n\r\n"
       }
     ]
   },
@@ -33,16 +34,16 @@
     "subpath": "date",
     "fnArr": [
       {
-        "fnName": "export function dateToString(date, format = 'YYYY-MM-DD HH:mm:ss')",
-        "note": "/**\n * 按utc8时区格式化时间\n * @param {number} date 时间戳或日期字符串或Date对象\n * @param {string} format 格式  hh(0~12) HH(0~23)\n */\n"
+        "fnName": "export const createDate = (val, timezone = 8)",
+        "note": "/*\n * 创建指定时区的日期对象\n * 东八: 8\n * */\n"
       },
       {
-        "fnName": "export function utf8TimeNowStr()",
-        "note": ""
+        "fnName": "export function dateToString(date, format = 'YYYY-MM-DD')",
+        "note": "/**\n * 格式化时间\n * @param date 输入时间, 支持Date和String类型, 日的占位符必须用M, 因为m表示分\n * @param format 时间格式\n * @returns string 格式化后的字符串时间\n */\n"
       },
       {
         "fnName": "export function stringToDate(str)",
-        "note": ""
+        "note": "/**\n * 字符串转Date类型\n * @param str 输入时间字符串\n * @returns Date类型日期\n */\n"
       },
       {
         "fnName": "export function isInRange({ startT, endT, curTime }",
@@ -67,70 +68,99 @@
     ]
   },
   {
+    "subpath": "debug",
+    "fnArr": [
+      {
+        "fnName": "",
+        "note": "const DebugBox = new Debug();\nwindow.DebugBox = DebugBox;\n"
+      }
+    ]
+  },
+  {
     "subpath": "dom",
     "fnArr": [
       {
-        "fnName": "export class Dom ",
-        "note": ""
-      },
-      {
         "fnName": "export function isOverflow(dom)",
-        "note": "// 文本是否溢出\n"
-      },
-      {
-        "fnName": "export function throttle(callFn, interval)",
-        "note": "// 节流\n"
-      },
-      {
-        "fnName": "export function computedStyle(el, cssProp)",
         "note": ""
       },
       {
-        "fnName": "export function getMouseCoords(ev)",
-        "note": "// 计算鼠标的绝对位置，兼容 safair 和 firefax\n"
+        "fnName": "export function copyString(str)",
+        "note": "// 复制\n"
+      },
+      {
+        "fnName": "export const supportsCSS = (attribute, value)",
+        "note": "/**\n * 检查浏览器是否支持CSS\n * 浏览器遇到不支持的属性值时，浏览器会直接把这个值抛弃\n */\n"
+      },
+      {
+        "fnName": "export function listenVisible(cb)",
+        "note": "// 监听页面可见性变化，切换标签页或浏览器窗口\n"
+      },
+      {
+        "fnName": "export const isFullScreen = ()",
+        "note": ""
+      },
+      {
+        "fnName": "export const handleFullscreen = (container)",
+        "note": "// 全屏某个元素\n"
       }
     ]
   },
   {
-    "subpath": "ipCheck",
+    "subpath": "eventBus",
     "fnArr": [
       {
-        "fnName": "export default class IpCheck ",
+        "fnName": "export function createEventBus()",
+        "note": "// 事件队列管理\n"
+      }
+    ]
+  },
+  {
+    "subpath": "file",
+    "fnArr": [
+      {
+        "fnName": "export const getSizeFromBase64 = (base64)",
+        "note": "/**\n * 根据base64计算图像存储大小\n * base64 是用四个字符来表示3个字节\n */\n"
+      },
+      {
+        "fnName": "export const downloadFile = (fileName, val)",
+        "note": "/**\n * 下载文件\n * val: Object|String\n * **/\n"
+      },
+      {
+        "fnName": "export const ImgType = ['.png', '.jpg', '.jpeg', '.gif', '.tif', '.bmp', '.svg'];\nexport const VideoType = ['.mp4', '.mov', '.wmv', '.flv', '.avi', '.avchd', '.mkv', '.webm'];\nexport const AudioType = ['.mp3', '.aac', '.wav', '.flac', '.ape', '.alac', '.mkv', '.webm'];\n\nexport const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase());\nexport const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase());\nexport const isAudio = fileExt => fileExt && AudioType.includes(fileExt.toLowerCase());\n\n// base64 转换为blob格式\nexport const base64ToBlob = (base64, mimeType) => {\n  const bytes = window.atob(base64.split('base64,')[1]);\n  // 处理异常,将ascii码小于0的转换为大于0\n  const ia = [];\n  for (let i = 0; i < bytes.length; i++) {\n    ia[i] = bytes.charCodeAt(i);\n  }",
+        "note": ""
+      },
+      {
+        "fnName": "export const VideoType = ['.mp4', '.mov', '.wmv', '.flv', '.avi', '.avchd', '.mkv', '.webm'];\nexport const AudioType = ['.mp3', '.aac', '.wav', '.flac', '.ape', '.alac', '.mkv', '.webm'];\n\nexport const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase());\nexport const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase());\nexport const isAudio = fileExt => fileExt && AudioType.includes(fileExt.toLowerCase());\n\n// base64 转换为blob格式\nexport const base64ToBlob = (base64, mimeType) => {\n  const bytes = window.atob(base64.split('base64,')[1]);\n  // 处理异常,将ascii码小于0的转换为大于0\n  const ia = [];\n  for (let i = 0; i < bytes.length; i++) {\n    ia[i] = bytes.charCodeAt(i);\n  }",
+        "note": ""
+      },
+      {
+        "fnName": "export const AudioType = ['.mp3', '.aac', '.wav', '.flac', '.ape', '.alac', '.mkv', '.webm'];\n\nexport const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase());\nexport const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase());\nexport const isAudio = fileExt => fileExt && AudioType.includes(fileExt.toLowerCase());\n\n// base64 转换为blob格式\nexport const base64ToBlob = (base64, mimeType) => {\n  const bytes = window.atob(base64.split('base64,')[1]);\n  // 处理异常,将ascii码小于0的转换为大于0\n  const ia = [];\n  for (let i = 0; i < bytes.length; i++) {\n    ia[i] = bytes.charCodeAt(i);\n  }",
+        "note": ""
+      },
+      {
+        "fnName": "export const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase()",
+        "note": ""
+      },
+      {
+        "fnName": "export const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase()",
+        "note": ""
+      },
+      {
+        "fnName": "export const isAudio = fileExt => fileExt && AudioType.includes(fileExt.toLowerCase()",
+        "note": ""
+      },
+      {
+        "fnName": "export const base64ToBlob = (base64, mimeType)",
         "note": ""
       }
     ]
   },
   {
-    "subpath": "localStorage",
+    "subpath": "log",
     "fnArr": [
       {
-        "fnName": "export function setStorage(key, value)",
-        "note": "/**\n * 存储\n */\n"
-      },
-      {
-        "fnName": "export function getStorage(key)",
-        "note": "/**\n * 获取\n */\n"
-      },
-      {
-        "fnName": "export function setStorageCrypto(key, value)",
-        "note": "/**\n * 加密存储\n */\n"
-      },
-      {
-        "fnName": "export function getStorageCrypto(key)",
-        "note": "/**\n * 获取加密数据\n */\n"
-      },
-      {
-        "fnName": "export function removeStorage(key)",
-        "note": "/**\n * 删除\n */\n"
-      }
-    ]
-  },
-  {
-    "subpath": "number",
-    "fnArr": [
-      {
-        "fnName": "export function GbFromFloat(byteNum)",
-        "note": ""
+        "fnName": "export default function log(...args)",
+        "note": "/* eslint-disable */\n"
       }
     ]
   },
@@ -138,81 +168,59 @@
     "subpath": "object",
     "fnArr": [
       {
-        "fnName": "export const isEmptyObj = (obj)",
-        "note": "/**\n * 是否为空对象\n */\n"
-      },
-      {
-        "fnName": "export const getObjectType = (value)",
-        "note": "/**\n * 获取某个数据的类型\n * @param value\n * @returns {string} 对应类型名称\n */\n"
-      },
-      {
-        "fnName": "export const isSame = (a, b)",
+        "fnName": "export function isSame(a, b)",
         "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */\n"
       },
       {
-        "fnName": "export const deepClone = (srcData, hash = new WeakMap()",
-        "note": ""
+        "fnName": "export function deepClone(srcData, hash = new WeakMap()",
+        "note": "// 深度克隆\n"
+      }
+    ]
+  },
+  {
+    "subpath": "optimize",
+    "fnArr": [
+      {
+        "fnName": "export function throttle(callFn, interval)",
+        "note": "/**\n * 性能优化\n */\n// 节流\n"
       },
       {
-        "fnName": "export function isExist(value, source)",
-        "note": "/**\n * 检测某个值是否存在于某个指定的范围中\n * @param value {any} 被检测的值\n * @param source {any} 被检测的范围\n * @returns {Error|boolean}\n */\n"
+        "fnName": "export function debounce(func, wait, immediate)",
+        "note": "// 防抖\n"
+      }
+    ]
+  },
+  {
+    "subpath": "polling",
+    "fnArr": [
+      {
+        "fnName": "export default class TimeTask ",
+        "note": "/**\n * 轮询接口\n * @param api: 接口名\n * @param param: 参数\n * @param stepTime: 轮询间隔秒\n * @param updateCallBack: 成功或失败时的回调\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "preformance",
+    "fnArr": [
+      {
+        "fnName": "export function pageStatistics()",
+        "note": "// 页面渲染\n"
       },
       {
-        "fnName": "export function cover(value, newValue)",
-        "note": "/**\n * 对象覆盖\n * @param value {any} 旧值\n * @param newValue {any} 新值\n * @returns {any}\n */\n"
+        "fnName": "export function apiStatistics()",
+        "note": "// api\n"
       },
       {
-        "fnName": "export function getDefaultValue(value)",
-        "note": "/**\n * 获取某个值得默认值\n * @param value 指定的值\n * @returns {*} 值对应类型的默认值\n */\n"
-      }
-    ]
-  },
-  {
-    "subpath": "rollPoll",
-    "fnArr": [
-      {
-        "fnName": "export default class RollPoll ",
-        "note": "// 轮询\n"
-      }
-    ]
-  },
-  {
-    "subpath": "time",
-    "fnArr": [
-      {
-        "fnName": "export default class TimeUtil ",
-        "note": ""
-      }
-    ]
-  },
-  {
-    "subpath": "tool",
-    "fnArr": [
-      {
-        "fnName": "export default class Tool ",
-        "note": ""
-      }
-    ]
-  },
-  {
-    "subpath": "tree",
-    "fnArr": [
-      {
-        "fnName": "export function tree2list(root, list)",
-        "note": ""
+        "fnName": "export function assetStatistics()",
+        "note": "// 静态资源js、css、image\n"
       },
       {
-        "fnName": "export function getChildNodeId(parent, idList)",
-        "note": ""
-      }
-    ]
-  },
-  {
-    "subpath": "upload",
-    "fnArr": [
+        "fnName": "export function calcFps(N)",
+        "note": "// 代码示例来自：《无线性能优化：FPS 测试》\n"
+      },
       {
-        "fnName": "export default function uploadApi(req)",
-        "note": "/**\n * 文件上传api\n * @param {*} req\n * @param {prefix} api 前缀\n * @param {file} req.file 上传文件\n * @param {string} req.actionName 方法名称\n * @param {function} req.process 进度回调函数\n * @param {bool} req.dontShowErrorTips 不显示报错弹窗\n * @param {json} req.data 额外数据\n * @returns\n */\n"
+        "fnName": "export class PerformanceCode ",
+        "note": "// calcFps(100).then(res => console.debug(res));\n// 测量代码段\n"
       }
     ]
   },
@@ -221,23 +229,36 @@
     "fnArr": [
       {
         "fnName": "export function getParams(url)",
-        "note": ""
+        "note": "/**\n * 获取url参数\n * @param {string} url 可选\n * @returns Object\n */\n"
       },
       {
         "fnName": "export function setUrlQuery(args)",
-        "note": "// args: { k: v }\n"
-      },
-      {
-        "fnName": "export function updateUrlQuery(query)",
-        "note": "// 设置URL上的query，但是不刷新页面\n// query: { k: v }\n"
+        "note": "/**\n * 设置url参数\n * @param {Object} args: { k, v }\n * @returns url: string\n */\n"
       },
       {
         "fnName": "export function preventBrowserBack()",
         "note": "// 阻止浏览器回退\n"
       },
       {
-        "fnName": "export function urlencoded(obj)",
-        "note": "// url拼接\n"
+        "fnName": "export function getAbsUrl(doc, relativeUrl)",
+        "note": "/**\n * 获取上传文件的 url, 处理使用 <base> 的情况\n * <base href=\"http://google.com\" />\n * <a target=\"_blank\" href=\"/aa/bb\">debug</a>\n * args:\n *  doc: document\n *  relativeUrl: /aa/bb\n */\n"
+      }
+    ]
+  },
+  {
+    "subpath": "xhr",
+    "fnArr": [
+      {
+        "fnName": "export class Poll ",
+        "note": "\n// 轮询\nconst DefaultArgs = {\n  formatRes: true, // 是否格式化响应\n  stepTime: 3, // 间隔3s\n  timeout: 60, // 超时60s\n};\n"
+      },
+      {
+        "fnName": "export function ajax(cfg, data)",
+        "note": ""
+      },
+      {
+        "fnName": "export function getXHR()",
+        "note": ""
       }
     ]
   },
@@ -251,39 +272,6 @@
       {
         "fnName": "export function xssUrlv(s)",
         "note": "// 针对url里面query key，value的编码\n"
-      }
-    ]
-  },
-  {
-    "subpath": "zz-array",
-    "fnArr": [
-      {
-        "fnName": "export function unique(srcArr, noEmpty = false)",
-        "note": "\n// 数组去重\n"
-      },
-      {
-        "fnName": "export function arrayIntersection(...arrWarp)",
-        "note": "// 数组交集\n// arrayIntersection(arr1, arr2)\n"
-      },
-      {
-        "fnName": "export function flat(arr)",
-        "note": "// 数组扁平化处理\n"
-      },
-      {
-        "fnName": "export function gradient(arr, { _id = 'id', _pid = 'pid', _child = 'children' } = {})",
-        "note": "/**\n * 将扁平化数组转为树形结构\n * @param arr {Array} 需要转换的扁平化数组\n * @param config {Object} 配置项\n * @param config._id {String} 元素唯一标识的名称 默认为：id\n * @param config._pid {String} 元素父级唯一标识的名称 默认为：pid\n * @param config._child {String} 返回值中父元素存储子元素数组名称 默认为：pid\n * @returns {Error|Array}\n */\n"
-      },
-      {
-        "fnName": "export function filter(arr, filters, logic = 'and')",
-        "note": "/*\n  filters对象采用键值对的形式传递过滤参数，例如:\n  {\n    name:'张',\n    age:{\n      min:18,\n      max:24\n    },\n    address:['中国','四川','成都']\n  }\n  以上举例为filters的value可传递模式，\n  1.字符串默认使用模糊匹配（见name)\n  2.数字可限制范围，min和max可以只有其中一个(见age)\n  3.具体的值可用数组进行包裹，代表匹配数组中任意一个即返回(见address)\n  4.对象过滤内部使用JSON.stringify()判断，请注意兼容性\n  5.其他情况使用===强制判断\n */\n/**\n * 数组过滤方法\n * @param {array} arr 需要过滤的数组\n * @param {object} filters 过滤参数，\n * @param {string} logic 参数之间的逻辑关系，可选'and'和'or'\n * @returns {array}  返回过滤之后的数组\n */\n"
-      },
-      {
-        "fnName": "export function merge(a, b)",
-        "note": "/**\n * 数组合并\n * @param a {array} 数组a\n * @param b {array} 数组b\n * @returns {Error|array}\n */\n"
-      },
-      {
-        "fnName": "export function intersect()",
-        "note": "/**\n * 多个数组求交集\n * @params 数组 用,分隔\n * @returns {*}\n */\n"
       }
     ]
   }

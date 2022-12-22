@@ -148,7 +148,7 @@ export default {
   cursor: pointer;
   background: #F5F7FA;
   border-radius: 8px;
-  z-index: @zLeveTooltip; // 这个组件比较特殊不要改
+  z-index: 250; // 这个组件比较特殊不要改
   .cal-wrap {
     position: relative;
     display: flex;

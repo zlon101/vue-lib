@@ -1,12 +1,12 @@
 /**
  * 打开新标签页
  */
-import { getObjectType } from '@zl/utils/object';
+import { getType } from '@zl/utils/object';
 
-function jump (routeConfig, args) {
+function jump(routeConfig, args) {
   const defaultArgs = { blank: false, replace: false, event: {} };
 
-  if (getObjectType(args).includes('event')) {
+  if (getType(args).includes('event')) {
     args = Object.assign(defaultArgs, { event: args });
   } else {
     args = Object.assign(defaultArgs, args);

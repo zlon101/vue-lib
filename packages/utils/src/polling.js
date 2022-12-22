@@ -1,7 +1,13 @@
-// 轮询
-export default class RollPoll {
-  constructor({ url, param, stepTime, updateCallBack }) {
-    this.url = url + `&ud3q=${+new Date()}`;
+/**
+ * 轮询接口
+ * @param api: 接口名
+ * @param param: 参数
+ * @param stepTime: 轮询间隔秒
+ * @param updateCallBack: 成功或失败时的回调
+ */
+export default class TimeTask {
+  constructor({ api, param, stepTime, updateCallBack }) {
+    this.api = api;
     this.param = param;
     this.stepTime = stepTime * 1000;
 
@@ -30,7 +36,7 @@ export default class RollPoll {
       }
     };
 
-    xhr.open('POST', url, true);
+    xhr.open('POST', api, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.withCredentials = true;
     xhr.send(JSON.stringify(this.param));
@@ -39,12 +45,11 @@ export default class RollPoll {
 
   start() {
     return new Promise((resolve, reject) => {
-      // eslint-disable-next-line
       new Promise((resolve2, reject2) => {
         this.timer = setInterval(() => {
           try {
             if ([0, 4].includes(this.xhr.readyState)) {
-              this.xhr.open('POST', this.url);
+              this.xhr.open('POST', this.api);
               this.xhr.send(this.param);
             }
           } catch (err) {

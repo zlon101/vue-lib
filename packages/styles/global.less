@@ -1,32 +1,55 @@
-@keyframes loop-rotate {
-  0% {
-    transform: rotate(-360deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-/* 水平垂直居中自身 */
-.g-self-center {
+// 使用绝对定位水平垂直居中
+.g-abs-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* flex 水平垂直居中子元素 */
+// 使用flex水平垂直居中
 .g-flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// 单行省略号
-.g-single-text {
-  white-space: nowrap;
+// 单行省略
+.single-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  /* 自定义max-width、max-height */
+}
+
+// 多行省略
+.multi-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: break-spaces;
+  /* 自定义max-width、max-height */
+}
+
+// mask
+.g-mask-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(1, 0, 3, 0.88);
+  z-index: 1;
+  > :first-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-height: 80vh;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+  }
 }
 
 // 表单必填项
@@ -167,4 +190,57 @@
   .bg-icon(16px, 16px);
   background-image: url("data:image/svg+xml,%3csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M8 1a7 7 0 0 0-7 7m7 7a7 7 0 0 0 7-7' stroke='%230D00FE' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
   animation: loop-rotate 2s linear infinite;
+}
+
+// 多边形边框
+.polygon-border {
+  background-color: #1030e9;
+  // 背景
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 13px blue; // rgba(184, 192, 207, 0.13)
+    // background-color: #ffffff;
+    background-color: turquoise;
+    clip-path: polygon(
+        10px 0,
+        100% 0,
+        100% calc(100% - 10px),
+        calc(100% - 10px) 100%,
+        0 100%,
+        0 10px
+    );
+  }
+  // 边框
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: -1px;
+    bottom: -1px;
+    background-color: red;
+    clip-path: polygon(
+        6px 0,
+        100% 0,
+        100% calc(100% - 6px),
+        calc(100% - 6px) 100%,
+        0 100%,
+        0 calc(100% - 1px),
+        calc(100% - 6px) calc(100% - 1px),
+        calc(100% - 1px) calc(100% - 6px),
+        calc(100% - 1px) 1px,
+        6px 1px,
+        1px 6px,
+        1px calc(100% - 1px),
+        0 calc(100% - 1px),
+        0 6px
+    );
+  }
 }
