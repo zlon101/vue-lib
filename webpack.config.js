@@ -19,7 +19,7 @@ const commonCfg = {
   context: getAbsPath('./'),
   entry: './src/main.js',
   output: {
-    publicPath: './',
+    publicPath: isProd ? './' : '/',
     path: getAbsPath('docs'),
     filename: isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js',
     clean: true,
@@ -37,7 +37,7 @@ const commonCfg = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'self webpack test',
+      title: 'npm lib',
       template: 'public/index.html',
     }),
     new VueLoaderPlugin(),

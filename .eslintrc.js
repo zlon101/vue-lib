@@ -28,6 +28,19 @@ module.exports = {
     'no-unused-vars': [2, { args: 'none' }], // 消除未使用的变量  不检查函数的参数
     'no-redeclare': 2, // 禁止多次声明同一变量
     'no-dupe-keys': 2, // 在创建对象字面量时不允许键重复
+    'no-underscore-dangle': 0, // 允许下划线开头结尾
+    'comma-dangle': ['error', 'always-multiline'],
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'never',
+        named: 'never',
+        asyncArrow: 'always',
+      },
+    ],
+    semi: ['error', 'always'],
+    quotes: [2, 'single'],
+    camelcase: 0,
     eqeqeq: ['error', 'always', { null: 'ignore' }], // 强制使用全等
     'vue/multi-word-component-names': 'off',
   },

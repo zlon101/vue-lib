@@ -7,7 +7,12 @@ const fs = require('fs');
 const path = require('path');
 const { optimize } = require('svgo/lib/svgo');
 
-const resolvePath = relaPath => path.resolve(process.cwd(), relaPath);
+const resolvePath = relaPath => {
+  if (/^[/~]/.test(relaPath)) {
+    return relaPath;
+  }
+  return path.resolve(process.cwd(), relaPath);
+};
 const isDir = absPath => fs.lstatSync(absPath).isDirectory();
 console.log('\nprocess.cwd():', process.cwd());
 
@@ -20,7 +25,7 @@ if (!args[0]) {
 }
 
 console.log(`\n==== 开始压缩${targetDir} =====`);
-traverseDir(resolvePath(`./${targetDir}`));
+traverseDir(resolvePath(targetDir));
 
 // console.log 关联到 init.js, 不能顺便修改
 function traverseDir(dirAbs) {

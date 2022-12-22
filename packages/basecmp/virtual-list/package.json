@@ -1,0 +1,15 @@
+{
+  "name": "@zl/vitual-list",
+  "version": "1.0.0",
+  "description": "虚拟列表",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.10.71.158:4873"
+  }
+}

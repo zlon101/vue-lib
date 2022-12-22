@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const { spawn } = require('node:child_process');
 const geneSvgIcon = require('./gene-cmp.cjs');
 
-const resolvePath = relaPath => path.resolve(process.cwd(), relaPath);
+const resolvePath = relaPath => {
+  if (/^[/~]/.test(relaPath)) {
+    return relaPath;
+  }
+  return path.resolve(process.cwd(), relaPath);
+};
 
 const args = process.argv.slice(2);
 const paramCfg = args.reduce((pre, item) => {
@@ -16,7 +20,7 @@ const paramCfg = args.reduce((pre, item) => {
   return pre;
 }, {});
 // console.log(paramCfg);
-if (paramCfg.hasOwnProperty('help')) {
+if (!args.length || paramCfg.hasOwnProperty('help')) {
   console.log(`
 $ ========================================
 根据SVG文件生成组件或 iconfont，参数如下:

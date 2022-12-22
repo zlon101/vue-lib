@@ -1,4 +1,5 @@
 <script>
+import { IconGithub } from '@/icon';
 const IgnoreDirs = ['node_modules'];
 const loadFile = (filePath, cfg) => {
   if (IgnoreDirs.some(item => filePath.includes(item))) {
@@ -61,6 +62,7 @@ reqCtx4.keys().forEach(filePath => loadFile(filePath, CompCfg.extend));
 
 export default {
   name: 'App',
+  components: { IconGithub },
   data() {
     return {
       CompCfg,
@@ -106,7 +108,9 @@ export default {
         <router-link to="/style">全局样式</router-link>
         <router-link to="/image">所有图像</router-link>
         <!--<a href="http://127.0.0.1:xx" target="_blank" rel="noopener noreferrer">Registry</a>-->
-        <a href="https://v12w.x34y.com/pikachu/picnpm" target="_blank" rel="noopener noreferrer">GitLab</a>
+        <a href="https://github.com/zlon101/npm-lib" target="_blank" rel="noopener noreferrer">
+          <IconGithub s="24px" />
+        </a>
       </div>
     </header>
     <div class="page-wrap">
@@ -153,9 +157,13 @@ export default {
   position: fixed;
   top: 0;
   > *,
-  .right > * {
-    margin-right: 8px;
-    cursor: pointer;
+  .right {
+    display: inline-flex;
+    align-items: center;
+    > * {
+      margin-right: 8px;
+      cursor: pointer;
+    }
   }
   > :last-child {
     margin: 0 0 0 auto;
@@ -203,6 +211,10 @@ export default {
   .r-item {
     display: block;
     margin-bottom: 12px;
+    &:hover .t {
+      color: #3eaf7c;
+      font-size: 20px;
+    }
   }
   .t {
     font-size: 16px;
