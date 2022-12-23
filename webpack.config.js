@@ -148,7 +148,12 @@ const devCfg = {
     port: '7120',
     // 解决单页面应用，在某个路径下刷新页面时404
     historyApiFallback: true,
-    // before: serverMiddle,
+    onAfterSetupMiddleware: function (devServer) {
+      if (!devServer) {
+        throw new Error('webpack-dev-server is not defined');
+      }
+      serverMiddle(devServer.app);
+    },
   },
 };
 
