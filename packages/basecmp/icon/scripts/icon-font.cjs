@@ -30,7 +30,7 @@ const Blacklist = ['icon-calender', 'icon-dele', 'icon-hook', 'icon-loading-arro
 function createIconFont(param) {
   const { svgDir, fontDir, cssPath } = param;
   let initCode = parseInt(param.initCode);
-  console.log('\n$ 生成字体和css');
+  console.log('$ 生成字体和css');
   const svgList = fs.readdirSync(svgDir);
   // 创建空白字体，使用 SVG 生成字体
   const font = fontCarrier.create();

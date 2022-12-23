@@ -43,13 +43,10 @@ fs.writeFile(noteFilePath, JSON.stringify(AllFn, null, 2), err => {
 
 // ========================================
 function handleFile(jsFile) {
-  const str = fs.readFileSync(jsFile, 'utf-8');
+  const str = fs.readFileSync(jsFile, 'utf-8').trim().replace(/(^\n+|\n+$)/g, '');
   const exportMatch = [...str.matchAll(/^export/gm)];
   let startInd = 0, exportInd = 0;
-  let matchRes = /\n+(\/\/)|(\/\*)/.exec(str);
-  if (!matchRes) {
-    matchRes = /^(\/\/)|(\/\*)/.exec(str);
-  }
+  const matchRes = /^(\/\/|\/\*)/m.exec(str);
   matchRes && (startInd = matchRes.index);
 
   const fnList = [];
@@ -73,13 +70,20 @@ function handleFile(jsFile) {
       fnName = fnName.split('{')[0];
     } else {
       // 常量
-      nameEnd = resetStr.indexOf('}') + exportInd + 1;
-      fnName = str.slice(exportInd, nameEnd);
+      if (fnName.includes('{')) {
+        nameEnd = resetStr.indexOf('}') + exportInd + 1;
+        fnName = str.slice(exportInd, nameEnd);
+      } else if (fnName.includes('[')) {
+        nameEnd = resetStr.indexOf(']') + exportInd + 1;
+        fnName = str.slice(exportInd, nameEnd);
+      }
     }
 
     // 函数注释
+    let debug = fnName.includes('isOverflow');
     let note = '';
-    let matchAllRes = [...str.slice(startInd, exportInd).matchAll(/\n}\n+/g)];
+    let matchAllRes = [...str.slice(startInd, exportInd).matchAll(/\n};*\n+/g)];
+    // debug && console.log(startInd, exportInd, jsFile, str.slice(startInd, exportInd));
     if (matchAllRes.length > 0) {
       const lastSearch = matchAllRes.pop();
       matchAllRes = null;
@@ -94,7 +98,12 @@ function handleFile(jsFile) {
     fnList.push({ fnName, note });
 
     // 函数结尾
-    const fnEndRes = /\n+};*\n+/.exec(resetStr);
+    let fnEndRes = null;
+    if (fnName.includes('{')) {
+      fnEndRes = /\n+};*\n+/.exec(resetStr);
+    } else if (fnName.includes('[')) {
+      fnEndRes = /\n+];*\n+/.exec(resetStr);
+    }
     if(fnEndRes) {
       startInd = fnEndRes.index + fnEndRes[0].length + exportInd;
     } else {

@@ -17,9 +17,5 @@
   "license": "ISC",
   "publishConfig": {
     "registry": "http://10.10.71.158:4873"
-  },
-  "peerDependencies": {
-    "crypto-js": "3.3.0",
-    "moment": "2.29.1"
   }
 }

@@ -16,7 +16,7 @@ lockVersion(true);
 // 压缩 svg
 let hasFix = false; // 是否有更新
 let hasErr = false; // 是否有报错
-const ls = spawn('npm', ['run', 'minSvg']);
+const ls = spawn('npm', ['run', 'minSvg', resolvePath('../packages/basecmp/icon/assets')]);
 ls.stdout.on('data', data => {
   const str = `${data}`;
   console.log(str);
@@ -39,7 +39,7 @@ ls.on('close', code => {
 // 生成utils 和全局 style 注释文档
 const ls2 = spawn('npm', ['run', 'gene-note'], { cwd: resolvePath('../packages/utils') });
 ls2.on('close', code => {
-  console.log(!code ? '✅ 生成utils utils 完成' : '❌ 生成utils utils 失败');
+  console.log(!code ? '✅ 生成utils 注释完成' : '❌ 生成utils 注释失败');
 });
 
 const ls3 = spawn('npm', ['run', 'gene-note'], { cwd: resolvePath('../packages/styles') });

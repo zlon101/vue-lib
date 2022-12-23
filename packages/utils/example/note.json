@@ -3,7 +3,7 @@
     "subpath": "index",
     "fnArr": [
       {
-        "fnName": "",
+        "fnName": "export * from './src/object.js';",
         "note": ""
       }
     ]
@@ -13,7 +13,7 @@
     "fnArr": [
       {
         "fnName": "export function unique(srcArr, noEmpty = false)",
-        "note": "\n// 数组去重\n"
+        "note": "// 数组去重\n"
       },
       {
         "fnName": "export function arrayIntersection(...arrWarp)",
@@ -71,7 +71,7 @@
     "subpath": "debug",
     "fnArr": [
       {
-        "fnName": "",
+        "fnName": "export default DebugBox;",
         "note": "const DebugBox = new Debug();\nwindow.DebugBox = DebugBox;\n"
       }
     ]
@@ -81,7 +81,7 @@
     "fnArr": [
       {
         "fnName": "export function isOverflow(dom)",
-        "note": ""
+        "note": "// 判断dom元素文本是否溢出\n"
       },
       {
         "fnName": "export function copyString(str)",
@@ -126,20 +126,20 @@
         "note": "/**\n * 下载文件\n * val: Object|String\n * **/\n"
       },
       {
-        "fnName": "export const ImgType = ['.png', '.jpg', '.jpeg', '.gif', '.tif', '.bmp', '.svg'];\nexport const VideoType = ['.mp4', '.mov', '.wmv', '.flv', '.avi', '.avchd', '.mkv', '.webm'];\nexport const AudioType = ['.mp3', '.aac', '.wav', '.flac', '.ape', '.alac', '.mkv', '.webm'];\n\nexport const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase());\nexport const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase());\nexport const isAudio = fileExt => fileExt && AudioType.includes(fileExt.toLowerCase());\n\n// base64 转换为blob格式\nexport const base64ToBlob = (base64, mimeType) => {\n  const bytes = window.atob(base64.split('base64,')[1]);\n  // 处理异常,将ascii码小于0的转换为大于0\n  const ia = [];\n  for (let i = 0; i < bytes.length; i++) {\n    ia[i] = bytes.charCodeAt(i);\n  }",
+        "fnName": "export const ImgType = ['.png', '.jpg', '.jpeg', '.gif', '.tif', '.bmp', '.svg']",
         "note": ""
       },
       {
-        "fnName": "export const VideoType = ['.mp4', '.mov', '.wmv', '.flv', '.avi', '.avchd', '.mkv', '.webm'];\nexport const AudioType = ['.mp3', '.aac', '.wav', '.flac', '.ape', '.alac', '.mkv', '.webm'];\n\nexport const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase());\nexport const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase());\nexport const isAudio = fileExt => fileExt && AudioType.includes(fileExt.toLowerCase());\n\n// base64 转换为blob格式\nexport const base64ToBlob = (base64, mimeType) => {\n  const bytes = window.atob(base64.split('base64,')[1]);\n  // 处理异常,将ascii码小于0的转换为大于0\n  const ia = [];\n  for (let i = 0; i < bytes.length; i++) {\n    ia[i] = bytes.charCodeAt(i);\n  }",
+        "fnName": "export const VideoType = ['.mp4', '.mov', '.wmv', '.flv', '.avi', '.avchd', '.mkv', '.webm']",
         "note": ""
       },
       {
-        "fnName": "export const AudioType = ['.mp3', '.aac', '.wav', '.flac', '.ape', '.alac', '.mkv', '.webm'];\n\nexport const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase());\nexport const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase());\nexport const isAudio = fileExt => fileExt && AudioType.includes(fileExt.toLowerCase());\n\n// base64 转换为blob格式\nexport const base64ToBlob = (base64, mimeType) => {\n  const bytes = window.atob(base64.split('base64,')[1]);\n  // 处理异常,将ascii码小于0的转换为大于0\n  const ia = [];\n  for (let i = 0; i < bytes.length; i++) {\n    ia[i] = bytes.charCodeAt(i);\n  }",
+        "fnName": "export const AudioType = ['.mp3', '.aac', '.wav', '.flac', '.ape', '.alac', '.mkv', '.webm']",
         "note": ""
       },
       {
         "fnName": "export const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase()",
-        "note": ""
+        "note": "\n"
       },
       {
         "fnName": "export const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase()",
@@ -151,7 +151,7 @@
       },
       {
         "fnName": "export const base64ToBlob = (base64, mimeType)",
-        "note": ""
+        "note": "\n// base64 转换为blob格式\n"
       }
     ]
   },
@@ -250,7 +250,7 @@
     "fnArr": [
       {
         "fnName": "export class Poll ",
-        "note": "\n// 轮询\nconst DefaultArgs = {\n  formatRes: true, // 是否格式化响应\n  stepTime: 3, // 间隔3s\n  timeout: 60, // 超时60s\n};\n"
+        "note": ""
       },
       {
         "fnName": "export function ajax(cfg, data)",
@@ -267,7 +267,7 @@
     "fnArr": [
       {
         "fnName": "export function xssH(s)",
-        "note": "\n// 针对普通文本的编码\n"
+        "note": "// 针对普通文本的编码\n"
       },
       {
         "fnName": "export function xssUrlv(s)",
