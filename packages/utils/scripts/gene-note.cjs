@@ -80,10 +80,8 @@ function handleFile(jsFile) {
     }
 
     // 函数注释
-    let debug = fnName.includes('isOverflow');
     let note = '';
     let matchAllRes = [...str.slice(startInd, exportInd).matchAll(/\n};*\n+/g)];
-    // debug && console.log(startInd, exportInd, jsFile, str.slice(startInd, exportInd));
     if (matchAllRes.length > 0) {
       const lastSearch = matchAllRes.pop();
       matchAllRes = null;

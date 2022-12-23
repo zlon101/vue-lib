@@ -32,6 +32,7 @@ const commonCfg = {
     },
     extensions: [
       '.js',
+      '.jsx',
       '.vue'
     ]
   },
@@ -50,8 +51,26 @@ const commonCfg = {
         loader: 'vue-loader'
       },
       {
+        test: /\.jsx?$/,
+        exclude: [/node_modules/, getAbsPath('./src')],
+        include: getAbsPath('./packages/business/react-image-editor'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-transform-react-jsx', '@babel/plugin-transform-runtime'],
+          },
+        },
+      },
+      {
         test: /\.(js|jsx)$/i,
-        loader: 'babel-loader',
+        exclude: getAbsPath('./packages/business/react-image-editor'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@vue/cli-plugin-babel/preset'],
+          },
+        }
       },
       {
         test: /\.css$/i,
@@ -111,15 +130,8 @@ const commonCfg = {
         ]
       },
       {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              mimetype: 'image/png'
-            }
-          }
-        ]
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },

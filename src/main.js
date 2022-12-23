@@ -6,6 +6,8 @@ import '../packages/basecmp/icon/src/font.less'; // icon-font
 import App from './App.vue';
 import router from './router';
 
+const isProd = process.env.NODE_ENV === 'production';
+window._IsProd = isProd;
 Vue.config.productionTip = false;
 
 new Vue({

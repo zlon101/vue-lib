@@ -1,15 +1,17 @@
 <script>
 // 组件的 example 模板
-import Api from '../src/axios';
+import Api from '@/axios';
 
 export default {
   props: {
     packageJson: Object,
     compPath: String,
     nocode: Boolean,
+    sourcecode: String,
   },
   data() {
     return {
+      devMod: !window._IsProd,
       oldCode: '',
       newCode: '',
       canHlight: false,
@@ -29,13 +31,18 @@ export default {
           });
           result[k] = list;
         }
-      })
+      });
       return result;
     },
   },
   mounted() {
-    this.canGetCode = Boolean(this.$slots.usage) && process.env.NODE_ENV !== 'production';
+    this.canGetCode = Boolean(this.$slots.usage) && !window._IsProd;
     if (!this.canGetCode) return;
+
+    if (window._IsProd && this.sourcecode) {
+      this.newCode = !window.hljs ? this.sourcecode : window.hljs.highlight(this.newCode, { language: 'html' }).value;
+      return;
+    }
 
     Api.getCode(this.compPath).then(res => {
       const codeStr = res.data.codeStr;
@@ -101,9 +108,11 @@ export default {
     <details open v-if="canGetCode">
       <summary>
         <span>code</span>
-        <button @click="onUpdateCode">更新</button>
-        <button @click="onReset">重置</button>
-        <span style="margin-left: 16px">(注: 点击更新会直接修改源码, 离开当前路由后会自动恢复)</span>
+        <template v-if="devMod">
+          <button @click="onUpdateCode">更新</button>
+          <button @click="onReset">重置</button>
+          <span style="margin-left: 16px">(注: 点击更新会直接修改源码, 离开当前路由后会自动恢复)</span>
+        </template>
       </summary>
       <pre v-if="canHlight"><code class="hljs" ref="code" v-html="newCode" contenteditable="true"></code></pre>
       <code v-else ref="code" class="hljs" contenteditable="true">{{ newCode }}</code>
