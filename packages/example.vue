@@ -36,11 +36,11 @@ export default {
   },
   mounted() {
     this.canGetCode = Boolean(this.$slots.usage);
-    console.debug('this.canGetCode', this.canGetCode);
     if (!this.canGetCode) return;
 
+    this.canHlight = !!window.hljs;
     if (window._IsProd) {
-      this.newCode = !window.hljs ? this.compPath : window.hljs.highlight(this.compPath, { language: 'html' }).value;
+      this.newCode = !this.canHlight ? this.compPath : window.hljs.highlight(this.compPath, { language: 'html' }).value;
       return;
     }
 
@@ -50,8 +50,7 @@ export default {
         this.oldCode = codeStr;
         !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
       }
-      this.canHlight = window.hljs;
-      if (window.hljs) {
+      if (this.canHlight) {
         this.newCode = window.hljs.highlight(codeStr, { language: 'html' }).value;
       } else {
         this.newCode = codeStr;
@@ -105,18 +104,19 @@ export default {
 
     <h1 class="margin-top">3.代码示例</h1>
     <slot name="usage"></slot>
-    <pre>canGetCode: {{canGetCode}}</pre>
     <details open v-if="canGetCode">
       <summary>
-        <span>code</span>
+        <span>source code</span>
         <template v-if="devMod">
           <button @click="onUpdateCode">更新</button>
           <button @click="onReset">重置</button>
           <span style="margin-left: 16px">(注: 点击更新会直接修改源码, 离开当前路由后会自动恢复)</span>
         </template>
       </summary>
-      <pre v-if="canHlight"><code class="hljs" ref="code" v-html="newCode" contenteditable="true"></code></pre>
-      <code v-else ref="code" class="hljs" contenteditable="true">{{ newCode }}</code>
+      <pre>
+        <code v-if="canHlight" class="hljs" ref="code" v-html="newCode" contenteditable="true"></code>
+        <code v-else ref="code" class="hljs" contenteditable="true">{{ newCode }}</code>
+      </pre>
     </details>
   </div>
 </template>

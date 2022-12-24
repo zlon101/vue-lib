@@ -16,7 +16,7 @@ const isDir = absPath => fs.lstatSync(absPath).isDirectory();
 const WhiteDirs = ['styles', 'template', 'utils', 'node_modules', '.DS_Store']; // 跳过的目录
 
 const PkgDir = resolvePath('../packages');
-const TmpDir = resolvePath('../../pkgs-tmp');
+const TmpDir = resolvePath('../../pkg.tmp.bck');
 
 const FlagReg = /(\n\s+compPath:\s+)'[^']+',/;
 
@@ -28,12 +28,11 @@ exeCmd('cp', ['-r', PkgDir, TmpDir]).then(() => {
   exeCmd('webpack', ['--mode=production', '--node-env=production']).then(() => {
     console.log('✅ webpack build 完成');
 
-    // exeCmd('rm', ['-rf', PkgDir]).then(() => {
-    //   exeCmd('mv', [TmpDir, PkgDir]).then(() => {
-    //     console.log('✅ 编译完成');
-    //   }).catch((err) => console.log(`❌移动目录失败:\n`, err));
-    // }).catch(err => console.log(`❌删除目录失败:\n`, err));
-
+    exeCmd('rm', ['-rf', PkgDir]).then(() => {
+      exeCmd('mv', [TmpDir, PkgDir]).then(() => {
+        console.log('✅ 编译完成');
+      }).catch((err) => console.log(`❌移动目录失败:\n`, err));
+    }).catch(err => console.log(`❌删除目录失败:\n`, err));
   }).catch((err) => console.log(`❌webpack build 失败:\n`, err));
 }).catch((err) => console.log(`❌复制目录失败:\n`, err));
 
@@ -71,7 +70,8 @@ function traverseDir(dir) {
 function handlePackage(pkgPath) {
   FlagReg.lastIndex = 0;
   const ExampleFilePath = `${pkgPath}/example/index.vue`;
-  const usageStr = fs.readFileSync(`${pkgPath}/example/usage.vue`, { encoding: 'utf-8' });
+  let UsageStr = fs.readFileSync(`${pkgPath}/example/usage.vue`, { encoding: 'utf-8' });
+  UsageStr = UsageStr.replace(/([`$])/g, '\\$1').replace('</script>', '<\\/script>');
   let exampleIndexStr = fs.readFileSync(ExampleFilePath, { encoding: 'utf-8' });
 
   const regRes = FlagReg.exec(exampleIndexStr);
@@ -80,8 +80,7 @@ function handlePackage(pkgPath) {
     return;
   }
   FlagReg.lastIndex = 0;
-  const xx = 'source code';
-  exampleIndexStr = exampleIndexStr.replace(FlagReg, `$1\`${xx}\`,`);
+  exampleIndexStr = exampleIndexStr.replace(FlagReg, `$1\`${UsageStr}\`,`);
   fs.writeFileSync(ExampleFilePath, exampleIndexStr, { encoding: 'utf-8' });
 }
 
