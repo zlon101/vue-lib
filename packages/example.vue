@@ -7,7 +7,6 @@ export default {
     packageJson: Object,
     compPath: String,
     nocode: Boolean,
-    sourcecode: String,
   },
   data() {
     return {
@@ -36,11 +35,12 @@ export default {
     },
   },
   mounted() {
-    this.canGetCode = Boolean(this.$slots.usage) && !window._IsProd;
+    this.canGetCode = Boolean(this.$slots.usage);
+    console.debug('this.canGetCode', this.canGetCode);
     if (!this.canGetCode) return;
 
-    if (window._IsProd && this.sourcecode) {
-      this.newCode = !window.hljs ? this.sourcecode : window.hljs.highlight(this.newCode, { language: 'html' }).value;
+    if (window._IsProd) {
+      this.newCode = !window.hljs ? this.compPath : window.hljs.highlight(this.compPath, { language: 'html' }).value;
       return;
     }
 
@@ -105,6 +105,7 @@ export default {
 
     <h1 class="margin-top">3.代码示例</h1>
     <slot name="usage"></slot>
+    <pre>canGetCode: {{canGetCode}}</pre>
     <details open v-if="canGetCode">
       <summary>
         <span>code</span>

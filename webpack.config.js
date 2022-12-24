@@ -148,11 +148,12 @@ const devCfg = {
     port: '7120',
     // 解决单页面应用，在某个路径下刷新页面时404
     historyApiFallback: true,
-    onAfterSetupMiddleware: function (devServer) {
+    setupMiddlewares: function (middlewares, devServer) {
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');
       }
       serverMiddle(devServer.app);
+      return middlewares;
     },
   },
 };
@@ -176,7 +177,7 @@ const prodCfg = {
 };
 
 module.exports = (env) => {
-  console.log('\n env:', env);
+  console.log('$ env:', env);
   let dstCfg = null;
   if (isProd) {
     dstCfg = { ...commonCfg, ...prodCfg };
