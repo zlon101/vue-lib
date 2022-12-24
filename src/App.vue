@@ -101,7 +101,7 @@ export default {
 <template>
   <div id="app">
     <header class="header-wrap">
-      <a href="/">主页</a>
+      <a href="https://zlon101.github.io/npm-lib/#/">主页</a>
       <div class="right">
         <input :value="searchVal" @input="onInputSearch" class="search-input" placeholder="按组件名和描述搜索，可使用正则" />
         <router-link to="/tool">工具函数</router-link>

@@ -24,7 +24,7 @@ function getCmpCode(query) {
 }
 
 function setCmpCode(req) {
-  console.log('\n\n========== setCmpCode =========\n');
+  console.log('\n========== setCmpCode =========');
   const param = req.body;
   if (!param.addre) return 'req.addre error!'; // basecmp/button
   if (!param.code) return 'req.code error!';

@@ -115,7 +115,7 @@ export default {
       </summary>
       <pre>
         <code v-if="canHlight" class="hljs" ref="code" v-html="newCode" contenteditable="true"></code>
-        <code v-else ref="code" class="hljs" contenteditable="true">{{ newCode }}</code>
+        <code v-if="!canHlight" ref="code" class="hljs" contenteditable="true">{{ newCode }}</code>
       </pre>
     </details>
   </div>

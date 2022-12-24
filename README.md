@@ -2,6 +2,9 @@
 
 - [ ] gitlab Hook 自动上传到服务器？
 - [x] ie浏览器测试图标是否正常
+
+## [example](https://zlon101.github.io/npm-lib/#/)
+
 ----------------------------------------------------------------
 
 <h1 style="text-align:center">私有源部署文档</h1>
