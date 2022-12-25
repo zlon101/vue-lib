@@ -33,6 +33,7 @@ module.exports = {
   },
   output: {
     publicPath: '/',
+    // name 对应 entry 对象的 key
     filename: IsPro ? '[name].[contenthash:8].js' : '[name].js',
     path: path.resolve(__dirname, 'dist'),
     // 每次编译时删除旧的 dist

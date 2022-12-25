@@ -7,6 +7,7 @@ export default {
     packageJson: Object,
     compPath: String,
     nocode: Boolean,
+    sourcecode: String,
   },
   data() {
     return {
@@ -39,23 +40,16 @@ export default {
     if (!this.canGetCode) return;
 
     this.canHlight = !!window.hljs;
-    if (window._IsProd) {
-      this.newCode = !this.canHlight ? this.compPath : window.hljs.highlight(this.compPath, { language: 'html' }).value;
-      return;
+    const codeStr = this.sourcecode;
+    if (!this.oldCode) {
+      this.oldCode = codeStr;
+      !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
     }
-
-    Api.getCode(this.compPath).then(res => {
-      const codeStr = res.data.codeStr;
-      if (!this.oldCode) {
-        this.oldCode = codeStr;
-        !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
-      }
-      if (this.canHlight) {
-        this.newCode = window.hljs.highlight(codeStr, { language: 'html' }).value;
-      } else {
-        this.newCode = codeStr;
-      }
-    });
+    if (this.canHlight) {
+      this.newCode = window.hljs.highlight(codeStr, { language: 'html' }).value;
+    } else {
+      this.newCode = codeStr;
+    }
   },
   methods: {
     onUpdateCode() {
@@ -64,10 +58,13 @@ export default {
       setTimeout(() => window.location.reload(), 300);
     },
     onReset() {
-      if (!this.canGetCode) return;
+      if (!this.canGetCode || window._IsProd) return;
 
       const { compPath } = this;
       const oldCode = sessionStorage.getItem(compPath);
+      const nCode = this.$refs.code.textContent;
+      if (oldCode.trim() === nCode.trim()) return;
+
       if (oldCode) {
         Api.setCode(compPath, oldCode);
         // setTimeout(() => window.location.reload(), 300);

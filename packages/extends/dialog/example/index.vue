@@ -1,5 +1,5 @@
 <template>
-  <Example :packageJson="packageJson" :compPath="compPath" ref="exam">
+  <Example v-bind="$data" ref="exam">
     <template v-slot:readme>
       <Readme />
     </template>
@@ -14,6 +14,7 @@ import Example from '@packages/example.vue';
 import Readme from '../README.md';
 import packageJson from '../package.json';
 import Usage from './usage.vue';
+import sourcecode from '!!raw-loader!./usage.vue';
 
 export default {
   components: {
@@ -23,6 +24,7 @@ export default {
   },
   data() {
     return {
+      sourcecode,
       compPath: 'extends/dialog',
       packageJson,
     };
