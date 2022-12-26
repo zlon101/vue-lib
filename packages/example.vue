@@ -3,6 +3,7 @@
 import Api from '@/axios';
 
 export default {
+  inheritAttrs: false,
   props: {
     packageJson: Object,
     compPath: String,

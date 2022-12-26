@@ -30,7 +30,9 @@
       "not dead"
     ],
     "production": [
-      "ie >= 11"
+      "> 1%",
+      "last 2 versions",
+      "not dead"
     ]
   },
   "engines": {

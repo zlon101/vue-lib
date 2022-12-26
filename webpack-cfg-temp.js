@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const IsPro = process.mode === 'production';
 console.log('🔥环境: ', process.env.NODE_ENV);
 
+const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
+
 module.exports = {
   /*************************
    * 如果配置文件或命令行没有设置 mode 的值，会使用 NODE_ENV 的值作为 mode
@@ -57,6 +59,20 @@ module.exports = {
     },
   },
   // externals: [/^library\/.+$/],
+
+  // 解析 module 路径，找到正确的 module
+  // Modules are searched for inside all directories specified in resolve.modules.
+  resolve: {
+    alias: {
+      '@': getAbsPath('./src'),
+      '@packages': getAbsPath('./packages'),
+    },
+    extensions: [
+      '.js',
+      '.jsx',
+      '.vue'
+    ]
+  },
 
   /***
   optimization: {
