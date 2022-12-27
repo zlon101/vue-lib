@@ -1,8 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 // const json5 = require('json5');
 
-const IsPro = process.mode === 'production';
+const IsPro = process.env.NODE_ENV === 'production';
 console.log('🔥环境: ', process.env.NODE_ENV);
 
 const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
@@ -37,6 +39,7 @@ module.exports = {
     publicPath: '/',
     // name 对应 entry 对象的 key
     filename: IsPro ? '[name].[contenthash:8].js' : '[name].js',
+    chunkFilename: IsPro ? '[name].[contenthash:8].js' : '[name].js',
     path: path.resolve(__dirname, 'dist'),
     // 每次编译时删除旧的 dist
     clean: true,
@@ -97,6 +100,7 @@ module.exports = {
       },
     },
   },
+  // 开发环境用 inline-source-map，生产环境用  source-map
   devtool: 'inline-source-map',
   devServer: {
     static: './dist',
@@ -122,6 +126,15 @@ module.exports = {
          * ******************************************/
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.less$/i,
+        use: [
+          // fallback to style-loader in development
+          IsPro ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
       },
       {
         /**

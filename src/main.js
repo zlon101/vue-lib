@@ -8,6 +8,7 @@ import router from './router';
 
 window._IsProd = process.env.NODE_ENV === 'production';
 Vue.config.productionTip = false;
+console.debug(`环境: ${process.env.NODE_ENV}`);
 
 new Vue({
   router,

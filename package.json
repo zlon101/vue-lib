@@ -6,7 +6,7 @@
     "start": "pm2 start ./pm2.config.cjs",
     "deploy": "node scripts/upload-server.js",
     "predev": "node scripts/predev.js",
-    "dev": "webpack serve --env goal=local --env ahg=testVal",
+    "dev": "webpack serve  --open --env goal=local --env ahg=testVal",
     "watch": "webpack --watch",
     "build": "webpack --mode=production --node-env=production",
     "build:lib": "node scripts/build-lib.js",

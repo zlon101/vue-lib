@@ -13,11 +13,11 @@
     "fnArr": [
       {
         "fnName": "export function unique(srcArr, noEmpty = false)",
-        "note": "// 数组去重\n"
+        "note": "// 数组去重"
       },
       {
         "fnName": "export function arrayIntersection(...arrWarp)",
-        "note": "/**\n * 数组交集\n * arrayIntersection(arr1, arr2)\n * @returns Array\n */\n"
+        "note": "/**\n * 数组交集\n * arrayIntersection(arr1, arr2)\n * @returns Array\n */"
       }
     ]
   },
@@ -26,7 +26,7 @@
     "fnArr": [
       {
         "fnName": "export default ()",
-        "note": "/*\r\n * 用户代理检测\r\n * 渲染引擎\r\n * 浏览器\r\n * 平台\r\n * */\r\n\r\n"
+        "note": "/*\r\n * 用户代理检测\r\n * 渲染引擎\r\n * 浏览器\r\n * 平台\r\n * */"
       }
     ]
   },
@@ -35,15 +35,15 @@
     "fnArr": [
       {
         "fnName": "export const createDate = (val, timezone = 8)",
-        "note": "/*\n * 创建指定时区的日期对象\n * 东八: 8\n * */\n"
+        "note": "/*\n * 创建指定时区的日期对象\n * 东八: 8\n * */"
       },
       {
         "fnName": "export function dateToString(date, format = 'YYYY-MM-DD')",
-        "note": "/**\n * 格式化时间\n * @param date 输入时间, 支持Date和String类型, 日的占位符必须用M, 因为m表示分\n * @param format 时间格式\n * @returns string 格式化后的字符串时间\n */\n"
+        "note": "/**\n * 格式化时间\n * @param date 输入时间, 支持Date和String类型, 日的占位符必须用M, 因为m表示分\n * @param format 时间格式\n * @returns string 格式化后的字符串时间\n */"
       },
       {
         "fnName": "export function stringToDate(str)",
-        "note": "/**\n * 字符串转Date类型\n * @param str 输入时间字符串\n * @returns Date类型日期\n */\n"
+        "note": "/**\n * 字符串转Date类型\n * @param str 输入时间字符串\n * @returns Date类型日期\n */"
       },
       {
         "fnName": "export function isInRange({ startT, endT, curTime }",
@@ -51,19 +51,19 @@
       },
       {
         "fnName": "export const MonthMap = {\n  Jan: 1,\n  Feb: 2,\n  Mar: 3,\n  Apr: 4,\n  May: 5,\n  Jun: 6,\n  Jul: 7,\n  Aug: 8,\n  Sep: 9,\n  Oct: 10,\n  Nov: 11,\n  Dec: 12,\n}",
-        "note": "// 月份映射\n"
+        "note": "// 月份映射"
       },
       {
         "fnName": "export const WeekMap = {\n  Mon: 1,\n  Tue: 2,\n  Wed: 3,\n  Thu: 4,\n  Fri: 5,\n  Sat: 6,\n  Sun: 7,\n}",
-        "note": "// 星期映射\n"
+        "note": "// 星期映射"
       },
       {
         "fnName": "export function dataToLocaleString(date)",
-        "note": "/**\n * 日期转换为常用语\n * @param date\n * @returns {string}\n */\n"
+        "note": "/**\n * 日期转换为常用语\n * @param date\n * @returns {string}\n */"
       },
       {
         "fnName": "export function getDateRange({\n  dateNow = new Date(),\n  intervalDays,\n  format = 'YYYY-MM-DD',\n  isBefore = true,\n  besideNow = false,\n}",
-        "note": "/**\n * 获取指定日期范围\n * @param dateNow {String|Date} 当前日期，默认取当前系统日期\n * @param intervalDays {Number} 间隔天数\n * @param format {String} 返回格式\n * @param isBefore {Boolean} 是否在当前日期前\n * @param besideNow {Boolean} 范围计算是否排除当前日期\n * @returns {{start: (string|string|*), end: (string|string|*)}}\n */\n"
+        "note": "/**\n * 获取指定日期范围\n * @param dateNow {String|Date} 当前日期，默认取当前系统日期\n * @param intervalDays {Number} 间隔天数\n * @param format {String} 返回格式\n * @param isBefore {Boolean} 是否在当前日期前\n * @param besideNow {Boolean} 范围计算是否排除当前日期\n * @returns {{start: (string|string|*), end: (string|string|*)}}\n */"
       }
     ]
   },
@@ -72,7 +72,7 @@
     "fnArr": [
       {
         "fnName": "export default DebugBox;",
-        "note": "const DebugBox = new Debug();\nwindow.DebugBox = DebugBox;\n"
+        "note": "const DebugBox = new Debug();\nwindow.DebugBox = DebugBox;"
       }
     ]
   },
@@ -81,19 +81,19 @@
     "fnArr": [
       {
         "fnName": "export function isOverflow(dom)",
-        "note": "// 判断dom元素文本是否溢出\n"
+        "note": "// 判断dom元素文本是否溢出"
       },
       {
         "fnName": "export function copyString(str)",
-        "note": "// 复制\n"
+        "note": "// 复制"
       },
       {
         "fnName": "export const supportsCSS = (attribute, value)",
-        "note": "/**\n * 检查浏览器是否支持CSS\n * 浏览器遇到不支持的属性值时，浏览器会直接把这个值抛弃\n */\n"
+        "note": "/**\n * 检查浏览器是否支持CSS\n * 浏览器遇到不支持的属性值时，浏览器会直接把这个值抛弃\n */"
       },
       {
         "fnName": "export function listenVisible(cb)",
-        "note": "// 监听页面可见性变化，切换标签页或浏览器窗口\n"
+        "note": "// 监听页面可见性变化，切换标签页或浏览器窗口"
       },
       {
         "fnName": "export const isFullScreen = ()",
@@ -101,7 +101,7 @@
       },
       {
         "fnName": "export const handleFullscreen = (container)",
-        "note": "// 全屏某个元素\n"
+        "note": "// 全屏某个元素"
       }
     ]
   },
@@ -110,7 +110,7 @@
     "fnArr": [
       {
         "fnName": "export function createEventBus()",
-        "note": "// 事件队列管理\n"
+        "note": "// 事件队列管理"
       }
     ]
   },
@@ -119,11 +119,11 @@
     "fnArr": [
       {
         "fnName": "export const getSizeFromBase64 = (base64)",
-        "note": "/**\n * 根据base64计算图像存储大小\n * base64 是用四个字符来表示3个字节\n */\n"
+        "note": "/**\n * 根据base64计算图像存储大小\n * base64 是用四个字符来表示3个字节\n */"
       },
       {
         "fnName": "export const downloadFile = (fileName, val)",
-        "note": "/**\n * 下载文件\n * val: Object|String\n * **/\n"
+        "note": "/**\n * 下载文件\n * val: Object|String\n * **/"
       },
       {
         "fnName": "export const ImgType = ['.png', '.jpg', '.jpeg', '.gif', '.tif', '.bmp', '.svg']",
@@ -139,7 +139,7 @@
       },
       {
         "fnName": "export const isImage = fileExt => fileExt && ImgType.includes(fileExt.toLowerCase()",
-        "note": "\n"
+        "note": ""
       },
       {
         "fnName": "export const isVideo = fileExt => fileExt && VideoType.includes(fileExt.toLowerCase()",
@@ -151,7 +151,7 @@
       },
       {
         "fnName": "export const base64ToBlob = (base64, mimeType)",
-        "note": "\n// base64 转换为blob格式\n"
+        "note": "// base64 转换为blob格式"
       }
     ]
   },
@@ -160,7 +160,7 @@
     "fnArr": [
       {
         "fnName": "export default function log(...args)",
-        "note": "/* eslint-disable */\n"
+        "note": "/* eslint-disable */"
       }
     ]
   },
@@ -169,11 +169,11 @@
     "fnArr": [
       {
         "fnName": "export function isSame(a, b)",
-        "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */\n"
+        "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */"
       },
       {
         "fnName": "export function deepClone(srcData, hash = new WeakMap()",
-        "note": "// 深度克隆\n"
+        "note": "// 深度克隆"
       }
     ]
   },
@@ -182,11 +182,11 @@
     "fnArr": [
       {
         "fnName": "export function throttle(callFn, interval)",
-        "note": "/**\n * 性能优化\n */\n// 节流\n"
+        "note": "/**\n * 性能优化\n */\n// 节流"
       },
       {
         "fnName": "export function debounce(func, wait, immediate)",
-        "note": "// 防抖\n"
+        "note": "// 防抖"
       }
     ]
   },
@@ -194,8 +194,8 @@
     "subpath": "polling",
     "fnArr": [
       {
-        "fnName": "export default class TimeTask ",
-        "note": "/**\n * 轮询接口\n * @param api: 接口名\n * @param param: 参数\n * @param stepTime: 轮询间隔秒\n * @param updateCallBack: 成功或失败时的回调\n */\n"
+        "fnName": "export default class TimeTask",
+        "note": "/**\n * 轮询接口\n * @param api: 接口名\n * @param param: 参数\n * @param stepTime: 轮询间隔秒\n * @param updateCallBack: 成功或失败时的回调\n */"
       }
     ]
   },
@@ -204,23 +204,23 @@
     "fnArr": [
       {
         "fnName": "export function pageStatistics()",
-        "note": "// 页面渲染\n"
+        "note": "// 页面渲染"
       },
       {
         "fnName": "export function apiStatistics()",
-        "note": "// api\n"
+        "note": "// api"
       },
       {
         "fnName": "export function assetStatistics()",
-        "note": "// 静态资源js、css、image\n"
+        "note": "// 静态资源js、css、image"
       },
       {
         "fnName": "export function calcFps(N)",
-        "note": "// 代码示例来自：《无线性能优化：FPS 测试》\n"
+        "note": "// 代码示例来自：《无线性能优化：FPS 测试》"
       },
       {
-        "fnName": "export class PerformanceCode ",
-        "note": "// calcFps(100).then(res => console.debug(res));\n// 测量代码段\n"
+        "fnName": "export class PerformanceCode",
+        "note": "// calcFps(100).then(res => console.debug(res));\n// 测量代码段"
       }
     ]
   },
@@ -229,19 +229,19 @@
     "fnArr": [
       {
         "fnName": "export function getParams(url)",
-        "note": "/**\n * 获取url参数\n * @param {string} url 可选\n * @returns Object\n */\n"
+        "note": "/**\n * 获取url参数\n * @param {string} url 可选\n * @returns Object\n */"
       },
       {
         "fnName": "export function setUrlQuery(args)",
-        "note": "/**\n * 设置url参数\n * @param {Object} args: { k, v }\n * @returns url: string\n */\n"
+        "note": "/**\n * 设置url参数\n * @param {Object} args: { k, v }\n * @returns url: string\n */"
       },
       {
         "fnName": "export function preventBrowserBack()",
-        "note": "// 阻止浏览器回退\n"
+        "note": "// 阻止浏览器回退"
       },
       {
         "fnName": "export function getAbsUrl(doc, relativeUrl)",
-        "note": "/**\n * 获取上传文件的 url, 处理使用 <base> 的情况\n * <base href=\"http://google.com\" />\n * <a target=\"_blank\" href=\"/aa/bb\">debug</a>\n * args:\n *  doc: document\n *  relativeUrl: /aa/bb\n */\n"
+        "note": "/**\n * 获取上传文件的 url, 处理使用 <base> 的情况\n * <base href=\"http://google.com\" />\n * <a target=\"_blank\" href=\"/aa/bb\">debug</a>\n * args:\n *  doc: document\n *  relativeUrl: /aa/bb\n */"
       }
     ]
   },
@@ -249,7 +249,7 @@
     "subpath": "xhr",
     "fnArr": [
       {
-        "fnName": "export class Poll ",
+        "fnName": "export class Poll",
         "note": ""
       },
       {
@@ -267,11 +267,11 @@
     "fnArr": [
       {
         "fnName": "export function xssH(s)",
-        "note": "// 针对普通文本的编码\n"
+        "note": "// 针对普通文本的编码"
       },
       {
         "fnName": "export function xssUrlv(s)",
-        "note": "// 针对url里面query key，value的编码\n"
+        "note": "// 针对url里面query key，value的编码"
       }
     ]
   }

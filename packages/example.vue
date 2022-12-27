@@ -37,11 +37,11 @@ export default {
     },
   },
   mounted() {
-    this.canGetCode = Boolean(this.$slots.usage);
+    const codeStr = this.sourcecode;
+    this.canGetCode = Boolean(this.$slots.usage) && !!codeStr;
     if (!this.canGetCode) return;
 
     this.canHlight = !!window.hljs;
-    const codeStr = this.sourcecode;
     if (!this.oldCode) {
       this.oldCode = codeStr;
       !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
@@ -196,6 +196,9 @@ export default {
   details {
     margin-top: 16px;
     margin-right: 16px;
+    pre {
+      padding-top: 0;
+    }
   }
   summary {
     padding: 8px;

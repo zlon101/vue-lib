@@ -98,7 +98,7 @@ const commonCfg = {
       // },
       {
         test: /\.(eot|ttf|woff|woff2)$/i,
-        type: 'asset',
+        type: 'asset/resource',
       },
       // {
       //   test: /\.svg$/,
@@ -131,7 +131,12 @@ const commonCfg = {
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 4 * 1024 // 4kb
+          }
+        }
       },
     ],
   },

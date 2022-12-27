@@ -4,7 +4,7 @@
     <div class="module-item" v-for="modItem in list" :key="modItem.subpath">
       <h2>{{getModulePath(modItem)}}</h2>
       <div class="fn-item" v-for="item in modItem.fnArr" :key="item.fnName">
-        <pre>{{ item.note }}</pre>
+        <pre v-if="item.note">{{ item.note }}</pre>
         <pre><code class="hljs language-javascript" v-html="getCode(item.fnName)"></code></pre>
       </div>
     </div>
@@ -46,6 +46,7 @@ export default {
   }
   pre {
     margin: 0 0 8px;
+    padding-top: 0;
   }
   .module-item {
     border: 1px solid gray;

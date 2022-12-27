@@ -93,7 +93,10 @@ function handleFile(jsFile) {
     } else {
       note = str.slice(startInd, exportInd).replace(/\n{2,}/, '\n');
     }
-    fnList.push({ fnName, note });
+    fnList.push({
+      fnName: fnName.trim(),
+      note: note.trim(),
+    });
 
     // 函数结尾
     let fnEndRes = null;
