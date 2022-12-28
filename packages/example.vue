@@ -1,6 +1,14 @@
 <script>
 // 组件的 example 模板
+import Hlt from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import xml from 'highlight.js/lib/languages/xml';
+// import 'highlight.js/styles/atom-one-dark.css';
+import 'highlight.js/styles/base16/dracula.css';
 import Api from '@/axios';
+
+Hlt.registerLanguage('javascript', javascript);
+Hlt.registerLanguage('xml', xml);
 
 export default {
   inheritAttrs: false,
@@ -15,7 +23,6 @@ export default {
       devMod: !window._IsProd,
       oldCode: '',
       newCode: '',
-      canHlight: false,
       canGetCode: false,
     };
   },
@@ -37,20 +44,16 @@ export default {
     },
   },
   mounted() {
-    const codeStr = this.sourcecode;
+    let codeStr = (this.sourcecode || '').trim();
     this.canGetCode = Boolean(this.$slots.usage) && !!codeStr;
     if (!this.canGetCode) return;
 
-    this.canHlight = !!window.hljs;
+    // codeStr = codeStr.split('').map(chat => HtmlEscapes[chat] || chat).join('');
     if (!this.oldCode) {
       this.oldCode = codeStr;
       !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
     }
-    if (this.canHlight) {
-      this.newCode = window.hljs.highlight(codeStr, { language: 'html' }).value;
-    } else {
-      this.newCode = codeStr;
-    }
+    this.newCode = Hlt.highlight(codeStr, { language: 'xml' }).value;
   },
   methods: {
     onUpdateCode() {
@@ -112,8 +115,7 @@ export default {
         </template>
       </summary>
       <pre>
-        <code v-if="canHlight" class="hljs" ref="code" v-html="newCode" contenteditable="true"></code>
-        <code v-if="!canHlight" ref="code" class="hljs" contenteditable="true">{{ newCode }}</code>
+        <code class="hljs" ref="code" v-html="newCode" contenteditable="true"></code>
       </pre>
     </details>
   </div>
@@ -188,10 +190,6 @@ export default {
         padding-left: 16px;
       }
     }
-    pre code {
-      background-color: #000;
-      color: #e9e9f4;
-    }
   }
   details {
     margin-top: 16px;
@@ -212,19 +210,23 @@ export default {
       margin: 8px 0;
     }
   }
-  pre code {
-    padding: 4px;
-    display: block;
-    white-space: pre-wrap;
-    position: relative;
-    &::after {
-      content: 'code';
-      // display: block;
-      display: none;
-      position: absolute;
-      right: 4px;
-      top: 4px;
-      color: green;
+  pre {
+    line-height: 0;
+    code.hljs {
+      padding: 4px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      position: relative;
+      outline: 2px solid blue;
+      &::after {
+        content: 'code';
+        // display: block;
+        display: none;
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        color: green;
+      }
     }
   }
   .code-item {

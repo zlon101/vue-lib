@@ -26,7 +26,8 @@ function setup({svgDir, fontDir}) {
 * 生成字体和css
 * let initCode = 0xe000;
 * */
-const Blacklist = ['icon-calender', 'icon-dele', 'icon-hook', 'icon-loading-arrow', 'icon-loading', 'icon-prohibite', 'icon-question', 'icon-refresh', 'icon-search', 'icon-empty']; // 生成的iconfont无法使用
+// const Blacklist = ['icon-calender', 'icon-dele', 'icon-hook', 'icon-loading-arrow', 'icon-loading', 'icon-prohibite', 'icon-question', 'icon-refresh', 'icon-search', 'icon-empty']; // 生成的iconfont无法使用
+const Blacklist = [];
 function createIconFont(param) {
   const { svgDir, fontDir, cssPath } = param;
   let initCode = parseInt(param.initCode);

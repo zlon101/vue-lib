@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+* {
+  box-sizing: border-box;
+  font-family: "PingFangSC-Regular","Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-color: #c0c4cc transparent;
+  scrollbar-width: thin;
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -10,10 +19,13 @@ html {
 body {
   margin: 0;
   font-size: 14px;
-  line-height: 1.15;
   color: #06003b;
   background-color: #fff;
   min-height: 100%;
+}
+
+p {
+  line-height: 1.15;
 }
 
 article,
@@ -113,7 +125,6 @@ svg:not(:root) {
 
 pre {
   overflow: auto;
-  white-space: pre;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -306,13 +317,4 @@ i {
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #E9EBED;
-}
-
-* {
-  box-sizing: border-box;
-  font-family: "PingFangSC-Regular","Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scrollbar-color: #c0c4cc transparent;
-  scrollbar-width: thin;
 }

@@ -21,7 +21,7 @@
 <script>
 import ZInput from '@zl/input';
 
-const Cfg = [['start', 'hour'], ['start', 'min'], ['end', 'hour'], ['end', 'min']]
+const Cfg = [['start', 'hour'], ['start', 'min'], ['end', 'hour'], ['end', 'min']];
 
 export default {
   props: ['value'],
@@ -112,6 +112,8 @@ export default {
 
 <style lang="less" scoped>
 .c-time-input {
+  display: inline-flex;
+  align-items: center;
   .input-item {
     margin: 0 8px 0 0;
     display: inline-block;

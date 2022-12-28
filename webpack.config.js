@@ -3,6 +3,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { VueLoaderPlugin } = require('vue-loader');
 const serverMiddle = require('./plugin/server-middle.js');
 
@@ -10,8 +11,6 @@ const isProd = process.env.NODE_ENV === 'production';
 console.log(`$ ${isProd ? '生产' : '开发'}环境`);
 
 const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
-
-// const stylesHandler = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
 
 const commonCfg = {
   mode: 'development',
@@ -22,6 +21,7 @@ const commonCfg = {
     publicPath: isProd ? './' : '/',
     path: getAbsPath('docs'),
     filename: isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js',
+    assetModuleFilename: 'assets/[contenthash:8][ext][query]',
     clean: true,
     pathinfo: false,
   },
@@ -74,12 +74,19 @@ const commonCfg = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [isProd ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader'],
       },
       {
         test: /\.less$/,
         use: [
-          'vue-style-loader',
+          isProd ?
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: '../',
+              },
+            }
+            : 'vue-style-loader',
           'css-loader',
           'less-loader',
           {
@@ -92,29 +99,23 @@ const commonCfg = {
           }
         ]
       },
-      // {
-      //   test: /\.less$/i,
-      //   use: [stylesHandler, 'css-loader', 'less-loader'],
-      // },
+      /******
       {
-        test: /\.(eot|ttf|woff|woff2)$/i,
-        type: 'asset/resource',
+        test: /\.svg$/,
+        use: 'file-loader'
       },
-      // {
-      //   test: /\.svg$/,
-      //   use: 'file-loader'
-      // },
       {
         test: /\.svg/,
+        exclude: getAbsPath('packages/basecmp/icon'),
         use: {
-          loader: "svg-url-loader",
+          loader: 'svg-url-loader',
           options: {
             // make all svg images to work in IE
             iesafe: true,
             limit: 4096, // 4Kb
           },
         },
-      },
+      },***/
       {
         test: /\.md$/,
         use: [
@@ -130,7 +131,11 @@ const commonCfg = {
         ]
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/i,
+        test: /\.(eot|ttf|woff|woff2)$/i,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
         type: 'asset',
         parser: {
           dataUrlCondition: {
@@ -177,7 +182,12 @@ const prodCfg = {
             chunks: 'all'
         }
       }
-    }
+    },
+    minimizer: [
+      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+      `...`,
+      new CssMinimizerPlugin(),
+    ],
   },
 };
 
@@ -187,8 +197,8 @@ module.exports = (env) => {
   if (isProd) {
     dstCfg = { ...commonCfg, ...prodCfg };
     dstCfg.plugins.push(new MiniCssExtractPlugin({
-      filename: 'assets/[name]-[hash:8].css',
-      chunkFilename: 'assets/[name]-[hash:8].css',
+      filename: 'css/[name]-[fullhash:8].css',
+      chunkFilename: 'css/[name]-[fullhash:8].css',
       ignoreOrder: true
     }));
   } else {

@@ -1,12 +1,7 @@
-## 局部loading指令
+> 局部loading指令
+> 
+> 包含背景模糊和loading动画
 
-包含背景模糊和loading动画
-
-## example
-
-```vue
- <table v-loading={show: true}></table>
-```
 
 ## 指令参数
 

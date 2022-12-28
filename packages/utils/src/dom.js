@@ -108,3 +108,12 @@ export const handleFullscreen = (container) => {
     }
   }
 };
+
+// html 字符转义
+export const HtmlEscapes = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  '\'': '&#39;',
+};
