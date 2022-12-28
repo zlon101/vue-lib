@@ -10,10 +10,10 @@
 # https://verdaccio.org/docs/best
 
 # path to a directory with all packages
-storage: /work-pic/verd/storage
+storage: /xxx/verd/storage
 
 # path to a directory with plugins to include
-# plugins: /work-pic/verd/plugins
+# plugins: /xxx/verd/plugins
 
 # https://verdaccio.org/docs/webui
 web:
@@ -52,7 +52,7 @@ web:
 # https://verdaccio.org/docs/configuration#authentication
 auth:
   htpasswd:
-    file: /work-pic/verd/htpasswd
+    file: /xxx/verd/htpasswd
     # Maximum amount of users allowed to register, defaults to "+inf".
     # You can set this to -1 to disable registration.
     max_users: -1
@@ -147,7 +147,7 @@ security:
 
 # https://verdaccio.org/docs/configuration#listen-port
 listen:
-- 0.0.0.0:7973              # listen on all addresses (INADDR_ANY)
+- 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
 # - localhost:4873            # default value
 # - http://localhost:4873     # same thing
 # - https://example.org:4873  # if you want to use https

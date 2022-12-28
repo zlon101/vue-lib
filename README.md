@@ -35,6 +35,7 @@ npm install -g pm2@5.2.2
 ### 部署静态版本
 
 1. 执行 `npm run deploy`，将生成的 docs 目录上传到服务器上，用 nginx 以 docs 为静态资源文件运行站点
+2. [ubuntu 设置nginx 开机自启](https://www.jianshu.com/p/15eee4d38184)
 
 ### 部署开发环境
 
