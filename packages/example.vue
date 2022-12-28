@@ -211,7 +211,7 @@ export default {
     }
   }
   pre {
-    line-height: 0;
+    margin-top: 0;
     code.hljs {
       padding: 4px;
       line-height: 1.5;

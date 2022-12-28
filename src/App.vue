@@ -76,7 +76,7 @@ export default {
     };
   },
   created() {
-    const fullpath = window.location.pathname;
+    const fullpath = window.location.href;
     const idx = this.Indexs.findIndex(k => fullpath.includes(CompCfg[k].dir));
     if (idx !== -1) {
       this.curInd = this.Indexs[idx];

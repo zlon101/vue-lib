@@ -7,11 +7,15 @@ const { lockVersion, checkPackage } = require('./util.js');
 
 const resolvePath = relaPath => path.resolve(__dirname, relaPath);
 
-// 锁版本
-lockVersion(true);
+const CmdArgs = process.argv.slice(2) || [];
 
-// 检查组件的 example、README、package.json 文件
-[Cfg.BscmpDir, Cfg.Business, Cfg.ExtendDir, Cfg.DirectivesDir].forEach(dir => checkPackage(dir));
+if (!CmdArgs.includes('-build')) {
+  // 锁版本
+  lockVersion(true);
+
+  // 检查组件的 example、README、package.json 文件
+  [Cfg.BscmpDir, Cfg.Business, Cfg.ExtendDir, Cfg.DirectivesDir].forEach(dir => checkPackage(dir));
+}
 
 // 压缩 svg
 let hasFix = false; // 是否有更新

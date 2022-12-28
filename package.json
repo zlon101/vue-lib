@@ -8,7 +8,7 @@
     "predev": "node scripts/predev.js",
     "dev": "webpack serve  --open --env goal=local --env ahg=testVal",
     "watch": "webpack --watch",
-    "build": "webpack --mode=production --node-env=production",
+    "build": "node scripts/predev.js -build && webpack --mode=production --node-env=production",
     "build:lib": "node scripts/build-lib.js",
     "minSvg": "node packages/basecmp/icon/scripts/min-svg.cjs",
     "gene-icon": "node packages/basecmp/icon/scripts/gene-icon-bin.cjs",

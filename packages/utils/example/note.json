@@ -104,7 +104,7 @@
         "note": "// 全屏某个元素"
       },
       {
-        "fnName": "export const HtmlEscapes = {\n  '&': '&amp;',\n  '<': '&lt;',\n  '>': '&gt;',\n  '\"': '&quot;',\n  \"'\": '&#39;'\n}",
+        "fnName": "export const HtmlEscapes = {\n  '&': '&amp;',\n  '<': '&lt;',\n  '>': '&gt;',\n  '\"': '&quot;',\n  '\\'': '&#39;',\n}",
         "note": "// html 字符转义"
       }
     ]
