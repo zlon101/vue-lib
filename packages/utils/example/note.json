@@ -186,11 +186,19 @@
     "fnArr": [
       {
         "fnName": "export function throttle(callFn, interval)",
-        "note": "/**\n * 性能优化\n */\n// 节流"
+        "note": "/**\n * 性能优化\n */\nimport { getType } from './object.js';\n\n// 节流"
       },
       {
         "fnName": "export function debounce(func, wait, immediate)",
         "note": "// 防抖"
+      },
+      {
+        "fnName": "export function debounce2(func, wait, options)",
+        "note": "// 防抖"
+      },
+      {
+        "fnName": "export function throttle2(func, wait, options)",
+        "note": "// 节流"
       }
     ]
   },

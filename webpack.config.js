@@ -83,6 +83,7 @@ const commonCfg = {
             {
               loader: MiniCssExtractPlugin.loader,
               options: {
+                // 图像和css输出目录为同一级
                 publicPath: '../',
               },
             }

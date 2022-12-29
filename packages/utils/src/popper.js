@@ -2610,5 +2610,4 @@ function factory () {
   Popper.Defaults = Defaults;
 
   return Popper;
-
 };

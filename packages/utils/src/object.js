@@ -1,11 +1,15 @@
 /**
  * 获取某个数据的类型
- * @param value 需要过去类型的数据
- * @returns {string} 对应类型名称
+ * @param value
+ * @param targetType: String => 期望的类型，可选
+ * @returns {string|boolean} 对应类型名称|是否为期望的类型
  */
- export function getType(value) {
-  const str = Object.prototype.toString.call(value);
-  return str.slice(8, -1).toLowerCase();
+ export function getType(value, targetType = undefined) {
+  const type = Object.prototype.toString.call(value).slice(8, -1);
+  if (typeof targetType === 'string') {
+    return type.toLowerCase() === targetType.trim().toLowerCase();
+  }
+  return type;
 }
 
 /**

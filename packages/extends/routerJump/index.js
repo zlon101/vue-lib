@@ -6,7 +6,7 @@ import { getType } from '@zl/utils/object';
 function jump(routeConfig, args) {
   const defaultArgs = { blank: false, replace: false, event: {} };
 
-  if (getType(args).includes('event')) {
+  if (getType(args).toLowerCase().includes('event')) {
     args = Object.assign(defaultArgs, { event: args });
   } else {
     args = Object.assign(defaultArgs, args);

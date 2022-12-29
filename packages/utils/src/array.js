@@ -6,7 +6,7 @@ export function unique(srcArr, noEmpty = false) {
     return srcArr;
   }
   let result = [];
-  if (typeof window.Set === 'function' && srcArr.every(item => getType(item) !== 'object')) {
+  if (getType(window.Set, 'function') && srcArr.every(item => !getType(item, 'Object'))) {
     result = [...new Set(srcArr)];
   } else {
     result = srcArr.filter((item, i) => srcArr.findIndex(child => isSame(item, child)) === i);
