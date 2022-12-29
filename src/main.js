@@ -12,3 +12,6 @@ new Vue({
   router,
   render: h => h(App),
 }).$mount('#app');
+
+let x = 1;
+console.debug(x);
