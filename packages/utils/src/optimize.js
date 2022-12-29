@@ -1,23 +1,4 @@
-/**
- * 性能优化
- */
-
 import { getType } from './object.js';
-
-// 节流
-export function throttle2(callFn, interval) {
-  let timer = null;
-  return function(...args) {
-    if (!timer) {
-      timer = setTimeout(() => {
-        clearTimeout(timer);
-        timer = null;
-        callFn.apply(this, args);
-      }, interval);
-    }
-  };
-}
-
 
 /**
  * 防抖，连续触发10次，只有第一次或最后一次才会执行
@@ -80,9 +61,7 @@ export function debounce(func, wait, options) {
       timeSinceLastInvoke = time - lastInvokeTime,
       timeWaiting = wait - timeSinceLastCall;
 
-    return maxing
-      ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke)
-      : timeWaiting;
+    return maxing ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
   }
 
   function shouldInvoke(time) {
@@ -92,8 +71,12 @@ export function debounce(func, wait, options) {
     // Either this is the first call, activity has stopped and we're at the
     // trailing edge, the system time has gone backwards and we're treating
     // it as the trailing edge, or we've hit the `maxWait` limit.
-    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+    return (
+      lastCallTime === undefined ||
+      timeSinceLastCall >= wait ||
+      timeSinceLastCall < 0 ||
+      (maxing && timeSinceLastInvoke >= maxWait)
+    );
   }
 
   function timerExpired() {

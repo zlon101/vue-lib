@@ -186,7 +186,7 @@
     "fnArr": [
       {
         "fnName": "export function throttle2(callFn, interval)",
-        "note": "/**\n * 性能优化\n */\nimport { getType } from './object.js';\n\n// 节流"
+        "note": "// 节流"
       },
       {
         "fnName": "export function debounce(func, wait, options)",

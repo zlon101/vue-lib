@@ -1,5 +1,7 @@
 /**
  * eslint 只做语法检查，不检查代码格式
+ * eslint-config-prettier: 仅仅关闭与 prettier 冲突的规则，需要与其他配置一起使用
+ * eslint-plugin-prettier: Runs Prettier as an ESLint rule
  */
 
 module.exports = {
@@ -7,22 +9,24 @@ module.exports = {
   env: {
     node: true,
     browser: true,
-    commonjs: false,
+    commonjs: true,
     es6: true,
   },
   // 继承基础配置(已有的规则集) [airbnb-base | eslint:recommended]
-  extends: ['eslint:recommended', 'plugin:vue/essential', 'prettier'],
+  // 省略 eslint-config 前缀
+  extends: ['eslint:recommended', 'plugin:vue/essential', 'plugin:prettier/recommended'],
   // 插件名称省略 eslint-plugin 前缀
-  plugins: ['vue', 'prettier'],
+  plugins: ['vue'],
   parserOptions: {
     parser: 'babel-eslint',
     ecmaVersion: 6,
     sourceType: 'module',
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // 0:off 1:warn 2:error
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-var': 2, // 禁用var
+    'no-var': 'error', // 禁用var
     'no-unused-vars': [2, { args: 'none' }], // 消除未使用的变量  不检查函数的参数
     'no-redeclare': 2, // 禁止多次声明同一变量
     'no-dupe-keys': 2, // 在创建对象字面量时不允许键重复
