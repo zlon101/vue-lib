@@ -1,0 +1,19 @@
+{
+  "name": "@zl/breadcrumb",
+  "version": "1.0.0",
+  "description": "导航条、面包屑",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../icon",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://localhost:8910"
+  },
+  "dependencies": {
+    "@zl/icon": "latest"
+  }
+}

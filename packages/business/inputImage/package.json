@@ -8,6 +8,6 @@
   "author": "Pikachu",
   "license": "ISC",
   "publishConfig": {
-    "registry": "http://10.10.71.158:4873"
+    "registry": "http://localhost:8910"
   }
 }
