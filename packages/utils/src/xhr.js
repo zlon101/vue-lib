@@ -1,4 +1,4 @@
-const isEmpty = (val) => {
+const isEmpty = val => {
   if (Array.isArray(val)) {
     return val.length === 0;
   }
@@ -140,7 +140,34 @@ export class Poll {
   // }
 }
 
-export function ajax(cfg, data) {
+/**
+ * Example
+ * ajax({
+ *   url: 'xx',
+ *   method: 'POST',
+ *   contentType: 'application/json; charset=utf-8',
+ *   setHeaders(xhr) {
+ *     xhr.responseType = 'json';
+ *     xhr.timeout = 30000; // ms
+ *     // 默认情况下不会将 cookie 和 HTTP 授权发送到其他域。要启用它们，可以将 xhr.withCredentials 设置为 true
+ *     xhr.withCredentials = true;
+ *   },
+ *   data: {
+ *     key: val
+ *   },
+ *   ontimeout(e) {
+ *     console.debug(e);
+ *   },
+ *   onprogress(e) {
+ *
+ *   }
+ * })
+ * 各种 Content-Type 对应的 POST 请求数据格式
+ * 1. applicaion/x-www-urlencoded  => xhr.send('a=val1&key2=value2');
+ * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))
+ * 3.
+ * **************/
+export default function ajax(cfg) {
   const xhr = getXHR();
   // 注册事件监听
   const Event = ['ontimeout', 'onprogress'];
@@ -149,11 +176,9 @@ export function ajax(cfg, data) {
       xhr[k] = cfg[k];
     }
   });
-  return new Promise((resolve, reject) =>{
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState !== 4) return;
-
-      const result = xhr.responseText;
+  return new Promise((resolve, reject) => {
+    xhr.onload = () => {
+      const result = xhr.response;
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
         resolve(result);
       } else {
@@ -161,12 +186,15 @@ export function ajax(cfg, data) {
       }
     };
     // 保证这些方法一定要是大写字母，否则其他一些浏览器（比如FireFox）可能无法处理这个请求
-    xhr.open(cfg.method.toUpperCase(), cfg.url);
-    xhr.send(data || cfg.data);
+    const _method = cfg.method.toUpperCase();
+    xhr.open(_method, cfg.url);
+    cfg.contentType && xhr.setRequestHeader('Content-Type', cfg.contentType);
+    cfg.setHeaders && cfg.setHeaders(xhr);
+    xhr.send(cfg.data || null);
   });
 }
 
-export function getXHR() {
+function getXHR() {
   if (window.XMLHttpRequest) {
     // 兼容 IE7+, Firefox, Chrome, Opera, Safari
     return new XMLHttpRequest();

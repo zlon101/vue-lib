@@ -16,7 +16,8 @@ const commonCfg = {
   mode: 'development',
   // 运行上下文，默认为 nodejs 当前工作目录
   context: getAbsPath('./'),
-  entry: './src/main.js',
+  // entry: './src/main.js',
+  entry: './src/test/index.js',
   output: {
     publicPath: isProd ? './' : '/',
     path: getAbsPath('docs'),

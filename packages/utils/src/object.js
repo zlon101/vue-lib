@@ -4,7 +4,7 @@
  * @param targetType: String => 期望的类型，可选
  * @returns {string|boolean} 对应类型名称|是否为期望的类型
  */
- export function getType(value, targetType = undefined) {
+export function getType(value, targetType = undefined) {
   const type = Object.prototype.toString.call(value).slice(8, -1);
   if (typeof targetType === 'string') {
     return type.toLowerCase() === targetType.trim().toLowerCase();
@@ -25,7 +25,7 @@ export function isSame(a, b) {
     return Object.keys(a).every(key => isSame(a[key], b[key]));
   }
   if (type === 'Array') {
-    return a.every((item) => b.some(temp => isSame(item, temp)));
+    return a.every(item => b.some(temp => isSame(item, temp)));
   }
   return a === b;
 }
@@ -48,4 +48,18 @@ export function deepClone(srcData, hash = new WeakMap()) {
     newData[k] = deepClone(srcData[k], hash);
   });
   return newData;
+}
+
+/**
+ * 转换存储大小
+ * numberOfBytes: 字节（B）
+ * *************/
+export function transformByteUnit(numberOfBytes) {
+  const units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+
+  const exponent = Math.min(Math.floor(Math.log(numberOfBytes) / Math.log(1024)), units.length - 1);
+  const approx = numberOfBytes / 1024 ** exponent;
+  const output = exponent === 0 ? `${numberOfBytes} B` : `${approx.toFixed(3)} ${units[exponent]}`;
+  console.debug(output);
+  return output;
 }

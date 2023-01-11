@@ -22,6 +22,10 @@
     ]
   },
   {
+    "subpath": "browser",
+    "fnArr": []
+  },
+  {
     "subpath": "client",
     "fnArr": [
       {
@@ -178,16 +182,16 @@
       {
         "fnName": "export function deepClone(srcData, hash = new WeakMap()",
         "note": "// 深度克隆"
+      },
+      {
+        "fnName": "export function transformByteUnit(numberOfBytes)",
+        "note": "/**\n * 转换存储大小\n * numberOfBytes: 字节（B）\n * *************/"
       }
     ]
   },
   {
     "subpath": "optimize",
     "fnArr": [
-      {
-        "fnName": "export function throttle2(callFn, interval)",
-        "note": "// 节流"
-      },
       {
         "fnName": "export function debounce(func, wait, options)",
         "note": "/**\n * 防抖，连续触发10次，只有第一次或最后一次才会执行\n * func (Function): The function to debounce.\n * [wait=0] (number): The number of milliseconds to delay.\n * [options={}] (Object): The options object.\n * [options.leading=false] (boolean): 超时前调用，Specify invoking on the leading edge of the timeout.\n * [options.maxWait] (number): The maximum time func is allowed to be delayed before it's invoked.\n * [options.trailing=true] (boolean): 定时到期后调用，Specify invoking on the trailing edge of the timeout.\n * ************/"
@@ -261,12 +265,8 @@
         "note": ""
       },
       {
-        "fnName": "export function ajax(cfg, data)",
-        "note": ""
-      },
-      {
-        "fnName": "export function getXHR()",
-        "note": ""
+        "fnName": "export default function ajax(cfg)",
+        "note": "/**\n * Example\n * ajax({\n *   url: 'xx',\n *   method: 'POST',\n *   contentType: 'application/json; charset=utf-8',\n *   setHeaders(xhr) {\n *     xhr.responseType = 'json';\n *     xhr.timeout = 30000; // ms\n *     // 默认情况下不会将 cookie 和 HTTP 授权发送到其他域。要启用它们，可以将 xhr.withCredentials 设置为 true\n *     xhr.withCredentials = true;\n *   },\n *   data: {\n *     key: val\n *   },\n *   ontimeout(e) {\n *     console.debug(e);\n *   },\n *   onprogress(e) {\n *\n *   }\n * })\n * 各种 Content-Type 对应的 POST 请求数据格式\n * 1. applicaion/x-www-urlencoded  => xhr.send('a=val1&key2=value2');\n * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))\n * 3.\n * **************/"
       }
     ]
   },
