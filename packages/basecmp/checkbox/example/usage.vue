@@ -1,24 +1,24 @@
 <template>
   <div>
     <h3>普通用法</h3>
-    <CheckboxV2 :status.sync="status1">
+    <Checkbox :status.sync="status1">
       <div>
         <p>自定义label</p>
         <p>自定义label</p>
       </div>
-    </CheckboxV2>
+    </Checkbox>
     <h3>部分选中</h3>
-    <CheckboxV2 :status.sync="status2">自定义label</CheckboxV2>
+    <Checkbox :status.sync="status2">自定义label</Checkbox>
     <h3>disabled</h3>
-    <CheckboxV2 :status.sync="status2" disabled disabledTips="提示语提示语提示语提示语">自定义label</CheckboxV2>
+    <Checkbox :status.sync="status2" disabled disabledTips="提示语提示语提示语提示语">自定义label</Checkbox>
     <hr style="height:2px;border-top:1px solid red"/>
-    <h3>CheckboxGroupV2 水平</h3>
-    <CheckboxGroupV2 :options.sync="options" margin="32px" class="group" />
-    <h3>CheckboxGroupV2 垂直</h3>
+    <h3>CheckboxGroup 水平</h3>
+    <CheckboxGroup :options.sync="options" margin="32px" class="group" />
+    <h3>CheckboxGroup 垂直</h3>
     <p>CheckboxGroup 复选框的状态有两个方式决定，有且只有一种方式有效，如下</p>
     <h3>(1). 由options[index].status 决定, 优先级高于第2种</h3>
     <div class="group">
-      <CheckboxGroupV2 :options.sync="optionsV2" vertical />
+      <CheckboxGroup :options.sync="optionsV2" vertical />
       <!-- <pre>{{optionsV2}}</pre> -->
       <button @click="onUpdateAll('all')">全选</button>
       <button @click="onUpdateAll('none')">全不选</button>
@@ -27,7 +27,7 @@
     <h3>(2). 由已选中id列表决定</h3>
     <p>这种无法处理部分选中状态</p>
     <div class="group">
-      <CheckboxGroupV2 :options="optionsV3" :checkeds.sync="valueV3" vertical />
+      <CheckboxGroup :options="optionsV3" :checkeds.sync="valueV3" vertical />
       <button @click="onUpdateAllV3(true)">全选</button>
       <button @click="onUpdateAllV3(false)">全不选</button>
     </div>
@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import CheckboxV2, { CheckboxGroupV2 } from '../index';
+import Checkbox, { CheckboxGroup } from '../index';
 
 export default {
-  components: { CheckboxV2, CheckboxGroupV2 },
+  components: { Checkbox, CheckboxGroup },
   data() {
     return {
       status1: false,
@@ -51,7 +51,7 @@ export default {
         },
         {
           id: 2,
-          label: '<span class="icon icon-prohibit-watermark"></span> 自定义icon',
+          label: '<span class="iconfont icon-add"></span> 自定义icon',
           status: 'some',
         },
       ],
@@ -62,7 +62,7 @@ export default {
         },
         {
           id: 200,
-          label: '<span class="icon icon-prohibit-watermark"></span> 自定义icon',
+          label: '<span class="iconfont icon-cross"></span> 自定义icon',
         },
       ],
       optionsV3: [

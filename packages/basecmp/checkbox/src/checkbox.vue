@@ -27,7 +27,7 @@ const TranStrVal = {
 };
 
 export default {
-  name: 'CheckboxV2',
+  name: 'Checkbox',
   inheritAttrs: false,
   components: { Tooltip },
   props: {

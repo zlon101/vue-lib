@@ -18,7 +18,7 @@
 import checkbox from './checkbox.vue';
 
 export default {
-  name: 'CheckboxGroupV2',
+  name: 'CheckboxGroup',
   inheritAttrs: false,
   components: { checkbox },
   props: {
