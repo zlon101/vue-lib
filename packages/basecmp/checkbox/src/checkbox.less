@@ -1,0 +1,121 @@
+.c-checkbox-gb {
+  display: inline-flex;
+  align-items: center;
+  // line-height: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  &.disabled {
+    pointer-events: none;
+    background-color: #ffffff;
+  }
+  .checkbox-tip {
+    line-height: 0;
+    > * {
+      line-height: 0;
+    }
+  }
+  .checkbox {
+    min-width: 16px;
+  }
+  // 各种复选框
+  .checkbox-basis {
+    width: 16px;
+    height: 16px;
+    line-height: 0;
+    min-width: 16px;
+    margin-right: 8px;
+    border-radius: 2px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .checkbox-all {
+    .checkbox-basis();
+    background: #3a51e0;
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 3px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+    }
+  }
+  .checkbox-all-disable {
+    .checkbox-basis();
+    background-color: #dcdfe6;
+    // cursor: not-allowed;
+    pointer-events: none;
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 3px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+    }
+  }
+  .checkbox-some {
+    .checkbox-basis();
+    background: #ffffff;
+    border: 1px solid #c0c4cc;
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 2px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-color: #3a51e0;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .checkbox-some-disable {
+    .checkbox-basis();
+    background-color: #f0f2f5;
+    border: 1px solid #c0c4cc;
+    // cursor: not-allowed;
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 2px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-color: #c0c4cc;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .checkbox-none {
+    .checkbox-basis();
+    background: #ffffff;
+    border: 1px solid #c0c4cc;
+  }
+  .checkbox-none-disable {
+    .checkbox-basis();
+    // cursor: not-allowed;
+    background-color: #f0f2f5;
+    border: 1px solid #c0c4cc;
+  }
+}
+
+.c-checkbox-group-v2 {
+  > .c-checkbox-gb:last-child {
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+  }
+  .label-wrap {
+    display: inline-flex;
+    align-items: center;
+  }
+}

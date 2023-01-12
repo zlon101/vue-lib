@@ -1,0 +1,19 @@
+{
+  "name": "@zl/sidebar",
+  "version": "1.0.0",
+  "description": "侧边导航栏",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../icon && npx link ../scrollbar"
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://localhost:8910"
+  },
+  "dependencies": {
+    "@zl/scrollbar": "latest",
+    "@zl/icon": "latest"
+  }
+}

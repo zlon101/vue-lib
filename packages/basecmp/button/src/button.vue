@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'c-sdp-button',
+      'c-btn-kw',
       sizeMap[size],
       round && 'round',
       plain && 'plain',
@@ -16,11 +16,11 @@
     :style="{ width: `${Number(width)}px` }"
     @click="handleClick"
   >
-    <div :class="['sdp-button-content', reverse && 'reverse']">
+    <div :class="['btn-content', reverse && 'reverse']">
       <slot name="icon">
-        <i v-show="icon || loading" :class="[getLoadingClass, 'sdp-button-icon']"></i>
+        <i v-show="icon || loading" :class="[getLoadingClass, 'btn-icon-al']"></i>
       </slot>
-      <p class="sdp-button-text"><slot></slot></p>
+      <p class="btn-txt-kj"><slot></slot></p>
     </div>
   </div>
 </template>
@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style lang="less">
-.c-sdp-button {
+.c-btn-kw {
   display: inline-block;
   padding: 0 15px; // 加上边框共16px
   text-align: center;
@@ -157,7 +157,7 @@ export default {
     line-height: 40px;
     font-size: 14px;
     font-weight: bold;
-    .sdp-button-icon {
+    .btn-icon-al {
       width: 16px;
       height: 16px;
     }
@@ -170,7 +170,7 @@ export default {
     line-height: 30px;
     font-size: 14px;
     font-weight: bold;
-    .sdp-button-icon {
+    .btn-icon-al {
       width: 16px;
       height: 16px;
     }
@@ -181,7 +181,7 @@ export default {
     line-height: 22px;
     font-size: 12px;
     font-weight: normal;
-    .sdp-button-icon {
+    .btn-icon-al {
       width: 14px;
       height: 14px;
     }
@@ -195,7 +195,7 @@ export default {
   /** plain */
   &.plain {
     background: #fff !important;
-    .sdp-button-icon,
+    .btn-icon-al,
     svg {
       margin: 0 6px 0 0 !important;
     }
@@ -206,7 +206,7 @@ export default {
     color: #06003b;
     border: 1px solid #dcdfe6;
     background: #fff;
-    .sdp-button-icon,
+    .btn-icon-al,
     svg {
       margin: 0 6px 0 0 !important;
     }
@@ -271,7 +271,7 @@ export default {
     }
   }
 
-  .sdp-button-content {
+  .btn-content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -279,16 +279,16 @@ export default {
     height: 100%;
     &.reverse {
       flex-direction: row-reverse;
-      .sdp-button-icon,
+      .btn-icon-al,
       svg {
         margin: 0 0 0 8px;
       }
     }
-    .sdp-button-icon,
+    .btn-icon-al,
     svg {
       margin: 0 8px 0 0;
     }
-    .sdp-button-text {
+    .btn-txt-kj {
       white-space: nowrap;
     }
   }

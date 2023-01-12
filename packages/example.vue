@@ -3,9 +3,8 @@
 import Hlt from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 import xml from 'highlight.js/lib/languages/xml';
-// import 'highlight.js/styles/atom-one-dark.css';
 import 'highlight.js/styles/base16/dracula.css';
-import Api from '@/axios';
+// import Api from '@/axios';
 
 Hlt.registerLanguage('javascript', javascript);
 Hlt.registerLanguage('xml', xml);
@@ -20,7 +19,7 @@ export default {
   },
   data() {
     return {
-      devMod: !window._IsProd,
+      devMod: false, // !window._IsProd,
       oldCode: '',
       newCode: '',
       canGetCode: false,
@@ -51,17 +50,19 @@ export default {
     // codeStr = codeStr.split('').map(chat => HtmlEscapes[chat] || chat).join('');
     if (!this.oldCode) {
       this.oldCode = codeStr;
-      !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
+      // !sessionStorage.getItem(this.compPath) && sessionStorage.setItem(this.compPath, codeStr);
     }
     this.newCode = Hlt.highlight(codeStr, { language: 'xml' }).value;
   },
   methods: {
     onUpdateCode() {
+      /****
       const nCode = this.$refs.code.textContent;
       Api.setCode(this.compPath, nCode);
-      setTimeout(() => window.location.reload(), 300);
+      setTimeout(() => window.location.reload(), 300);**/
     },
     onReset() {
+      /**
       if (!this.canGetCode || window._IsProd) return;
 
       const { compPath } = this;
@@ -74,7 +75,7 @@ export default {
         // setTimeout(() => window.location.reload(), 300);
       } else {
         console.debug('\n未查找到旧代码');
-      }
+      }**/
     },
   },
 };

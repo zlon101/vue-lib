@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const serverMiddle = require('./plugin/server-middle.js');
+// const serverMiddle = require('./plugin/server-middle.js');
 
 const isProd = process.env.NODE_ENV === 'production';
 console.log(`$ ${isProd ? '生产' : '开发'}环境`);
@@ -160,13 +160,14 @@ const devCfg = {
     port: '7120',
     // 解决单页面应用，在某个路径下刷新页面时404
     historyApiFallback: true,
+    /***
     setupMiddlewares: function (middlewares, devServer) {
       if (!devServer) {
         throw new Error('webpack-dev-server is not defined');
       }
       serverMiddle(devServer.app);
       return middlewares;
-    },
+    },**/
   },
 };
 

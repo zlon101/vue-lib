@@ -176,6 +176,10 @@
     "subpath": "object",
     "fnArr": [
       {
+        "fnName": "export function getType(value, targetType = undefined)",
+        "note": "/**\n * 获取某个数据的类型\n * @param value\n * @param targetType: String => 期望的类型，可选\n * @returns {string|boolean} 对应类型名称|是否为期望的类型\n */"
+      },
+      {
         "fnName": "export function isSame(a, b)",
         "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */"
       },
