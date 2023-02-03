@@ -2,7 +2,7 @@
   <div class="fwq">
     <section class="range">
       <h2>搜索高亮</h2>
-      <input @input="onSearch" />
+      <input :value="searchText" @change="onSearch" />
       <p id="p1" ref="p">
         abcd
         <b>Hello</b>
@@ -19,7 +19,7 @@
       <div class="hide" style="visibility: hidden"></div>
       <div class="hide" style="opacity: 0"></div>
     </section>
-    <!--<section class="j9p">lloWo</section>-->
+    <section class="j9p">lloWo</section>
   </div>
 </template>
 
@@ -28,35 +28,49 @@
 
 const log = console.debug;
 
-function traverseDoc(searchVal = 'lloWo') {
-  // createTreeWalker createNodeIterator
+function isHideElement(element) {
+  if (!element.offsetHeight || !element.offsetWidth) {
+    return true;
+  }
+  const styleAttr = window.getComputedStyle(element);
+  if (styleAttr.display === 'none'
+  || styleAttr.visibility === 'hidden'
+  || styleAttr.opacity === '0') {
+    return true;
+  }
+  return false;
+}
+
+function traverseDoc(searchVal = 'oWo') {
   const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT);
   const reg = new RegExp(searchVal, 'i');
   if (!reg.test(treeWalker.root.innerText)) {
     return false;
   }
 
-  const nodeList = []; // 调试用
+  const currentIsRoot = () => treeWalker.currentNode === treeWalker.root;
   let curNode = treeWalker.nextNode();
   reg.lastIndex = 0;
   let matchEle = null;
   const result = [];
-  while (curNode) {
+  log('开始遍历');
+  console.time();
+  while (curNode && !currentIsRoot()) {
     const innerText = curNode.innerText;
-    if (reg.test(innerText)) {
-      matchEle = curNode;
-      nodeList.push(curNode);
-      matchEle = curNode;
-      curNode = treeWalker.nextNode();
-    } else {
+    if (isHideElement(curNode) || !reg.test(curNode.innerText)) {
       matchEle && result.push(matchEle);
       matchEle = null;
       curNode = treeWalker.nextSibling();
-      if (!curNode) {
-        treeWalker.previousNode();
+      while (!curNode && !currentIsRoot()) {
+        // 没有下一个兄弟节点, 当前 current node 没有变化
+        // treeWalker.previousNode();
         treeWalker.parentNode();
         curNode = treeWalker.nextSibling();
       }
+    } else {
+      matchEle = curNode;
+      matchEle = curNode;
+      curNode = treeWalker.nextNode();
     }
     reg.lastIndex = 0;
   }
@@ -69,6 +83,7 @@ function traverseDoc(searchVal = 'lloWo') {
       targetEles.push(node);
     }
   });
+
   // log(`
   // nodeList: %o
   // targetEles: %o
@@ -78,12 +93,12 @@ function traverseDoc(searchVal = 'lloWo') {
     reg.lastIndex = 0;
     surroundContents(ele, reg.exec(ele.innerText)[0].trim());
   }
+  console.timeEnd();
 }
 
+
 function surroundContents(ele, matchText) {
-  // const tmpEle = document.createElement('p');
-  // tmpEle.style.display = 'none';
-  // document.body.appendChild(tmpEle);
+  log('surroundContents start');
   let rangeStart = null,
     rangeEnd = null,
     curNode = null,
@@ -94,8 +109,6 @@ function surroundContents(ele, matchText) {
   const NodeIterator = document.createNodeIterator(ele, NodeFilter.SHOW_TEXT);
 
   while (curNode = NodeIterator.nextNode()) {
-    // tmpEle.textContent = curNode.wholeText;
-    // const nodeText = tmpEle.innerText;
     nodeStack.push(curNode);
     fullText = nodeStack.map(node => node.wholeText.trim()).join('');
     if (fullText.includes(matchText)) {
@@ -111,74 +124,86 @@ function surroundContents(ele, matchText) {
   }
 
   let startInd = 0,
-    endInd = 0,
-    tmpInd = 0,
     startText = rangeStart.node.wholeText,
-    endText = rangeEnd.node.wholeText;
+    endText = rangeEnd.node.wholeText,
+    endInd = endText.length - 1;
 
-  startInd = /[^\s\n]/.exec(startText).index;
-  while (startText[startInd] !== matchText[tmpInd]
-    && startInd < startText.length
-    && tmpInd < matchText.length
-    ) {
-    ++startInd, ++tmpInd;
+  // 空格换行处理？
+  if (rangeStart.node && rangeStart.node === rangeEnd.node) {
+    startInd = startText.split(matchText)[0].length;
+    endInd = startInd + matchText.length - 1;
+  } else {
+    while (startInd < startText.length && !matchText.includes(startText.slice(startInd))) {
+      ++startInd;
+    }
+    while (endInd > 0 && !matchText.includes(endText.slice(0, endInd))) {
+      --endInd;
+    }
   }
-  --startInd;
   rangeStart.offset = startInd;
-
-
-  endInd = 0;
-  tmpInd = startInd;
-  log('xxxx', matchText[tmpInd]);
-  while (endText[endInd] === matchText[tmpInd]
-    && endInd > 0
-    && tmpInd > 0
-    ) {
-    --endInd, --tmpInd;
-  }
-  ++endInd, ++tmpInd;
+  rangeEnd.offset = endInd;
 
   // log(`
-  // matchText: ${matchText}
-  // fullText: ${fullText}
-  // ${startText.slice(startInd)}
-  // ${endText.slice(0, endInd)}
-  // rangeStart: %o
-  // rangeEnd: %o
-  // `,
-  //   rangeStart,
-  //   rangeEnd,
-  // );
+  //   startInd: ${rangeStart.offset}
+  //   ${startText.slice(startInd)}
+  //   endInd: ${rangeEnd.offset}
+  //   ${endText.slice(0, endInd)}
+  //   ${rangeStart.node === rangeEnd.node}
+  // `);
 
-  /***
   if (rangeStart && rangeEnd) {
+    // 必须是text类型的节点
+    if ([rangeStart.node, rangeEnd.node].some(_node => _node.nodeType !== 3)) {
+      throw new Error('rangeStart 或 rangeEnd 节点不是 text 类型');
+    }
+    if (rangeStart.node === rangeEnd.node) {
+      rangeEnd.offset++;
+    }
     const range = document.createRange();
     range.setStart(rangeStart.node, rangeStart.offset);
     range.setEnd(rangeEnd.node, rangeEnd.offset);
+
     const span = document.createElement('span');
     span.style.cssText = 'background-color:red;font-size:larger';
+
     span.appendChild(range.extractContents());
     range.insertNode(span);
   } else {
     console.debug('rangeStart 或 rangeEnd 为null');
   }
-   ******************/
-  // document.body.removeChild(tmpEle);
+  log('surroundContents end');
 }
 
 export default {
+  data() {
+    return {
+      searchText: '',
+    };
+  },
   mounted() {
-    traverseDoc();
+    // traverseDoc('a');
+    return;
+
+    const p1 = this.$el.querySelector('#p1');
+    const startNode = p1.childNodes[1].firstChild;
+    const endNode = startNode;
+
+    const range = document.createRange();
+    range.setStart(startNode, 1);
+    range.setEnd(startNode, 4);
+
+    const span = document.createElement('span');
+    span.style.cssText = 'background-color:red;font-size:larger';
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
   },
   methods: {
     onSearch(e) {
       let searchVal = e.target.value.trim();
+      this.searchText = searchVal;
       if (!searchVal) return;
 
-      console.group();
-      log(`searchVal: ${searchVal}`);
-
-      const reg = new RegExp(searchVal, 'i');
+      traverseDoc(searchVal);
     },
   },
 };
