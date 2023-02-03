@@ -10,6 +10,7 @@
 <script>
 /* eslint-disable */
 import ajax from '@packages/utils/src/xhr.js';
+import axios from '@packages/axios-1.2.1';
 
 export const BaseUrl = 'http://127.0.0.1:8380';
 
@@ -44,6 +45,16 @@ function postXhr(data, contentType) {
 export default {
   methods: {
     onAxios(type) {
+      axios({
+        method: type,
+        url: `${BaseUrl}/post?ID=12`,
+        data: {
+          firstName: 'Fred',
+          lastName: 'Flintstone'
+        }
+      });
+    },
+    onXhr(type) {
       if (type === 'get') {
         getXhr();
       } else if (type === 'post') {

@@ -25,6 +25,7 @@ import AxiosHeaders from "./core/AxiosHeaders.js";
  */
 function createInstance(defaultConfig) {
   const context = new Axios(defaultConfig);
+  // fn.apply(thisArg, arguments);
   const instance = bind(Axios.prototype.request, context);
 
   // Copy axios.prototype to instance

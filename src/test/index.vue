@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="vue-app">
     <h1>测试各种功能</h1>
     <XhrTest />
     <ServeEvent />
