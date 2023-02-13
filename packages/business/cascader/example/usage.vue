@@ -1,5 +1,5 @@
 <template>
-  <AreaSelect :root="AreaRoot" />
+  <AreaSelect :root="AreaRoot" uid="code" labelKey="name" @input="onChange" style="width:300px" />
 </template>
 
 <script>
@@ -16,8 +16,8 @@ export default {
     };
   },
   methods: {
-    onChange(range) {
-      console.log(range);
+    onChange(evt) {
+      console.log(evt);
     },
   },
 };

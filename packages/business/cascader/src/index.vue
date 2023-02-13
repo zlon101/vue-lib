@@ -37,13 +37,20 @@ export default {
       default: '请选择',
     },
     // 唯一标识key
-    uid: String,
+    uid: {
+      type: String,
+      required: true,
+    },
     labelKey: {
       type: String,
       default: 'name',
+      required: true,
     },
     // Object { [labelKey], [uid] }
-    root: Object,
+    root: {
+      type: Object,
+      required: true,
+    },
     zIndex: {
       type: String,
       default: '100',
@@ -278,7 +285,6 @@ export default {
     }
     .cascader_icon {
       cursor: pointer;
-      transform: rotate(270deg);
     }
   }
 }
@@ -335,7 +341,6 @@ export default {
   }
   .cascader_pop_icon {
     margin-left: 8px;
-    transform: rotate(270deg);
   }
 }
 </style>
