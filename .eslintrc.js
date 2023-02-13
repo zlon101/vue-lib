@@ -45,8 +45,10 @@ module.exports = {
     camelcase: 0,
     eqeqeq: ['error', 'always', { null: 'ignore' }], // 强制使用全等
     'vue/multi-word-component-names': 'off',
+    // 取消文件末尾必须有空行
+    'eol-last': 'off',
     // 关闭 prettier/prettier 语法报错
-    'prettier/prettier': 'off',
+    // 'prettier/prettier': 'off',
   },
   // 配置全局变量
   globals: {

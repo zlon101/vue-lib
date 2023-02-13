@@ -22,6 +22,10 @@
     ]
   },
   {
+    "subpath": "browser",
+    "fnArr": []
+  },
+  {
     "subpath": "client",
     "fnArr": [
       {
@@ -172,12 +176,20 @@
     "subpath": "object",
     "fnArr": [
       {
+        "fnName": "export function getType(value, targetType = undefined)",
+        "note": "/**\n * 获取某个数据的类型\n * @param value\n * @param targetType: String => 期望的类型，可选\n * @returns {string|boolean} 对应类型名称|是否为期望的类型\n */"
+      },
+      {
         "fnName": "export function isSame(a, b)",
         "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */"
       },
       {
         "fnName": "export function deepClone(srcData, hash = new WeakMap()",
         "note": "// 深度克隆"
+      },
+      {
+        "fnName": "export function transformByteUnit(numberOfBytes)",
+        "note": "/**\n * 转换存储大小\n * numberOfBytes: 字节（B）\n * *************/"
       }
     ]
   },
@@ -257,12 +269,8 @@
         "note": ""
       },
       {
-        "fnName": "export function ajax(cfg, data)",
-        "note": ""
-      },
-      {
-        "fnName": "export function getXHR()",
-        "note": ""
+        "fnName": "export default function ajax(cfg)",
+        "note": "/**\n * Example\n * ajax({\n *   url: 'xx',\n *   method: 'POST',\n *   contentType: 'application/json; charset=utf-8',\n *   setHeaders(xhr) {\n *     xhr.responseType = 'json';\n *     xhr.timeout = 30000; // ms\n *     // 默认情况下不会将 cookie 和 HTTP 授权发送到其他域。要启用它们，可以将 xhr.withCredentials 设置为 true\n *     xhr.withCredentials = true;\n *   },\n *   data: {\n *     key: val\n *   },\n *   ontimeout(e) {\n *     console.debug(e);\n *   },\n *   onprogress(e) {\n *\n *   }\n * })\n * 各种 Content-Type 对应的 POST 请求数据格式\n * 1. applicaion/x-www-urlencoded  => xhr.send('a=val1&key2=value2');\n * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))\n * 3.\n * **************/"
       }
     ]
   },
