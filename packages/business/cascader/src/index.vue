@@ -216,10 +216,12 @@ export default {
     },
     // 计算锚点/参考点的位置
     calcAnchorCoord() {
+      const HtmlRect = document.body.getBoundingClientRect();
       const AnchorCoord = this.$el.getBoundingClientRect();
       const popupDom = this.$refs.popup;
-      const top = AnchorCoord.top + AnchorCoord.height + 8;
-      popupDom.style.left = `${AnchorCoord.left}px`;
+      const top = Math.floor(AnchorCoord.top + AnchorCoord.height - HtmlRect.top + 8);
+      const left = Math.floor(AnchorCoord.left - HtmlRect.left);
+      popupDom.style.left = `${left}px`;
       popupDom.style.top = `${top}px`;
       return AnchorCoord;
     },
