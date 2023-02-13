@@ -1,0 +1,18 @@
+{
+  "name": "@zl/cascader",
+  "version": "1.0.1",
+  "description": "级联组件",
+  "main": "index.js",
+  "scripts": {
+    "link-local": "npx link ../../basecmp/icon"
+  },
+  "keywords": [],
+  "author": "Pikachu",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://localhost:8910"
+  },
+  "dependencies": {
+    "@zl/icon": "latest"
+  }
+}

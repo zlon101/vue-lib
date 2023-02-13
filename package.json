@@ -11,7 +11,7 @@
     "build": "node scripts/predev.js -build && webpack --mode=production --node-env=production",
     "build:lib": "node scripts/build-lib.js",
     "minSvg": "node packages/basecmp/icon/scripts/min-svg.cjs",
-    "gene-icon": "node packages/basecmp/icon/scripts/gene-icon-bin.cjs",
+    "gene-icon": "node packages/basecmp/icon/scripts/gene-icon-bin.cjs svgDir=./packages/basecmp/icon/assets iconPath=./packages/basecmp/icon/src/icon.js",
     "build:icon": "node scripts/build-icon.js",
     "edit:pkg": "node scripts/edit-package.js",
     "link:all": "node scripts/link-local.js",
