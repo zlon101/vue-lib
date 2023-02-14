@@ -79,11 +79,15 @@ const server = createServer((req, resp) => {
     reqBuf.push(chunk);
   });
   req.on('end', () => {
-    if (contentType === 'application/json') {
-      reqData = JSON.parse(Buffer.concat(reqBuf).toString());
-    } else if (contentType === 'application/x-www-form-urlencoded') {
-      const str = decodeURIComponent(Buffer.concat(reqBuf).toString());
-      reqData = querystring.parse(str);
+    try {
+      if (contentType === 'application/json') {
+        reqData = JSON.parse(Buffer.concat(reqBuf).toString());
+      } else if (contentType === 'application/x-www-form-urlencoded') {
+        const str = decodeURIComponent(Buffer.concat(reqBuf).toString());
+        reqData = querystring.parse(str);
+      }
+    } catch(e) {
+      console.log('req.on(end) 错误\n', e);
     }
     console.log(`$ on data end and request data: ${typeof reqData} =>`, reqData);
   });

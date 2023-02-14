@@ -1,10 +1,10 @@
 <template>
   <div id="vue-app">
-    <!--<h1>测试各种功能</h1>-->
-    <!--<XhrTest />-->
+    <h1>测试各种功能</h1>
+    <XhrTest />
     <!--<ServeEvent />-->
     <!--<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie">mdn</a>-->
-    <Range />
+    <!--<Range />-->
   </div>
 </template>
 

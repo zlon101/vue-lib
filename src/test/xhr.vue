@@ -45,13 +45,18 @@ function postXhr(data, contentType) {
 export default {
   methods: {
     onAxios(type) {
-      axios({
+      const req = {
         method: type,
         url: `${BaseUrl}/post?ID=12`,
-        data: {
+      };
+      if (type === 'post') {
+        req.data = {
           firstName: 'Fred',
           lastName: 'Flintstone'
         }
+      }
+      axios(req).then(res => {
+        debugger;
       });
     },
     onXhr(type) {
