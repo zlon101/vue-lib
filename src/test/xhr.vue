@@ -48,12 +48,15 @@ export default {
       const req = {
         method: type,
         url: `${BaseUrl}/post?ID=12`,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       };
       if (type === 'post') {
-        req.data = {
+        req.data = JSON.stringify({
           firstName: 'Fred',
           lastName: 'Flintstone'
-        }
+        })
       }
       axios(req).then(res => {
         debugger;

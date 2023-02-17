@@ -1,7 +1,7 @@
 <template>
   <div id="vue-app">
     <h1>测试各种功能</h1>
-    <XhrTest />
+    <!--<XhrTest />-->
     <!--<ServeEvent />-->
     <!--<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie">mdn</a>-->
     <!--<Range />-->
@@ -10,13 +10,13 @@
 
 <script>
 /* eslint-disable */
-import XhrTest from './xhr';
+// import XhrTest from './xhr';
 // import WsTest from './ws';
 import ServeEvent from './event-source';
 import Range from './range';
 
 export default {
-  components: { XhrTest, ServeEvent, Range },
+  components: { ServeEvent, Range },
 };
 </script>
 
