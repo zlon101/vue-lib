@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>local dev</title>
+</head>
+<body>
+  <!-- <script type="module" src="./src/index.js"></script> -->
+  <button id="btn">按钮</button>
+  <script>
+    const log = console.debug.bind(console);
+    const btn = document.getElementById('btn');
+
+    const handler = (type) => {
+      log('handler');
+
+      setTimeout(() => log('setTimeout'));
+      
+      Promise.resolve().then(function () {
+        log('promise');
+      });
+      
+      queueMicrotask(() => log('queueMicrotask'));
+    };
+    btn.addEventListener('click', () => handler('click'));
+
+    btn.addEventListener('CusEvent', () => handler('CusEvent'));
+    
+    log('start');
+
+    // btn.dispatchEvent(new CustomEvent('CusEvent'));
+    btn.click();
+
+    log('end');
+  </script>
+</body>
+</html>
