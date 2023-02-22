@@ -163,7 +163,7 @@ export class Poll {
  *   }
  * })
  * 各种 Content-Type 对应的 POST 请求数据格式
- * 1. applicaion/x-www-urlencoded  => xhr.send('a=val1&key2=value2');
+ * 1. application/x-www-urlencoded  => xhr.send('a=val1&key2=value2');
  * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))
  * 3.
  * **************/
