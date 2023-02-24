@@ -114,6 +114,15 @@
     ]
   },
   {
+    "subpath": "drog",
+    "fnArr": [
+      {
+        "fnName": "export function drag(dragEle, container)",
+        "note": "/**\n * dragstart drop\n * **/"
+      }
+    ]
+  },
+  {
     "subpath": "eventBus",
     "fnArr": [
       {
@@ -270,7 +279,7 @@
       },
       {
         "fnName": "export default function ajax(cfg)",
-        "note": "/**\n * Example\n * ajax({\n *   url: 'xx',\n *   method: 'POST',\n *   contentType: 'application/json; charset=utf-8',\n *   setHeaders(xhr) {\n *     xhr.responseType = 'json';\n *     xhr.timeout = 30000; // ms\n *     // 默认情况下不会将 cookie 和 HTTP 授权发送到其他域。要启用它们，可以将 xhr.withCredentials 设置为 true\n *     xhr.withCredentials = true;\n *   },\n *   data: {\n *     key: val\n *   },\n *   ontimeout(e) {\n *     console.debug(e);\n *   },\n *   onprogress(e) {\n *\n *   }\n * })\n * 各种 Content-Type 对应的 POST 请求数据格式\n * 1. applicaion/x-www-urlencoded  => xhr.send('a=val1&key2=value2');\n * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))\n * 3.\n * **************/"
+        "note": "/**\n * Example\n * ajax({\n *   url: 'xx',\n *   method: 'POST',\n *   contentType: 'application/json; charset=utf-8',\n *   setHeaders(xhr) {\n *     xhr.responseType = 'json';\n *     xhr.timeout = 30000; // ms\n *     // 默认情况下不会将 cookie 和 HTTP 授权发送到其他域。要启用它们，可以将 xhr.withCredentials 设置为 true\n *     xhr.withCredentials = true;\n *   },\n *   data: {\n *     key: val\n *   },\n *   ontimeout(e) {\n *     console.debug(e);\n *   },\n *   onprogress(e) {\n *\n *   }\n * })\n * 各种 Content-Type 对应的 POST 请求数据格式\n * 1. application/x-www-urlencoded  => xhr.send('a=val1&key2=value2');\n * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))\n * 3.\n * **************/"
       }
     ]
   },

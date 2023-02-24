@@ -25,11 +25,8 @@
         i = n(20),
         l = n(23),
         c = n(25);
-      'undefined' != typeof window && (r = n(27)); /*!
-	    Mock - 模拟请求 & 模拟数据
-	    https://github.com/nuysoft/Mock
-	    墨智 mozhi.gyy@taobao.com nuysoft@gmail.com
-	*/
+      'undefined' != typeof window && (r = n(27));
+
       var s = {
         Handler: a,
         Random: u,
