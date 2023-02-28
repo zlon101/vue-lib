@@ -1150,7 +1150,6 @@ function fact (global, setTimeout) {
         each(
           this.depMaps,
           bind(this, function (depMap, i) {
-            log('\n enable depMap', depMap);
             var id, mod, handler;
 
             if (typeof depMap === 'string') {
@@ -1450,9 +1449,6 @@ function fact (global, setTimeout) {
         options = options || {};
 
         function localRequire(deps, callback, errback) {
-          log(`🔥 调用 localRequire
-          deps: %o
-          relMap: %o`, deps, relMap);
           var id, map, requireMod;
 
           if (options.enableBuildCallback && callback && isFunction(callback)) {
@@ -1824,6 +1820,9 @@ function fact (global, setTimeout) {
       contextName = defContextName;
 
     // Determine if have config object in the call.
+    // 两种情况
+    // 1. req({})
+    // 2. req({ baseUrl: 'xx', deps: [] })
     if (!isArray(deps) && typeof deps !== 'string') {
       // deps is a config object
       config = deps;
@@ -1887,7 +1886,7 @@ function fact (global, setTimeout) {
   };
 
   //Create default context.
-  debugger;
+  // debugger;
   req({});
 
   //Exports some context-sensitive methods on global require.
@@ -1924,9 +1923,7 @@ function fact (global, setTimeout) {
    */
   req.onError = defaultOnError;
 
-  /**
-   * Creates the node for the load command. Only used in browser envs.
-   */
+  // Creates the node for the load command. Only used in browser envs.
   req.createNode = function (config, moduleName, url) {
     var node = config.xhtml ?
       document.createElementNS('http://www.w3.org/1999/xhtml', 'html:script') :
@@ -1999,8 +1996,8 @@ function fact (global, setTimeout) {
       }
       node.src = url;
 
-      //Calling onNodeCreated after all properties on the node have been
-      //set, but before it is placed in the DOM.
+      // Calling onNodeCreated after all properties on the node have been
+      // set, but before it is placed in the DOM.
       if (config.onNodeCreated) {
         config.onNodeCreated(node, config, moduleName, url);
       }
@@ -2132,6 +2129,7 @@ function fact (global, setTimeout) {
 
     //If no name, and callback is a function, then figure out if it a
     //CommonJS thing with dependencies.
+    // false
     if (!deps && isFunction(callback)) {
       deps = [];
       //Remove comments from the callback string,
@@ -2154,8 +2152,8 @@ function fact (global, setTimeout) {
       }
     }
 
-    //If in IE 6-8 and hit an anonymous define() call, do the interactive
-    //work.
+    // If in IE 6-8 and hit an anonymous define() call, do the interactive work.
+    // false
     if (useInteractive) {
       node = currentlyAddingScript || getInteractiveScript();
       if (node) {
@@ -2172,6 +2170,7 @@ function fact (global, setTimeout) {
     //where the module name is not known until the script onload event
     //occurs. If no context, use the global queue, and get it processed
     //in the onscript load callback.
+    // false
     if (context) {
       context.defQueue.push([name, deps, callback]);
       context.defQueueMap[name] = true;

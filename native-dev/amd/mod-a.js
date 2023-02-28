@@ -5,4 +5,5 @@ define('mod-a', {
     return x + y;
   },
   sub: (x, y) => x - y,
+  uid: 'abcdefg',
 });
