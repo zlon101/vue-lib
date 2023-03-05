@@ -17,5 +17,8 @@
   "license": "ISC",
   "publishConfig": {
     "registry": "http://localhost:8910"
+  },
+  "peerDependencies": {
+    "@juggle/resize-observer": "latest"
   }
 }

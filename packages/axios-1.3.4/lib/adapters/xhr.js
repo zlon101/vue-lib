@@ -65,6 +65,7 @@ export default isXHRAdapterSupported && function (config) {
       requestHeaders.setContentType(false); // Let the browser set it
     }
 
+    console.debug('\n\n🔥创建XMLHttpRequest');
     let request = new XMLHttpRequest();
 
     // HTTP basic authentication

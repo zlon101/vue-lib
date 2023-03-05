@@ -61,7 +61,7 @@ export function listenVisible(cb) {
     visibilityEventName = 'webkitvisibilitychange';
   }
 
-  const onVisibilityChange = (e) => cb(document[hidden], e);
+  const onVisibilityChange = e => cb(document[hidden], e);
 
   // 如果浏览器不支持 addEventListener 或 Page Visibility API 给出警告
   if (typeof document.addEventListener !== 'function' || typeof document[hidden] === 'undefined') {
@@ -81,7 +81,7 @@ export const isFullScreen = () => {
   );
 };
 // 全屏某个元素
-export const handleFullscreen = (container) => {
+export const handleFullscreen = container => {
   // If fullscreen mode is active...
   if (isFullScreen()) {
     // ...exit fullscreen mode
@@ -109,11 +109,52 @@ export const handleFullscreen = (container) => {
   }
 };
 
-// html 字符转义
-export const HtmlEscapes = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  '\'': '&#39;',
-};
+// 计算元素在布局视图(文档)中的位置和尺寸
+export function getElementSizePos(ele) {
+  const HtmlRect = document.body.getBoundingClientRect();
+  const rect = ele.getBoundingClientRect();
+
+  const top = Math.floor(rect.top + rect.height - HtmlRect.top);
+  const left = Math.floor(rect.left - HtmlRect.left);
+  const sizePos = ['top', 'bottom', 'height', 'width', 'left', 'right'].reduce((acc, k) => {
+    acc[k] = rect[k];
+    return acc;
+  }, {});
+  sizePos.left = left;
+  sizePos.top = top;
+  return sizePos;
+}
+
+/**
+ * 监听DOM尺寸变化
+ * ele: 被监听的元素
+ * handlerFn: 事件触发时的回调
+ * **/
+export function resizeObserver(ele, handlerFn) {
+  let observer = null;
+  const getPos = () => getElementSizePos(ele);
+  const execute = () => {
+    observer = new window.ResizeObserver(entries => {
+      handlerFn(getPos(), entries);
+    });
+    observer.observe(ele);
+  };
+
+  if (!window.ResizeObserver) {
+    (async () => {
+      const module = await import('@juggle/resize-observer');
+      window.ResizeObserver = module.ResizeObserver;
+      execute();
+    })();
+  } else {
+    execute();
+  }
+  return {
+    remove: () => {
+      observer.disconnect();
+      observer = null;
+      ele = null;
+    },
+    getPos,
+  };
+}

@@ -29,3 +29,20 @@ export function arrayIntersection(...arrWarp) {
   const dstArr = allItems.filter(item => arrWarp.every(arrWarpItem => arrWarpItem.includes(item)));
   return dstArr;
 }
+
+/**
+ * 平铺嵌套数组
+ * tileArray([ 1, ['b', 'c'], ['d', 'e'], [2, [4, [7]]] ])
+ * **/
+export function tileArray(arr) {
+  function* iterTree(tree) {
+    if (Array.isArray(tree)) {
+      for (let i = 0; i < tree.length; i++) {
+        yield* iterTree(tree[i]);
+      }
+    } else {
+      yield tree;
+    }
+  }
+  return [...iterTree(arr)];
+}
