@@ -187,8 +187,6 @@ npm install @zl/xx
 - style-resources-loader vue-cli-plugin-style-resources-loader 用作导入全局less
 - 使用该组件库开发其他项目时，项目的依赖 dependencies、devDependencies 和 vue.config.js 最好和该组件库一样
 
-> 备注：部分组件代码质量低（特别是从三方库抄过来的组件），但是因为已经有很多地方在使用，修改难度太高。若有一天项目组有多余的人力、物力建议重新建立一个比较稳定的组件库。
-
 ## Q
 
 > 使用场景：项目 A 使用 @zl 组件库进行开发
