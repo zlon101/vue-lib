@@ -7,6 +7,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 // const serverMiddle = require('./plugin/server-middle.js');
 
+// development
 const isProd = process.env.NODE_ENV === 'production';
 console.log(`$ ${isProd ? '生产' : '开发'}环境`);
 
@@ -14,11 +15,13 @@ const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
 
 const commonCfg = {
   mode: 'development',
+  target: 'web', // es6 web
   // 运行上下文，默认为 nodejs 当前工作目录
   context: getAbsPath('./'),
   // entry: './src/main.js',
-  entry: './src/test/index.js',
+  entry: './native-dev/es-mod/index.js',
   output: {
+    // chunkFormat: 'module',
     publicPath: isProd ? './' : '/',
     path: getAbsPath('docs'),
     filename: isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js',
