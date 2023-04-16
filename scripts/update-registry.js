@@ -40,7 +40,7 @@ function traverseDir(dir) {
   const dirAbs = getAbsPath(dir);
   fs.readdir(dirAbs, (err, list) => {
     if (err) {
-      console.log(`❌ readdir ${dirAbs.split('packages/').pop()}`);
+      console.log(`❌ readdir ${dirAbs.split('packages').pop()}`);
       return;
     }
     for (const file of list) {
@@ -48,7 +48,7 @@ function traverseDir(dir) {
       if (WhiteDirs.some(item => file.includes(item))) {
         continue;
       }
-      const joinDir = `${dir}/${file}`;
+      const joinDir = path.join(dir, file);
       const absPath = getAbsPath(joinDir);
       if (!isDir(absPath)) {
         continue;
@@ -72,7 +72,7 @@ function traverseDir(dir) {
 
 // 进入 package 执行 npm publish
 function exePublish(pkgPath) {
-  fs.readFile(`${pkgPath}/package.json`, 'utf-8', (err, str) => {
+  fs.readFile(path.resolve(pkgPath, 'package.json'), 'utf-8', (err, str) => {
     if (err) {
       return console.log(`❌ readFile ${pkgPath.split('packages').pop()}`);
     }
@@ -80,7 +80,10 @@ function exePublish(pkgPath) {
     const pkgName = pkgJson.name;
     const isPicComp = pkgName.includes(CmpPrdfix);
     if (isPicComp) {
-      const ls = spawn('npm', ['publish'], { cwd: pkgPath });
+      const ls = spawn('npm', ['publish'], {
+        cwd: pkgPath,
+        shell: process.platform === 'win32',
+      });
       ls.stderr.on('data', data => console.error(`${data}`));
       ls.on('close', code => console.log(code ? `❌ publish ${pkgName}失败` : `✅ publish ${pkgName}成功`));
     }
@@ -89,7 +92,7 @@ function exePublish(pkgPath) {
 
 // 进入 package 执行 npm unpublish -f
 function exeUnPublish(pkgPath) {
-  fs.readFile(`${pkgPath}/package.json`, 'utf-8', (err, str) => {
+  fs.readFile(path.resolve(pkgPath, 'package.json'), 'utf-8', (err, str) => {
     if (err) {
       return console.log(`❌ readFile ${pkgPath.split('packages').pop()}`);
     }
@@ -97,7 +100,10 @@ function exeUnPublish(pkgPath) {
     const pkgName = pkgJson.name;
     const isPicComp = pkgName.includes(CmpPrdfix);
     if (isPicComp) {
-      const ls = spawn('npm', ['unpublish', pkgName, '--force'], { cwd: pkgPath });
+      const ls = spawn('npm', ['unpublish', pkgName, '--force'], {
+        cwd: pkgPath,
+        shell: process.platform === 'win32',
+      });
       ls.stderr.on('data', data => console.error(`${data}`));
       ls.on('close', code => console.log(code ? `❌ unpublish ${pkgName}失败` : `✅ unpublish ${pkgName}成功`));
     }
