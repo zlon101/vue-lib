@@ -17,7 +17,7 @@
       },
       {
         "fnName": "export function arrayIntersection(...arrWarp)",
-        "note": "/**\n * 数组交集\n * arrayIntersection(arr1, arr2)\n * @returns Array\n */"
+        "note": "if (!Array.isArray(srcArr)) {\r\n    return srcArr;\r\n  }\r\n  let result = [];\r\n  if (getType(window.Set, 'function') && srcArr.every(item => !getType(item, 'Object'))) {\r\n    result = [...new Set(srcArr)];\r\n  } else {\r\n    result = srcArr.filter((item, i) => srcArr.findIndex(child => isSame(item, child)) === i);\r\n  }\r\n  if (noEmpty) {\r\n    result = result.filter(item => ![null, undefined, ''].includes(item));\r\n  }\r\n  return result;\r\n}\r\n\r\n/**\r\n * 数组交集\r\n * arrayIntersection(arr1, arr2)\r\n * @returns Array\r\n */"
       }
     ]
   },
@@ -39,35 +39,35 @@
     "fnArr": [
       {
         "fnName": "export const createDate = (val, timezone = 8)",
-        "note": "/*\n * 创建指定时区的日期对象\n * 东八: 8\n * */"
+        "note": "/*\r\n * 创建指定时区的日期对象\r\n * 东八: 8\r\n * */"
       },
       {
         "fnName": "export function dateToString(date, format = 'YYYY-MM-DD')",
-        "note": "/**\n * 格式化时间\n * @param date 输入时间, 支持Date和String类型, 日的占位符必须用M, 因为m表示分\n * @param format 时间格式\n * @returns string 格式化后的字符串时间\n */"
+        "note": "let timestamp = 0;\r\n\r\n  const type = Object.prototype.toString.call(val).slice(8, -1);\r\n  console.log(type);\r\n  if (type === 'Date') {\r\n    timestamp = val.getTime();\r\n  } else if (type === 'Number') {\r\n    // 时间戳，毫秒\r\n    timestamp = val;\r\n  } else if (type === 'String') {\r\n    // YYYY-MM-DDTHH:mm:ss\r\n    val = val.replace(/\\D/g, '');\r\n    if (val.length < 14) {\r\n      throw new Error('参数格式错误，YYYY-MM-DD HH:mm:ss');\r\n    }\r\n    const y = Number(val.slice(0, 4));\r\n    val = val.slice(4);\r\n    // 月-日-时-分-秒-毫秒\r\n    const rest = [0, 0, 0, 0, 0, 0];\r\n    let ind = 0;\r\n    let len = 2;\r\n    while (val) {\r\n      if (ind === rest.length - 1) {\r\n        len = val.length;\r\n      }\r\n      rest[ind++] = Number(val.slice(0, len));\r\n      val = val.slice(len);\r\n    }\r\n    rest.unshift(y);\r\n    timestamp = Date.UTC(...rest);\r\n  } else {\r\n    if (!val) {\r\n      timestamp = Date.now();\r\n    } else {\r\n      throw new Error('未知的参数格式，请输入时间戳、字符串、Date');\r\n    }\r\n  }\r\n  // 本地时区 getTimezoneOffset\r\n  const localTimezone = (new Date(0)).getTimezoneOffset(); // 分\r\n  const targetTimestamp = (timezone * 60 + localTimezone) * 60 * 1000 + timestamp;\r\n  return new Date(targetTimestamp);\r\n};\r\n\r\n/**\r\n * 格式化时间\r\n * @param date 输入时间, 支持Date和String类型, 日的占位符必须用M, 因为m表示分\r\n * @param format 时间格式\r\n * @returns string 格式化后的字符串时间\r\n */"
       },
       {
         "fnName": "export function stringToDate(str)",
-        "note": "/**\n * 字符串转Date类型\n * @param str 输入时间字符串\n * @returns Date类型日期\n */"
+        "note": "function formatStr(dateStr) {\r\n    const str = `${dateStr}0000000000000000`.replace(/\\D/g, '');\r\n    const Y = str.slice(0, 4);\r\n    const M = str.slice(4, 6);\r\n    const D = str.slice(6, 8);\r\n    const h = str.slice(8, 10);\r\n    const m = str.slice(10, 12);\r\n    const s = str.slice(12, 14);\r\n    let result = format;\r\n    result = result.replace(/[Yy]+/, Y);\r\n    result = result.replace(/M+/, M);\r\n    result = result.replace(/[Dd]+/, D);\r\n    result = result.replace(/[Hh]+/, h);\r\n    result = result.replace(/m+/, m);\r\n    result = result.replace(/[Ss]+/, s);\r\n    return result;\r\n  }\r\n\r\n  if (typeof date === 'string') {\r\n    return formatStr(date);\r\n  }\r\n  if (date === null) {\r\n    return '';\r\n  }\r\n  if (date instanceof Date) {\r\n    const Y = date.getFullYear();\r\n    const M = `00${date.getMonth() + 1}`.slice(-2);\r\n    const D = `00${date.getDate()}`.slice(-2);\r\n    const h = `00${date.getHours()}`.slice(-2);\r\n    const m = `00${date.getMinutes()}`.slice(-2);\r\n    const s = `00${date.getSeconds()}`.slice(-2);\r\n\r\n    return formatStr([Y, M, D, h, m, s].join('-'));\r\n  }\r\n  return date;\r\n}\r\n\r\n/**\r\n * 字符串转Date类型\r\n * @param str 输入时间字符串\r\n * @returns Date类型日期\r\n */"
       },
       {
         "fnName": "export function isInRange({ startT, endT, curTime }",
-        "note": ""
+        "note": "if (str instanceof Date || !str) {\r\n    return str;\r\n  }\r\n  str = `${str.replace(/\\D/g, '')}0000000000000000`;\r\n  const year = Number(str.slice(0, 4));\r\n  const month = Number(str.slice(4, 6));\r\n  const d = Number(str.slice(6, 8));\r\n  const h = Number(str.slice(8, 10));\r\n  const m = Number(str.slice(10, 12));\r\n  const s = Number(str.slice(12, 14));\r\n  return new Date(year, month - 1, d, h, m, s);\r\n}"
       },
       {
-        "fnName": "export const MonthMap = {\n  Jan: 1,\n  Feb: 2,\n  Mar: 3,\n  Apr: 4,\n  May: 5,\n  Jun: 6,\n  Jul: 7,\n  Aug: 8,\n  Sep: 9,\n  Oct: 10,\n  Nov: 11,\n  Dec: 12,\n}",
-        "note": "// 月份映射"
+        "fnName": "export const MonthMap = {\r\n  Jan: 1,\r\n  Feb: 2,\r\n  Mar: 3,\r\n  Apr: 4,\r\n  May: 5,\r\n  Jun: 6,\r\n  Jul: 7,\r\n  Aug: 8,\r\n  Sep: 9,\r\n  Oct: 10,\r\n  Nov: 11,\r\n  Dec: 12,\r\n}",
+        "note": "startT = String(startT || '').replace(/\\D/g, '');\r\n  endT = String(endT || '').replace(/\\D/g, '');\r\n  curTime = String(curTime || '').replace(/\\D/g, '');\r\n  const maxLength = Math.max(startT.length, endT.length, curTime.length);\r\n  const zeroStr = '0'.repeat(20);\r\n  const nineStr = '9'.repeat(20);\r\n  startT = `${startT}${zeroStr}`.slice(0, maxLength);\r\n  endT = `${endT}${nineStr}`.slice(0, maxLength);\r\n  curTime = `${curTime}${zeroStr}`.slice(0, maxLength);\r\n  return Number(curTime) >= Number(startT) && Number(curTime) <= Number(endT);\r\n}\r\n\r\n// 月份映射"
       },
       {
-        "fnName": "export const WeekMap = {\n  Mon: 1,\n  Tue: 2,\n  Wed: 3,\n  Thu: 4,\n  Fri: 5,\n  Sat: 6,\n  Sun: 7,\n}",
-        "note": "// 星期映射"
+        "fnName": "export const WeekMap = {\r\n  Mon: 1,\r\n  Tue: 2,\r\n  Wed: 3,\r\n  Thu: 4,\r\n  Fri: 5,\r\n  Sat: 6,\r\n  Sun: 7,\r\n}",
+        "note": "Jan: 1,\r\n  Feb: 2,\r\n  Mar: 3,\r\n  Apr: 4,\r\n  May: 5,\r\n  Jun: 6,\r\n  Jul: 7,\r\n  Aug: 8,\r\n  Sep: 9,\r\n  Oct: 10,\r\n  Nov: 11,\r\n  Dec: 12,\r\n};\r\n// 星期映射"
       },
       {
         "fnName": "export function dataToLocaleString(date)",
-        "note": "/**\n * 日期转换为常用语\n * @param date\n * @returns {string}\n */"
+        "note": "Mon: 1,\r\n  Tue: 2,\r\n  Wed: 3,\r\n  Thu: 4,\r\n  Fri: 5,\r\n  Sat: 6,\r\n  Sun: 7,\r\n};\r\n\r\n/**\r\n * 日期转换为常用语\r\n * @param date\r\n * @returns {string}\r\n */"
       },
       {
-        "fnName": "export function getDateRange({\n  dateNow = new Date(),\n  intervalDays,\n  format = 'YYYY-MM-DD',\n  isBefore = true,\n  besideNow = false,\n}",
-        "note": "/**\n * 获取指定日期范围\n * @param dateNow {String|Date} 当前日期，默认取当前系统日期\n * @param intervalDays {Number} 间隔天数\n * @param format {String} 返回格式\n * @param isBefore {Boolean} 是否在当前日期前\n * @param besideNow {Boolean} 范围计算是否排除当前日期\n * @returns {{start: (string|string|*), end: (string|string|*)}}\n */"
+        "fnName": "export function getDateRange({\r\n  dateNow = new Date(),\r\n  intervalDays,\r\n  format = 'YYYY-MM-DD',\r\n  isBefore = true,\r\n  besideNow = false,\r\n}",
+        "note": "const dateTimeStamp = new Date(date).getTime();\r\n  const minute = 1000 * 60;\r\n  const hour = minute * 60;\r\n  const day = hour * 24;\r\n  const month = day * 30;\r\n  const now = new Date().getTime();\r\n  let result = '';\r\n  const diffValue = now - dateTimeStamp;\r\n  const monthC = diffValue / month;\r\n  const weekC = diffValue / (7 * day);\r\n  const dayC = diffValue / day;\r\n  const hourC = diffValue / hour;\r\n  const minC = diffValue / minute;\r\n  if (monthC >= 1) {\r\n    result = dateToString(date);\r\n  } else if (weekC >= 1) {\r\n    result = `${parseInt(weekC, 12)}周前`;\r\n  } else if (dayC >= 1) {\r\n    result = `${parseInt(dayC, 12)}天前`;\r\n  } else if (hourC >= 1) {\r\n    result = `${parseInt(hourC, 12)}小时前`;\r\n  } else if (minC >= 1) {\r\n    result = `${parseInt(minC, 12)}分钟前`;\r\n  } else {\r\n    result = '刚刚';\r\n  }\r\n  return result;\r\n}\r\n\r\n/**\r\n * 获取指定日期范围\r\n * @param dateNow {String|Date} 当前日期，默认取当前系统日期\r\n * @param intervalDays {Number} 间隔天数\r\n * @param format {String} 返回格式\r\n * @param isBefore {Boolean} 是否在当前日期前\r\n * @param besideNow {Boolean} 范围计算是否排除当前日期\r\n * @returns {{start: (string|string|*), end: (string|string|*)}}\r\n */"
       }
     ]
   },
@@ -76,7 +76,7 @@
     "fnArr": [
       {
         "fnName": "export default DebugBox;",
-        "note": "const DebugBox = new Debug();\nwindow.DebugBox = DebugBox;"
+        "note": "/* eslint-disable */\r\n\r\nclass Debug {\r\n  constructor() {\r\n    if (document.querySelector('#debugger')) {\r\n      return;\r\n    }\r\n    const targetDom = document.createElement('div');\r\n    targetDom.setAttribute('id', 'debugger');\r\n    const initStyleObj = {\r\n      width: '200px',\r\n      height: '100%',\r\n      outline: '1px solid red',\r\n      position: 'fixed',\r\n      'background-color': '#fff',\r\n      right: '10px',\r\n      top: '10px',\r\n      'font-size': '12px',\r\n      'line-height': 1.5,\r\n      'white-space': 'pre',\r\n      'z-index': 1111111,\r\n      cursor: 'default',\r\n      transform: 'translate(0, 0)'\r\n    };\r\n    targetDom.setAttribute('style', Debug.styleObjToStr(initStyleObj));\r\n    document.body.appendChild(targetDom);\r\n    // content\r\n    const contentEle = document.createElement('div');\r\n    contentEle.setAttribute(\r\n      'style',\r\n      Debug.styleObjToStr({\r\n        width: '100%',\r\n        height: '100%',\r\n        overflow: 'scroll'\r\n      })\r\n    );\r\n    targetDom.appendChild(contentEle);\r\n    this.contentEle = contentEle;\r\n\r\n    this.target = targetDom;\r\n    this.isMoving = false;\r\n    this.resizeDirection = '';\r\n    targetDom.addEventListener('mousedown', e => this.handleMouseDown(e));\r\n    document.addEventListener('mousemove', e => this.handleMouseMove(e));\r\n    document.addEventListener('mouseup', e => this.handleMouseUp(e));\r\n\r\n    this.initMaxBtn();\r\n    this.initCopyBtn();\r\n    this.initCloseBtn();\r\n  }\r\n  // 最大化\r\n  initMaxBtn() {\r\n    const targetDom = this.target;\r\n    const maxBtn = document.createElement('div');\r\n    maxBtn.setAttribute(\r\n      'style',\r\n      Debug.styleObjToStr({\r\n        width: '16px',\r\n        height: '16px',\r\n        position: 'fixed',\r\n        top: '10px',\r\n        right: '32px',\r\n        cursor: 'pointer',\r\n        border: '1px solid blue'\r\n      })\r\n    );\r\n    maxBtn.setAttribute('data-type', 'normal');\r\n    targetDom.appendChild(maxBtn);\r\n    let preRect = null;\r\n    maxBtn.addEventListener('click', e => {\r\n      const eleRect = targetDom.getBoundingClientRect();\r\n      if (e.target.getAttribute('data-type') === 'normal') {\r\n        e.target.setAttribute('data-type', 'max');\r\n        preRect = eleRect;\r\n        targetDom.style.left = '0px';\r\n        targetDom.style.top = '0px';\r\n        targetDom.style.right = 'auto';\r\n        targetDom.style.bottom = 'auto';\r\n        targetDom.style.width = '100%';\r\n        targetDom.style.height = '100%';\r\n      } else {\r\n        e.target.setAttribute('data-type', 'normal');\r\n        targetDom.style.left = preRect.left + 'px';\r\n        targetDom.style.top = preRect.top + 'px';\r\n        targetDom.style.right = 'auto';\r\n        targetDom.style.bottom = 'auto';\r\n        targetDom.style.width = preRect.width + 'px';\r\n        targetDom.style.height = preRect.height + 'px';\r\n      }\r\n    });\r\n  }\r\n  initCopyBtn() {\r\n    const targetDom = this.target;\r\n    const copyEle = document.createElement('div');\r\n    copyEle.setAttribute(\r\n      'style',\r\n      Debug.styleObjToStr({\r\n        height: '16px',\r\n        position: 'fixed',\r\n        bottom: '10px',\r\n        right: '10px',\r\n        cursor: 'pointer',\r\n        border: '1px solid blue'\r\n      })\r\n    );\r\n    copyEle.textContent = '复制';\r\n    targetDom.appendChild(copyEle);\r\n    copyEle.addEventListener('click', () => {\r\n      Debug.copyString(this.contentEle.textContent);\r\n    });\r\n  }\r\n  initCloseBtn() {\r\n    const targetDom = this.target;\r\n    const copyEle = document.createElement('div');\r\n    copyEle.setAttribute(\r\n      'style',\r\n      Debug.styleObjToStr({\r\n        height: '16px',\r\n        width: '16px',\r\n        position: 'fixed',\r\n        top: '10px',\r\n        right: '10px',\r\n        cursor: 'pointer',\r\n        border: '1px solid blue',\r\n        'text-align': 'center'\r\n      })\r\n    );\r\n    copyEle.textContent = 'X';\r\n    targetDom.appendChild(copyEle);\r\n    copyEle.addEventListener('click', () => {\r\n      targetDom.style.display = 'none';\r\n    });\r\n  }\r\n  show() {\r\n    this.target.style.display = 'block';\r\n  }\r\n  // 按下鼠标\r\n  handleMouseDown(e) {\r\n    e.stopPropagation();\r\n    e.preventDefault();\r\n    const direction = this.getResizeDirection(e);\r\n    this.resizeDirection = direction;\r\n    if (direction) {\r\n      this.isMoving = false;\r\n    } else {\r\n      this.isMoving = true;\r\n      this.mouseOffsetX = this.target.offsetLeft - e.clientX;\r\n      this.mouseOffsetY = this.target.offsetTop - e.clientY;\r\n    }\r\n  }\r\n  // 移动鼠标\r\n  handleMouseMove(e) {\r\n    const mouseCoor = { x: e.clientX, y: e.clientY };\r\n    const targetEle = this.target;\r\n    // 拖拽\r\n    if (this.isMoving) {\r\n      const lastX = mouseCoor.x + this.mouseOffsetX;\r\n      const lastY = mouseCoor.y + this.mouseOffsetY;\r\n      targetEle.style.left = lastX + 'px';\r\n      targetEle.style.top = lastY + 'px';\r\n      targetEle.style.right = 'auto';\r\n      targetEle.style.bottom = 'auto';\r\n      return;\r\n    }\r\n    // resize\r\n    const direction = this.resizeDirection;\r\n    const eleRect = targetEle.getBoundingClientRect();\r\n    const viewportClient = {\r\n      width: document.documentElement.clientWidth,\r\n      height: document.documentElement.clientHeight\r\n    };\r\n    const styleRect = {\r\n      top: eleRect.top,\r\n      right: viewportClient.width - eleRect.right,\r\n      bottom: viewportClient.height - eleRect.bottom,\r\n      left: eleRect.left\r\n    };\r\n    if (direction) {\r\n      targetEle.style.width = 'auto';\r\n      targetEle.style.height = 'auto';\r\n    }\r\n    if (direction === 'topLeft') {\r\n      targetEle.style.top = `${mouseCoor.y}px`;\r\n      targetEle.style.right = `${styleRect.right}px`;\r\n      targetEle.style.bottom = styleRect.bottom + 'px';\r\n      targetEle.style.left = mouseCoor.x + 'px';\r\n    } else if (direction === 'topRight') {\r\n      targetEle.style.top = mouseCoor.y + 'px';\r\n      targetEle.style.right = viewportClient.width - mouseCoor.x + 'px';\r\n      targetEle.style.bottom = styleRect.bottom + 'px';\r\n      targetEle.style.left = styleRect.left + 'px';\r\n    } else if (direction === 'bottomLeft') {\r\n      targetEle.style.top = styleRect.top + 'px';\r\n      targetEle.style.right = styleRect.right + 'px';\r\n      targetEle.style.bottom = viewportClient.height - mouseCoor.y + 'px';\r\n      targetEle.style.left = mouseCoor.x + 'px';\r\n    } else if (direction === 'bottomRight') {\r\n      targetEle.style.top = styleRect.top + 'px';\r\n      targetEle.style.right = viewportClient.width - mouseCoor.x + 'px';\r\n      targetEle.style.bottom = viewportClient.height - mouseCoor.y + 'px';\r\n      targetEle.style.left = styleRect.left + 'px';\r\n    }\r\n    const direction2 = this.getResizeDirection(e);\r\n    if (['topLeft', 'bottomRight'].includes(direction2)) {\r\n      this.target.style.cursor = 'nwse-resize';\r\n    } else if (['topRight', 'bottomLeft'].includes(direction2)) {\r\n      this.target.style.cursor = 'nesw-resize';\r\n    } else {\r\n      this.target.style.cursor = 'default';\r\n    }\r\n  }\r\n  // 释放鼠标\r\n  handleMouseUp(e) {\r\n    this.isMoving = false;\r\n    this.resizeDirection = '';\r\n    this.mouseOffsetX = 0;\r\n    this.mouseOffsetY = 0;\r\n    const targetEle = this.target;\r\n    const eleRect = targetEle.getBoundingClientRect();\r\n    targetEle.style.width = eleRect.width + 'px';\r\n    targetEle.style.height = eleRect.height + 'px';\r\n    targetEle.style.right = 'auto';\r\n    targetEle.style.bottom = 'auto';\r\n  }\r\n  updateText(data = '') {\r\n    let text = data;\r\n    if (typeof data !== 'string') {\r\n      text = JSON.stringify(data, null, 2);\r\n    }\r\n    this.contentEle.textContent = text;\r\n  }\r\n  getResizeDirection(e) {\r\n    const mouseCoordinate = { x: e.clientX, y: e.clientY };\r\n    const eleRect = this.target.getBoundingClientRect();\r\n    // 4个角\r\n    const angles = {};\r\n    angles.topLeft = {\r\n      x: eleRect.left,\r\n      y: eleRect.top\r\n    };\r\n    angles.topRight = {\r\n      x: eleRect.right,\r\n      y: eleRect.top\r\n    };\r\n    angles.bottomLeft = {\r\n      x: eleRect.left,\r\n      y: eleRect.bottom\r\n    };\r\n    angles.bottomRight = {\r\n      x: eleRect.right,\r\n      y: eleRect.bottom\r\n    };\r\n    const keys = Object.keys(angles);\r\n    for (let i = 0; i < keys.length; i++) {\r\n      const k = keys[i];\r\n      const d = Math.abs(mouseCoordinate.x - angles[k].x) + Math.abs(mouseCoordinate.y - angles[k].y);\r\n      if (d < 40) {\r\n        return k;\r\n      }\r\n    }\r\n    return '';\r\n  }\r\n  static styleObjToStr(obj) {\r\n    const keys = Object.keys(obj);\r\n    const tmpArr = [];\r\n    keys.forEach(k => {\r\n      tmpArr.push(`${k}:${obj[k]}`);\r\n    });\r\n    return tmpArr.join(';');\r\n  }\r\n  // 复制\r\n  static copyString(str) {\r\n    const input = document.createElement('textarea');\r\n    input.readOnly = 'readonly';\r\n    input.style.position = 'absolute';\r\n    input.style.left = '-9999px';\r\n    input.value = str;\r\n    document.body.appendChild(input);\r\n    input.select();\r\n    document.execCommand('copy');\r\n    document.body.removeChild(input);\r\n  }\r\n}\r\n\r\nconst DebugBox = new Debug();\r\nwindow.DebugBox = DebugBox;"
       }
     ]
   },
@@ -89,27 +89,27 @@
       },
       {
         "fnName": "export function copyString(str)",
-        "note": "// 复制"
+        "note": "if (!dom) {\r\n    return false;\r\n  }\r\n  // clientWidth\r\n  const widthDiff = dom.scrollWidth - dom.offsetWidth;\r\n  const heightDiff = dom.scrollHeight - dom.offsetHeight;\r\n  return widthDiff > 2 || heightDiff > 2;\r\n}\r\n\r\n// 复制"
       },
       {
         "fnName": "export const supportsCSS = (attribute, value)",
-        "note": "/**\n * 检查浏览器是否支持CSS\n * 浏览器遇到不支持的属性值时，浏览器会直接把这个值抛弃\n */"
+        "note": "if (navigator.clipboard) {\r\n    return navigator.clipboard.writeText(str);\r\n  }\r\n  const input = document.createElement('textarea');\r\n  input.readOnly = 'readonly';\r\n  input.style.position = 'fixed';\r\n  input.style.clip = 'rect(0 0 0 0)';\r\n  input.style.top = '10px';\r\n  input.value = str;\r\n  document.body.appendChild(input);\r\n  input.select();\r\n  const isSuccess = document.execCommand('copy');\r\n  document.body.removeChild(input);\r\n  return isSuccess;\r\n}\r\n\r\n/**\r\n * 检查浏览器是否支持CSS\r\n * 浏览器遇到不支持的属性值时，浏览器会直接把这个值抛弃\r\n */"
       },
       {
         "fnName": "export function listenVisible(cb)",
-        "note": "// 监听页面可见性变化，切换标签页或浏览器窗口"
+        "note": "if (window.CSS && window.CSS.supportsCSS) {\r\n    if (typeof value === 'undefined') return window.CSS.supportsCSS(attribute);\r\n    return window.CSS.supportsCSS(attribute, value);\r\n  }\r\n\r\n  const elem = document.createElement('div');\r\n  if (attribute in elem.style) {\r\n    elem.style[attribute] = value;\r\n    // window.getComputedStyle\r\n    return elem.style[attribute] === value;\r\n  }\r\n  return false;\r\n};\r\n\r\n// 监听页面可见性变化，切换标签页或浏览器窗口"
       },
       {
         "fnName": "export const isFullScreen = ()",
-        "note": ""
+        "note": "let hidden, visibilityEventName;\r\n  // Opera 12.10 and Firefox 18 and later support\r\n  if (typeof document.hidden !== 'undefined') {\r\n    hidden = 'hidden';\r\n    visibilityEventName = 'visibilitychange';\r\n  } else if (typeof document.msHidden !== 'undefined') {\r\n    hidden = 'msHidden';\r\n    visibilityEventName = 'msvisibilitychange';\r\n  } else if (typeof document.webkitHidden !== 'undefined') {\r\n    hidden = 'webkitHidden';\r\n    visibilityEventName = 'webkitvisibilitychange';\r\n  }\r\n\r\n  const onVisibilityChange = (e) => cb(document[hidden], e);\r\n\r\n  // 如果浏览器不支持 addEventListener 或 Page Visibility API 给出警告\r\n  if (typeof document.addEventListener !== 'function' || typeof document[hidden] === 'undefined') {\r\n    throw new Error('The browser not support Visibility API.');\r\n  }\r\n  document.addEventListener(visibilityEventName, onVisibilityChange, false);\r\n  return () => document.removeEventListener(visibilityEventName, onVisibilityChange, false);\r\n}"
       },
       {
         "fnName": "export const handleFullscreen = (container)",
-        "note": "// 全屏某个元素"
+        "note": "return !!(\r\n    document.fullScreen ||\r\n    document.webkitIsFullScreen ||\r\n    document.mozFullScreen ||\r\n    document.msFullscreenElement ||\r\n    document.fullscreenElement\r\n  );\r\n};\r\n// 全屏某个元素"
       },
       {
-        "fnName": "export const HtmlEscapes = {\n  '&': '&amp;',\n  '<': '&lt;',\n  '>': '&gt;',\n  '\"': '&quot;',\n  '\\'': '&#39;',\n}",
-        "note": "// html 字符转义"
+        "fnName": "export const HtmlEscapes = {\r\n  '&': '&amp;',\r\n  '<': '&lt;',\r\n  '>': '&gt;',\r\n  '\"': '&quot;',\r\n  '\\'': '&#39;',\r\n}",
+        "note": "// If fullscreen mode is active...\r\n  if (isFullScreen()) {\r\n    // ...exit fullscreen mode\r\n    // (Note: this can only be called on document)\r\n    if (document.exitFullscreen) document.exitFullscreen();\r\n    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();\r\n    else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();\r\n    else if (document.msExitFullscreen) document.msExitFullscreen();\r\n  } else {\r\n    // ...otherwise enter fullscreen mode\r\n    // (Note: can be called on document, but here the specific element is used as it will also ensure that the element's children, e.g. the custom controls, go fullscreen also)\r\n    if (container.requestFullscreen) {\r\n      container.requestFullscreen();\r\n    } else if (container.mozRequestFullScreen) {\r\n      container.mozRequestFullScreen();\r\n    } else if (container.webkitRequestFullScreen) {\r\n      // Safari 5.1 only allows proper fullscreen on the video element. This also works fine on other WebKit browsers as the following CSS (set in styles.css) hides the default controls that appear again, and\r\n      // ensures that our custom controls are visible:\r\n      // figure[data-fullscreen=true] video::-webkit-media-controls { display:none !important; }\r\n      // figure[data-fullscreen=true] .controls { z-index:2147483647; }\r\n      container.webkitRequestFullScreen();\r\n    } else if (container.msRequestFullscreen) {\r\n      container.msRequestFullscreen();\r\n    }\r\n  }\r\n};\r\n\r\n// html 字符转义"
       }
     ]
   },
@@ -127,15 +127,15 @@
     "fnArr": [
       {
         "fnName": "export const getSizeFromBase64 = (base64)",
-        "note": "/**\n * 根据base64计算图像存储大小\n * base64 是用四个字符来表示3个字节\n */"
+        "note": "/**\r\n * 根据base64计算图像存储大小\r\n * base64 是用四个字符来表示3个字节\r\n */"
       },
       {
         "fnName": "export const downloadFile = (fileName, val)",
-        "note": "/**\n * 下载文件\n * val: Object|String\n * **/"
+        "note": "// 把头部去掉\r\n  let str = base64.replace(/data:image\\/.+base64,/, '');\r\n  // 找到等号，把等号也去掉\r\n  const equalIndex = str.indexOf('=');\r\n  if (str.indexOf('=') > 0) {\r\n    str = str.substring(0, equalIndex);\r\n  }\r\n  // 原来的字符流大小，单位为字节\r\n  const strLength = str.length;\r\n  // 计算后得到的文件流大小，单位为字节\r\n  const fileLength = Math.floor(strLength - (strLength / 8) * 2);\r\n  // 由字节转换为MB\r\n  const size = `${fileLength / 1024 ** 2}`;\r\n  return `${size}MB`;\r\n};\r\n\r\n/**\r\n * 下载文件\r\n * val: Object|String\r\n * **/"
       },
       {
         "fnName": "export const ImgType = ['.png', '.jpg', '.jpeg', '.gif', '.tif', '.bmp', '.svg']",
-        "note": ""
+        "note": "const fileContent = typeof val === 'object' ? JSON.stringify(val, null, 2) : val;\r\n\r\n  const aTag = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');\r\n  const URL = window.URL || window.webkitURL || window;\r\n  aTag.href = URL.createObjectURL(new Blob([fileContent]));\r\n  aTag.download = fileName;\r\n  aTag.click();\r\n};"
       },
       {
         "fnName": "export const VideoType = ['.mp4', '.mov', '.wmv', '.flv', '.avi', '.avchd', '.mkv', '.webm']",
@@ -177,19 +177,19 @@
     "fnArr": [
       {
         "fnName": "export function getType(value, targetType = undefined)",
-        "note": "/**\n * 获取某个数据的类型\n * @param value\n * @param targetType: String => 期望的类型，可选\n * @returns {string|boolean} 对应类型名称|是否为期望的类型\n */"
+        "note": "/**\r\n * 获取某个数据的类型\r\n * @param value\r\n * @param targetType: String => 期望的类型，可选\r\n * @returns {string|boolean} 对应类型名称|是否为期望的类型\r\n */"
       },
       {
         "fnName": "export function isSame(a, b)",
-        "note": "/**\n * 检测a，b两个值是否相同\n * @param a\n * @param b\n * @returns {boolean}\n */"
+        "note": "const type = Object.prototype.toString.call(value).slice(8, -1);\r\n  if (typeof targetType === 'string') {\r\n    return type.toLowerCase() === targetType.trim().toLowerCase();\r\n  }\r\n  return type;\r\n}\r\n\r\n/**\r\n * 检测a，b两个值是否相同\r\n * @param a\r\n * @param b\r\n * @returns {boolean}\r\n */"
       },
       {
         "fnName": "export function deepClone(srcData, hash = new WeakMap()",
-        "note": "// 深度克隆"
+        "note": "if (getType(a) !== getType(b)) return false;\r\n  const type = getType(a);\r\n  if (type === 'Object') {\r\n    return Object.keys(a).every(key => isSame(a[key], b[key]));\r\n  }\r\n  if (type === 'Array') {\r\n    return a.every(item => b.some(temp => isSame(item, temp)));\r\n  }\r\n  return a === b;\r\n}\r\n\r\n// 深度克隆"
       },
       {
         "fnName": "export function transformByteUnit(numberOfBytes)",
-        "note": "/**\n * 转换存储大小\n * numberOfBytes: 字节（B）\n * *************/"
+        "note": "if (srcData === null || typeof srcData !== 'object') {\r\n    return srcData;\r\n  }\r\n  if (srcData instanceof Date) return new Date(srcData);\r\n  if (srcData instanceof RegExp) return new RegExp(srcData);\r\n  if (hash.get(srcData)) {\r\n    return hash.get(srcData);\r\n  }\r\n\r\n  const newData = new srcData.constructor();\r\n  hash.set(srcData, newData);\r\n  const keys = [...Object.keys(srcData), ...Object.getOwnPropertySymbols(srcData)];\r\n  keys.forEach(k => {\r\n    newData[k] = deepClone(srcData[k], hash);\r\n  });\r\n  return newData;\r\n}\r\n\r\n/**\r\n * 转换存储大小\r\n * numberOfBytes: 字节（B）\r\n * *************/"
       }
     ]
   },
@@ -198,11 +198,11 @@
     "fnArr": [
       {
         "fnName": "export function debounce(func, wait, options)",
-        "note": "/**\n * 防抖，连续触发10次，只有第一次或最后一次才会执行\n * func (Function): The function to debounce.\n * [wait=0] (number): The number of milliseconds to delay.\n * [options={}] (Object): The options object.\n * [options.leading=false] (boolean): 超时前调用，Specify invoking on the leading edge of the timeout.\n * [options.maxWait] (number): The maximum time func is allowed to be delayed before it's invoked.\n * [options.trailing=true] (boolean): 定时到期后调用，Specify invoking on the trailing edge of the timeout.\n * ************/"
+        "note": "/**\r\n * 防抖，连续触发10次，只有第一次或最后一次才会执行\r\n * func (Function): The function to debounce.\r\n * [wait=0] (number): The number of milliseconds to delay.\r\n * [options={}] (Object): The options object.\r\n * [options.leading=false] (boolean): 超时前调用，Specify invoking on the leading edge of the timeout.\r\n * [options.maxWait] (number): The maximum time func is allowed to be delayed before it's invoked.\r\n * [options.trailing=true] (boolean): 定时到期后调用，Specify invoking on the trailing edge of the timeout.\r\n * ************/"
       },
       {
         "fnName": "export function throttle(func, wait, options)",
-        "note": "/**\n * 节流，效果类似采样，比如连续触发10次最终会执行3次\n * func (Function): The function to throttle.\n * [wait=0] (number): The number of milliseconds to throttle invocations to.\n * [options={}] (Object): The options object.\n * [options.leading=true] (boolean): Specify invoking on the leading edge of the timeout.\n * [options.trailing=true] (boolean): Specify invoking on the trailing edge of the timeout.\n * *******************/"
+        "note": "let lastArgs,\r\n    lastThis,\r\n    maxWait,\r\n    result,\r\n    timerId,\r\n    lastCallTime,\r\n    lastInvokeTime = 0,\r\n    leading = false,\r\n    maxing = false,\r\n    trailing = true;\r\n\r\n  if (typeof func !== 'function') {\r\n    throw new Error('第一个参数不是函数');\r\n  }\r\n  if (Number.isNaN(Number(wait))) {\r\n    throw new Error('第二个参数不是数字');\r\n  }\r\n  wait = Number(wait);\r\n  if (getType(options, 'Object')) {\r\n    leading = !!options.leading;\r\n    maxing = 'maxWait' in options;\r\n    maxWait = maxing ? Math.max(Number(options.maxWait) || 0, wait) : maxWait;\r\n    trailing = 'trailing' in options ? !!options.trailing : trailing;\r\n  }\r\n\r\n  const now = () => Date.now();\r\n\r\n  function invokeFunc(time) {\r\n    let args = lastArgs;\r\n    let thisArg = lastThis;\r\n\r\n    lastArgs = lastThis = undefined;\r\n    lastInvokeTime = time;\r\n    result = func.apply(thisArg, args);\r\n    return result;\r\n  }\r\n\r\n  function leadingEdge(time) {\r\n    // Reset any `maxWait` timer.\r\n    lastInvokeTime = time;\r\n    // Start the timer for the trailing edge.\r\n    timerId = setTimeout(timerExpired, wait);\r\n    // Invoke the leading edge.\r\n    return leading ? invokeFunc(time) : result;\r\n  }\r\n\r\n  function remainingWait(time) {\r\n    let timeSinceLastCall = time - lastCallTime,\r\n      timeSinceLastInvoke = time - lastInvokeTime,\r\n      timeWaiting = wait - timeSinceLastCall;\r\n\r\n    return maxing ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;\r\n  }\r\n\r\n  function shouldInvoke(time) {\r\n    let timeSinceLastCall = time - lastCallTime,\r\n      timeSinceLastInvoke = time - lastInvokeTime;\r\n\r\n    // Either this is the first call, activity has stopped and we're at the\r\n    // trailing edge, the system time has gone backwards and we're treating\r\n    // it as the trailing edge, or we've hit the `maxWait` limit.\r\n    return (\r\n      lastCallTime === undefined ||\r\n      timeSinceLastCall >= wait ||\r\n      timeSinceLastCall < 0 ||\r\n      (maxing && timeSinceLastInvoke >= maxWait)\r\n    );\r\n  }\r\n\r\n  function timerExpired() {\r\n    const time = now();\r\n    if (shouldInvoke(time)) {\r\n      return trailingEdge(time);\r\n    }\r\n    // Restart the timer.\r\n    timerId = setTimeout(timerExpired, remainingWait(time));\r\n  }\r\n\r\n  function trailingEdge(time) {\r\n    timerId = undefined;\r\n\r\n    // Only invoke if we have `lastArgs` which means `func` has been\r\n    // debounced at least once.\r\n    if (trailing && lastArgs) {\r\n      return invokeFunc(time);\r\n    }\r\n    lastArgs = lastThis = undefined;\r\n    return result;\r\n  }\r\n\r\n  function cancel() {\r\n    if (timerId !== undefined) {\r\n      clearTimeout(timerId);\r\n    }\r\n    lastInvokeTime = 0;\r\n    lastArgs = lastCallTime = lastThis = timerId = undefined;\r\n  }\r\n\r\n  function flush() {\r\n    return timerId === undefined ? result : trailingEdge(now());\r\n  }\r\n\r\n  function debounced() {\r\n    let time = now(),\r\n      isInvoking = shouldInvoke(time);\r\n    console.debug(`isInvoking:${isInvoking}, timerId:${timerId}`);\r\n\r\n    lastArgs = arguments;\r\n    lastThis = this;\r\n    lastCallTime = time;\r\n\r\n    if (isInvoking) {\r\n      if (timerId === undefined) {\r\n        return leadingEdge(lastCallTime);\r\n      }\r\n      if (maxing) {\r\n        // Handle invocations in a tight loop.\r\n        clearTimeout(timerId);\r\n        timerId = setTimeout(timerExpired, wait);\r\n        return invokeFunc(lastCallTime);\r\n      }\r\n    }\r\n    if (timerId === undefined) {\r\n      timerId = setTimeout(timerExpired, wait);\r\n    }\r\n    return result;\r\n  }\r\n  debounced.cancel = cancel;\r\n  debounced.flush = flush;\r\n  return debounced;\r\n}\r\n\r\n/**\r\n * 节流，效果类似采样，比如连续触发10次最终会执行3次\r\n * func (Function): The function to throttle.\r\n * [wait=0] (number): The number of milliseconds to throttle invocations to.\r\n * [options={}] (Object): The options object.\r\n * [options.leading=true] (boolean): Specify invoking on the leading edge of the timeout.\r\n * [options.trailing=true] (boolean): Specify invoking on the trailing edge of the timeout.\r\n * *******************/"
       }
     ]
   },
@@ -211,7 +211,7 @@
     "fnArr": [
       {
         "fnName": "export default class TimeTask",
-        "note": "/**\n * 轮询接口\n * @param api: 接口名\n * @param param: 参数\n * @param stepTime: 轮询间隔秒\n * @param updateCallBack: 成功或失败时的回调\n */"
+        "note": "/**\r\n * 轮询接口\r\n * @param api: 接口名\r\n * @param param: 参数\r\n * @param stepTime: 轮询间隔秒\r\n * @param updateCallBack: 成功或失败时的回调\r\n */"
       }
     ]
   },
@@ -220,23 +220,23 @@
     "fnArr": [
       {
         "fnName": "export function pageStatistics()",
-        "note": "// 页面渲染"
+        "note": "/**\r\n * 页面性能测试\r\n * navigationStart: 在同一个浏览器上下文中，前一个网页（与当前页面不一定同域）unload 的时间戳，如果无前一个网页 unload ，则与 fetchStart 值相等\r\n *    performance.timing<PerformanceTiming>\r\n * unloadEventStart: 前一个网页（与当前页面同域）unload 的时间戳，如果无前一个网页 unload 或者前一个网页与当前页面不同域，则值为 0\r\n * redirectStart: 第一个 HTTP 重定向发生时的时间。有跳转且是同域名内的重定向才算，否则值为 0\r\n * fetchStart: 浏览器准备好使用 HTTP 请求抓取文档的时间，这发生在检查本地缓存之前\r\n * domainLookupStart: DNS 域名查询开始的时间，如果使用了本地缓存（即无 DNS 查询）或持久连接，则与 fetchStart 值相等\r\n * connectStart: HTTP（TCP） 开始建立连接的时间，如果是持久连接，则与 fetchStart 值相等\r\n * connectEnd: 注意这里握手结束，包括安全连接建立完成、SOCKS 授权通过\r\n * requestStart: HTTP 请求读取真实文档开始的时间（完成建立连接），包括从本地读取缓存\r\n * responseStart: HTTP 开始接收响应的时间（获取到第一个字节），包括从本地读取缓存\r\n *\r\n * domLoading: 开始解析渲染 DOM 树的时间，此时 Document.readyState 变为 loading，并将抛出 readystatechange 相关事件\r\n *   performance.timing<PerformanceTiming>\r\n * domInteractive: 完成解析 DOM 树的时间，Document.readyState 变为 interactive 并将抛出 readystatechange 相关事件，注意只是 DOM 树解析完成，这时候并没有开始加载网页内的资源\r\n * domContentLoadedEventStart: DOM 解析完成后，网页内资源加载开始的时间, 在 DOMContentLoaded 事件抛出前发生\r\n * domContentLoadedEventEnd: DOM 解析完成后，网页内资源加载完成的时间（如 JS 脚本加载执行完毕）\r\n * domComplete: 所有资源准备就绪的时间，Document.readyState 变为 complete 并将抛出 readystatechange 相关事件\r\n * loadEventStart: load 事件发送给文档，也即 load 回调函数开始执行的时间, 如果没有绑定 load 事件，值为 0\r\n * loadEventEnd: load 事件的回调函数执行完毕的时间\r\n */\r\n\r\nfunction toFixed(num, digits = 2) {\r\n  return +num.toFixed(digits);\r\n}\r\n\r\n// 页面渲染"
       },
       {
         "fnName": "export function apiStatistics()",
-        "note": "// api"
+        "note": "const performance = window.performance;\r\n  const htmlTime = performance.getEntriesByType('navigation')[0];\r\n  const pageInfo = [\r\n    {\r\n      key: 'Loaded',\r\n      desc: '页面load的总耗时',\r\n      value: toFixed(htmlTime.duration, 2), // loadEventEnd - startTime\r\n    },\r\n    {\r\n      key: 'DOMContentLoaded',\r\n      desc: 'dom解析完成的总耗时',\r\n      value: toFixed(htmlTime.domContentLoadedEventEnd - htmlTime.startTime, 2),\r\n    },\r\n    {\r\n      key: 'Redirect',\r\n      desc: '网页重定向的耗时',\r\n      value: toFixed(htmlTime.redirectEnd - htmlTime.redirectStart, 2),\r\n    },\r\n    {\r\n      key: 'AppCache',\r\n      desc: '检查本地缓存的耗时',\r\n      value: toFixed(htmlTime.domainLookupStart - htmlTime.fetchStart, 2),\r\n    },\r\n    {\r\n      key: 'DNS',\r\n      desc: 'DNS查询的耗时',\r\n      value: toFixed(htmlTime.domainLookupEnd - htmlTime.domainLookupStart, 2),\r\n    },\r\n    {\r\n      key: 'TCP',\r\n      desc: 'TCP连接的耗时',\r\n      value: toFixed(htmlTime.connectEnd - htmlTime.connectStart, 2),\r\n    },\r\n    {\r\n      key: 'Waiting(TTFB)',\r\n      desc: '从客户端发起请求到接收到响应的时间',\r\n      value: toFixed(htmlTime.responseStart - htmlTime.requestStart, 2),\r\n    },\r\n    {\r\n      key: 'Content Download',\r\n      desc: '下载服务端返回数据的时间',\r\n      value: toFixed(htmlTime.responseEnd - htmlTime.responseStart, 2),\r\n    },\r\n    {\r\n      key: 'HTTP Total Time',\r\n      desc: 'http请求总耗时',\r\n      value: toFixed(htmlTime.responseEnd - htmlTime.requestStart, 2),\r\n    },\r\n  ];\r\n  // 解析DOM耗时, 衡量DOM结果复杂度\r\n  const parseDomStart = htmlTime.responseEnd; // performance.timing.domLoading\r\n  pageInfo.push({\r\n    key: 'Parse html',\r\n    desc: '解析DOM耗时, 衡量DOM结果复杂度',\r\n    value: toFixed(htmlTime.domInteractive - parseDomStart, 2),\r\n  });\r\n  // First Contentful Paint(FCP) 首次内容渲染\r\n  const paints = performance.getEntriesByType('paint');\r\n  pageInfo.push({\r\n    key: 'FCP',\r\n    desc: '首次内容渲染(FCP)',\r\n    value: toFixed(paints[1].startTime - paints[0].startTime, 2),\r\n  });\r\n  // 白屏时间\r\n  pageInfo.push({\r\n    key: 'FPT',\r\n    desc: '白屏时间',\r\n    value: toFixed(performance.getEntriesByName('first-contentful-paint')[0].startTime - htmlTime.startTime, 2),\r\n  });\r\n  // 首次可交互时间\r\n  pageInfo.push({\r\n    key: 'TTI',\r\n    desc: '首次可交互时间',\r\n    value: toFixed(htmlTime.domInteractive - htmlTime.startTime, 2),\r\n  });\r\n  return pageInfo;\r\n}\r\n\r\n// api"
       },
       {
         "fnName": "export function assetStatistics()",
-        "note": "// 静态资源js、css、image"
+        "note": "const list = window.performance.getEntriesByType('resource').filter(item => item.initiatorType === 'xmlhttprequest');\r\n  return list.map((item) => {\r\n    const dstInfo = {};\r\n    // dstInfo.entryType = item.entryType;\r\n    dstInfo.name = item.name.split('/');\r\n    dstInfo.name = dstInfo.name[dstInfo.name.length - 1];\r\n    dstInfo.duration = toFixed(item.duration, 2);\r\n    dstInfo.size = toFixed(item.encodedBodySize / 1024) + 'KB';\r\n    // TCP 连接耗时\r\n    dstInfo.TCP = toFixed(item.connectEnd - item.connectStart, 2);\r\n    return dstInfo;\r\n  });\r\n}\r\n\r\n// 静态资源js、css、image"
       },
       {
         "fnName": "export function calcFps(N)",
-        "note": "// 代码示例来自：《无线性能优化：FPS 测试》"
+        "note": "let list = window.performance.getEntriesByType('resource');\r\n  list = list.filter((item) => item.initiatorType !== 'xmlhttprequest');\r\n  const result = list.map((item) => {\r\n    const dstInfo = {};\r\n    // dstInfo.entryType = item.entryType;\r\n    dstInfo.name = item.name.split('/');\r\n    dstInfo.name = dstInfo.name[dstInfo.name.length - 1];\r\n    dstInfo.duration = toFixed(item.duration, 2);\r\n    dstInfo._size = toFixed(item.encodedBodySize / 1024);\r\n    dstInfo.size = dstInfo._size + 'KB';\r\n    return dstInfo;\r\n  });\r\n  result.sort((a, b) => b._size - a._size);\r\n  return result;\r\n}\r\n\r\n// 代码示例来自：《无线性能优化：FPS 测试》"
       },
       {
         "fnName": "export class PerformanceCode",
-        "note": "// calcFps(100).then(res => console.debug(res));\n// 测量代码段"
+        "note": "let lastTime = performance.now();\r\n  let frame = 0;\r\n  let lastFameTime = performance.now();\r\n  const fpsList = [];\r\n  let count = 0;\r\n  return new Promise((resolve) => {\r\n    const loop = () => {\r\n      const now = performance.now();\r\n      const fs = now - lastFameTime;\r\n      lastFameTime = now;\r\n      let fps = Math.round(1000 / fs);\r\n      frame++;\r\n      count++;\r\n      if (now - lastTime > 1000) {\r\n        console.debug('x');\r\n        fps = Math.round((frame * 1000) / (now - lastTime));\r\n        frame = 0;\r\n        lastTime = now;\r\n      }\r\n      console.debug(frame, fps);\r\n      fpsList.push(fps);\r\n      if (count <= N) {\r\n        window.requestAnimationFrame(loop);\r\n      } else {\r\n        let result = fpsList.reduce((acc, cur) => acc + cur, 0) / fpsList.length;\r\n        result = Number(result.toFixed(2));\r\n        resolve({ fps: result, fpsList });\r\n      }\r\n    };\r\n    window.requestAnimationFrame(loop);\r\n  });\r\n}\r\n// calcFps(100).then(res => console.debug(res));\r\n\r\n// 测量代码段"
       }
     ]
   },
@@ -245,19 +245,19 @@
     "fnArr": [
       {
         "fnName": "export function getParams(url)",
-        "note": "/**\n * 获取url参数\n * @param {string} url 可选\n * @returns Object\n */"
+        "note": "/**\r\n * 获取url参数\r\n * @param {string} url 可选\r\n * @returns Object\r\n */"
       },
       {
         "fnName": "export function setUrlQuery(args)",
-        "note": "/**\n * 设置url参数\n * @param {Object} args: { k, v }\n * @returns url: string\n */"
+        "note": "const params = {};\r\n  const _url = url || window.location.search;\r\n  _url.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => (params[k] = v));\r\n  return params;\r\n}\r\n\r\n/**\r\n * 设置url参数\r\n * @param {Object} args: { k, v }\r\n * @returns url: string\r\n */"
       },
       {
         "fnName": "export function preventBrowserBack()",
-        "note": "// 阻止浏览器回退"
+        "note": "const { location } = window;\r\n  if (typeof args !== 'object') {\r\n    return location.pathname + location.search;\r\n  }\r\n\r\n  const newQuery = getParams();\r\n  const newKList = Object.keys(args);\r\n  newKList.forEach(k => {\r\n    newQuery[k] = args[k];\r\n  });\r\n  let newPath = `${location.pathname}?`;\r\n  const list = Object.keys(newQuery)\r\n    .filter(k => newQuery[k])\r\n    .map(k => `${k}=${newQuery[k]}`);\r\n  newPath += list.join('&');\r\n  return newPath;\r\n}\r\n\r\n// 阻止浏览器回退"
       },
       {
         "fnName": "export function getAbsUrl(doc, relativeUrl)",
-        "note": "/**\n * 获取上传文件的 url, 处理使用 <base> 的情况\n * <base href=\"http://google.com\" />\n * <a target=\"_blank\" href=\"/aa/bb\">debug</a>\n * args:\n *  doc: document\n *  relativeUrl: /aa/bb\n */"
+        "note": "window.history.pushState(null, null, document.URL);\r\n  const popFn = function() {\r\n    window.history.pushState(null, null, document.URL);\r\n  };\r\n  window.addEventListener('popstate', popFn);\r\n  // 恢复回退\r\n  return () => {\r\n    window.removeEventListener('popstate', popFn);\r\n  };\r\n}\r\n\r\n/**\r\n * 获取上传文件的 url, 处理使用 <base> 的情况\r\n * <base href=\"http://google.com\" />\r\n * <a target=\"_blank\" href=\"/aa/bb\">debug</a>\r\n * args:\r\n *  doc: document\r\n *  relativeUrl: /aa/bb\r\n */"
       }
     ]
   },
@@ -266,11 +266,11 @@
     "fnArr": [
       {
         "fnName": "export class Poll",
-        "note": ""
+        "note": "// 轮询\r\nconst DefaultArgs = {\r\n  formatRes: true, // 是否格式化响应\r\n  stepTime: 3, // 间隔3s\r\n  timeout: 60, // 超时60s\r\n};"
       },
       {
         "fnName": "export default function ajax(cfg)",
-        "note": "/**\n * Example\n * ajax({\n *   url: 'xx',\n *   method: 'POST',\n *   contentType: 'application/json; charset=utf-8',\n *   setHeaders(xhr) {\n *     xhr.responseType = 'json';\n *     xhr.timeout = 30000; // ms\n *     // 默认情况下不会将 cookie 和 HTTP 授权发送到其他域。要启用它们，可以将 xhr.withCredentials 设置为 true\n *     xhr.withCredentials = true;\n *   },\n *   data: {\n *     key: val\n *   },\n *   ontimeout(e) {\n *     console.debug(e);\n *   },\n *   onprogress(e) {\n *\n *   }\n * })\n * 各种 Content-Type 对应的 POST 请求数据格式\n * 1. applicaion/x-www-urlencoded  => xhr.send('a=val1&key2=value2');\n * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))\n * 3.\n * **************/"
+        "note": "constructor(args) {\r\n    const mergeArgs = { ...DefaultArgs, ...args };\r\n    mergeArgs.stepTime = mergeArgs.stepTime * 1000;\r\n    mergeArgs.timeout = mergeArgs.timeout * 1000;\r\n    this.mergeArgs = mergeArgs;\r\n    this.formatRes = mergeArgs.formatRes;\r\n    this.firstRun = true;\r\n    this.disabled = false;\r\n    this.listener = {};\r\n\r\n    const xhr = new XMLHttpRequest();\r\n    // xhr.onreadystatechange = this.onStateChange;\r\n\r\n    xhr.onload = () => {\r\n      let err = '';\r\n      let isFail = false;\r\n      let resData = null;\r\n      const res = xhr.response;\r\n      // console.debug('\\nonload:\\n', res);\r\n      if (xhr.status === 200) {\r\n        if (this.formatRes) {\r\n          err = isEmpty(res[0]) ? '' : res[0];\r\n          resData = res[1];\r\n          isFail = !!err;\r\n        } else {\r\n          resData = res;\r\n        }\r\n      } else {\r\n        err = res;\r\n        isFail = true;\r\n      }\r\n      if (isFail) {\r\n        this.stop();\r\n      } else {\r\n        !this.disabled && this.launchTimer();\r\n      }\r\n\r\n      if (typeof this.listener.load === 'function') {\r\n        this.listener.load({\r\n          isFail,\r\n          err,\r\n          resData,\r\n          originRes: res,\r\n        });\r\n      }\r\n    };\r\n    xhr.onerror = err => {\r\n      console.debug('\\n onerror');\r\n      this.clean();\r\n      if (typeof this.listener.error === 'function') {\r\n        this.listener.error(err);\r\n      }\r\n    };\r\n    xhr.ontimeout = e => {\r\n      console.debug('ontimeout:\\n', e);\r\n      if (typeof this.listener.timeout === 'function') {\r\n        this.listener.timeout(e);\r\n      }\r\n    };\r\n    xhr.onprogress = event => {\r\n      if (typeof this.listener.progress === 'function') {\r\n        this.listener.progress(event);\r\n      }\r\n    };\r\n\r\n    this.xhr = xhr;\r\n  }\r\n\r\n  run() {\r\n    this.firstRun = false;\r\n    this.xhr.open('POST', this.mergeArgs.url);\r\n\r\n    this.xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');\r\n    this.xhr.responseType = 'json';\r\n    this.xhr.timeout = this.mergeArgs.timeout; // ms\r\n    this.xhr.withCredentials = true;\r\n\r\n    this.xhr.send(JSON.stringify(this.mergeArgs.param));\r\n  }\r\n\r\n  launchTimer() {\r\n    if (this.timer) {\r\n      clearInterval(this.timer);\r\n      this.timer = null;\r\n    }\r\n\r\n    if (this.firstRun) {\r\n      this.run();\r\n    } else {\r\n      this.timer = setTimeout(this.run.bind(this), this.mergeArgs.stepTime);\r\n    }\r\n  }\r\n\r\n  // load error timeout progress\r\n  addEventListener(name, cb) {\r\n    this.listener[name] = cb;\r\n  }\r\n\r\n  start() {\r\n    this.disabled = false;\r\n    if ([0, 4].includes(this.xhr.readyState)) {\r\n      this.launchTimer();\r\n    }\r\n  }\r\n\r\n  stop() {\r\n    this.xhr.abort();\r\n    clearInterval(this.timer);\r\n    this.timer = null;\r\n    this.disabled = true;\r\n  }\r\n\r\n  clean() {\r\n    this.stop();\r\n    this.xhr = null;\r\n  }\r\n\r\n  // onStateChange() {\r\n  //   if (this.xhr.readyState === 4) {\r\n  //     if (this.xhr.status === 200) {\r\n  //     }\r\n  //   }\r\n  // }\r\n}\r\n\r\n/**\r\n * Example\r\n * ajax({\r\n *   url: 'xx',\r\n *   method: 'POST',\r\n *   contentType: 'application/json; charset=utf-8',\r\n *   setHeaders(xhr) {\r\n *     xhr.responseType = 'json';\r\n *     xhr.timeout = 30000; // ms\r\n *     // 默认情况下不会将 cookie 和 HTTP 授权发送到其他域。要启用它们，可以将 xhr.withCredentials 设置为 true\r\n *     xhr.withCredentials = true;\r\n *   },\r\n *   data: {\r\n *     key: val\r\n *   },\r\n *   ontimeout(e) {\r\n *     console.debug(e);\r\n *   },\r\n *   onprogress(e) {\r\n *\r\n *   }\r\n * })\r\n * 各种 Content-Type 对应的 POST 请求数据格式\r\n * 1. applicaion/x-www-urlencoded  => xhr.send('a=val1&key2=value2');\r\n * 2. application/json  => xhr.send(JSON.stringify({ key1: val, key2: val2 }))\r\n * 3.\r\n * **************/"
       }
     ]
   },
@@ -283,7 +283,7 @@
       },
       {
         "fnName": "export function xssUrlv(s)",
-        "note": "// 针对url里面query key，value的编码"
+        "note": "s += '';\r\n  if (/(?:&|<|>|\"|'|`)/.test(s) === false) {\r\n    return s;\r\n  }\r\n  return s.replace(/(?:&|<|>|\"|'|`)/g, (match) => __xssMap[match]);\r\n}\r\n\r\n// 针对url里面query key，value的编码"
       }
     ]
   }
