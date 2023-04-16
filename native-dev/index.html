@@ -5,7 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>local dev</title>
-  <script data-main="./amd/index.js" src="./amd/requirejs.js"></script>
+  <link rel="modulepreload" href="./es-mod/index.js">
+  <script src="./es-mod/index.js" type="module" ></script>
+<!--  <script data-main="./amd/index.js" src="./amd/requirejs.js"></script>-->
 </head>
 <body>
   <button id="btn">按钮</button>

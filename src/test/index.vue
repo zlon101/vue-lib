@@ -1,6 +1,7 @@
 <template>
   <div id="vue-app">
     <h1>测试各种功能</h1>
+    <Child />
     <!--<XhrTest />-->
     <!--<ServeEvent />-->
     <!--<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie">mdn</a>-->
@@ -14,9 +15,22 @@
 // import WsTest from './ws';
 import ServeEvent from './event-source';
 import Range from './range';
+import Child from './Child.vue';
 
 export default {
-  components: { ServeEvent, Range },
+  components: { ServeEvent, Range, Child },
+  beforeCreate() {
+    console.debug('parent beforeCreate');
+  },
+  created() {
+    console.debug('parent created');
+  },
+  beforeMount() {
+    console.debug('parent beforeMount');
+  },
+  mounted() {
+    console.debug('parent mounted');
+  }
 };
 </script>
 

@@ -19,7 +19,7 @@ const commonCfg = {
   // 运行上下文，默认为 nodejs 当前工作目录
   context: getAbsPath('./'),
   // entry: './src/main.js',
-  entry: './native-dev/es-mod/index.js',
+  entry: './src/test/index.js',
   output: {
     // chunkFormat: 'module',
     publicPath: isProd ? './' : '/',

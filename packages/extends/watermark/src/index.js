@@ -5,14 +5,11 @@ const WatermarkComponent = Vue.extend(watermarkVue);
 let instance;
 
 const Watermark = (name, phone) => {
-  const parent = document.body;
-
   if (!instance) {
     instance = new WatermarkComponent({
-      el: document.createElement('div'),
       data: { name, phone },
-    });
-    parent.appendChild(instance.$el);
+    }).$mount();
+    document.body.appendChild(instance.$el);
   }
 
   instance.name = name;
