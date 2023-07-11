@@ -61,7 +61,7 @@ export function listenVisible(cb) {
     visibilityEventName = 'webkitvisibilitychange';
   }
 
-  const onVisibilityChange = (e) => cb(document[hidden], e);
+  const onVisibilityChange = e => cb(document[hidden], e);
 
   // 如果浏览器不支持 addEventListener 或 Page Visibility API 给出警告
   if (typeof document.addEventListener !== 'function' || typeof document[hidden] === 'undefined') {
@@ -81,7 +81,7 @@ export const isFullScreen = () => {
   );
 };
 // 全屏某个元素
-export const handleFullscreen = (container) => {
+export const handleFullscreen = container => {
   // If fullscreen mode is active...
   if (isFullScreen()) {
     // ...exit fullscreen mode
@@ -115,5 +115,23 @@ export const HtmlEscapes = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
-  '\'': '&#39;',
+  // eslint-disable-next-line
+  "'": '&#39;',
 };
+
+// 动态插入script
+export function insertScript(url) {
+  const script = document.createElement('script');
+  script.src = url;
+  script.async = false;
+  script.defer = true;
+  document.body.appendChild(script);
+}
+// 动态插入css
+export function insertStyle(url) {
+  const link = document.createElement('link');
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  link.href = url;
+  document.body.appendChild(link);
+}
