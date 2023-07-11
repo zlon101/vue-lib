@@ -17,7 +17,7 @@ const isDir = absPath => fs.lstatSync(absPath).isDirectory();
 
 const args = process.argv.slice(2);
 if (!args.length) {
-  LogErr('输入参数： type=<d|c> dir=[xx]，删除本地链接或者建立链接');
+  LogErr('输入参数： type=<d|c> dir=packages/basecmp，删除本地链接或者建立链接');
   process.exit(1);
 }
 
@@ -34,7 +34,7 @@ if (param.type === 'c') {
   if (param.dir) {
     targetDir = param.dir;
   }
-  traverseDir(path.resolve(__dirname, `../${targetDir}`));
+  traverseDir(resolvePath(`../${targetDir}`));
 } else if (param.type === 'd') {
   console.log('\n$ 请手动执行: rm -rf packages/**/**/node_modules');
   // deleteSymLink();
@@ -50,14 +50,14 @@ function traverseDir(dir) {
   const dirAbs = resolvePath(dir);
   fs.readdir(dirAbs, (err, list) => {
     if (err) {
-      console.log(`❌ ${dirAbs.split('packages/').pop()}`);
+      console.log(`❌ ${dirAbs.split('packages').pop()}`);
       return;
     }
     for (const file of list) {
       if (WhiteDirs.some(item => file.includes(item))) {
         continue;
       }
-      const joinDir = `${dir}/${file}`;
+      const joinDir = path.join(dir, file);
       const absPath = resolvePath(joinDir);
       if (!isDir(absPath)) {
         continue;
@@ -104,16 +104,19 @@ function deleteSymLink() {
 
 // 进入 package 执行 npm run link-local
 function exePackageLink(pkgPath) {
-  fs.readFile(`${pkgPath}/package.json`, 'utf-8', (err, str) => {
+  fs.readFile(path.resolve(pkgPath, 'package.json'), 'utf-8', (err, str) => {
     if (err) {
       return console.log(`❌ readFile ${pkgPath.split('packages').pop()}`);
     }
     const pkgJson = JSON.parse(str);
     const hasLinkLocal = pkgJson.scripts && pkgJson.scripts['link-local'];
     if (hasLinkLocal) {
-      const ls = spawn('npm', ['run', 'link-local'], { cwd: pkgPath });
+      const ls = spawn('npm', ['run', 'link-local'], {
+        cwd: pkgPath,
+        shell: process.platform === 'win32',
+      });
       ls.stderr.on('data', data => console.error(`${data}`));
-      const dirName = pkgPath.split('/packages').pop();
+      const dirName = pkgPath.split('packages').pop();
       ls.on('close', code => console.log(code ? `❌ ${dirName}失败` : `✅ ${dirName}成功`));
     }
   });

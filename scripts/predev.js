@@ -20,7 +20,9 @@ if (!CmdArgs.includes('-build')) {
 // 压缩 svg
 let hasFix = false; // 是否有更新
 let hasErr = false; // 是否有报错
-const ls = spawn('npm', ['run', 'minSvg', resolvePath('../packages/basecmp/icon/assets')]);
+const ls = spawn('npm', ['run', 'minSvg', resolvePath('../packages/basecmp/icon/assets')], {
+  shell: process.platform === 'win32',
+});
 ls.stdout.on('data', data => {
   const str = `${data}`;
   console.log(str);
@@ -36,17 +38,25 @@ ls.on('close', code => {
   console.log(!code ? '✅ svg压缩完成' : '❌ svg压缩失败');
   if (!code && hasFix && !hasErr) {
     // 生成icon组件和iconfont css
-    spawn('npm', ['run', 'build:icon']);
+    spawn('npm', ['run', 'build:icon'], {
+      shell: process.platform === 'win32',
+    });
   }
 });
 
 // 生成utils 和全局 style 注释文档
-const ls2 = spawn('npm', ['run', 'gene-note'], { cwd: resolvePath('../packages/utils') });
+const ls2 = spawn('npm', ['run', 'gene-note'], {
+  cwd: resolvePath('../packages/utils'),
+  shell: process.platform === 'win32',
+});
 ls2.on('close', code => {
   console.log(!code ? '✅ 生成utils 注释完成' : '❌ 生成utils 注释失败');
 });
 
-const ls3 = spawn('npm', ['run', 'gene-note'], { cwd: resolvePath('../packages/styles') });
+const ls3 = spawn('npm', ['run', 'gene-note'], {
+  cwd: resolvePath('../packages/styles'),
+  shell: process.platform === 'win32',
+});
 ls3.stderr.on('data', data => console.error(`${data}`));
 ls3.on('close', code => {
   console.log(!code ? '✅ 生成styles example 完成' : '❌ 生成styles example 失败');
