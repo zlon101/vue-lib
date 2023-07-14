@@ -3,18 +3,40 @@
 </template>
 
 <script>
+const log = console.debug;
+
 export default {
+  props: {
+    propsVal: {
+      type: String,
+      default: '0',
+    },
+  },
+  data() {
+    log(`执行data函数
+    this: %o
+    this.propsVal: ${this.propsVal}
+    this.age: ${this.age}
+    `, this);
+    return {
+      age: '90',
+    };
+  },
   beforeCreate() {
-    console.debug('child beforeCreate');
+    log(`执行data函数
+    this: %o
+    this.age: ${this.age}
+    this.propsVal: ${this.propsVal}
+    `, this);
   },
-  created() {
-    console.debug('child created');
-  },
-  beforeMount() {
-    console.debug('child beforeMount');
-  },
-  mounted() {
-    console.debug('child mounted');
-  },
+  // created() {
+  //   log('child created');
+  // },
+  // beforeMount() {
+  //   log('child beforeMount');
+  // },
+  // mounted() {
+  //   log('child mounted');
+  // },
 };
 </script>
