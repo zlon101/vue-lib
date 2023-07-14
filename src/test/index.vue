@@ -27,12 +27,13 @@ export default {
   // beforeCreate() {
   //   console.debug('parent beforeCreate');
   // },
-  // created() {
-  //   console.debug('parent created');
-  // },
-  // beforeMount() {
-  //   console.debug('parent beforeMount');
-  // },
+  created() {
+    this.msg = '11111';
+    console.debug('parent created');
+  },
+  beforeMount() {
+    this.msg = '3333';
+  },
   // mounted() {
   //   console.debug('parent mounted');
   // }

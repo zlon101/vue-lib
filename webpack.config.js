@@ -18,7 +18,6 @@ const commonCfg = {
   target: 'web', // es6 web
   // 运行上下文，默认为 nodejs 当前工作目录
   context: getAbsPath('./'),
-  // entry: './src/main.js',
   entry: './src/test/index.js',
   output: {
     // chunkFormat: 'module',

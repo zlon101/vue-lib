@@ -1,5 +1,8 @@
 <template>
-  <h2>child.vue</h2>
+  <div>
+    <h2>child.vue</h2>
+    <p>propsVal: {{propsVal}}</p>
+  </div>
 </template>
 
 <script>
@@ -12,26 +15,37 @@ export default {
       default: '0',
     },
   },
+  watch: {
+    propsVal: {
+      handler() {
+        // log('watch');
+      },
+      immediate: true,
+    },
+  },
   data() {
     log(`执行data函数
-    this: %o
-    this.propsVal: ${this.propsVal}
-    this.age: ${this.age}
-    `, this);
+      this: ${typeof this}
+      this.propsVal: ${this?.propsVal}
+      this.age: ${this?.age}
+      原型属性: ${typeof this.$msg}
+    `);
     return {
       age: '90',
     };
   },
   beforeCreate() {
-    log(`执行data函数
-    this: %o
-    this.age: ${this.age}
-    this.propsVal: ${this.propsVal}
-    `, this);
+    log(`beforeCreate
+      this: ${typeof this}
+      this.age: ${this?.age}
+      原型属性: ${typeof this.$msg}
+    `);
   },
-  // created() {
-  //   log('child created');
-  // },
+  created() {
+    log(`child created
+      原型属性: ${typeof this.$msg}
+    `);
+  },
   // beforeMount() {
   //   log('child beforeMount');
   // },

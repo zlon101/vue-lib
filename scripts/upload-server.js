@@ -8,7 +8,10 @@ const cwd = getAbsPath('../');
 
 const zipPath = `./zip.zip`;
 
-const zipCmd = spawnSync('zip', ['-r', '-q', `${zipPath}`, './', '-x', './node_modules/*', '-x', './.git/*', '-x', './.DS_Store'], { cwd });
+const zipCmd = spawnSync('zip', ['-r', '-q', `${zipPath}`, './', '-x', './node_modules/*', '-x', './.git/*', '-x', './.DS_Store'], {
+  cwd,
+  shell: process.platform === 'win32',
+});
 if (zipCmd.error) {
   console.log('❌ 压缩失败', zipCmd.error);
   spawnSync('rm', ['-rf', `${zipPath}`], { cwd });
