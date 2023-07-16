@@ -48,11 +48,11 @@ module.exports = {
     // 取消文件末尾必须有空行
     'eol-last': 'off',
     // 关闭 prettier/prettier 语法报错
-    // 'prettier/prettier': 'off',
+    'prettier/prettier': 'off',
   },
   // 配置全局变量
   globals: {
     window: 'writable',
-    process: 'readonly'
-  }
+    process: 'readonly',
+  },
 };

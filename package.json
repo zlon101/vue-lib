@@ -18,7 +18,9 @@
     "link:all": "node scripts/link-local.js",
     "update:registry": "node scripts/update-registry.js",
     "create:comp": "node scripts/create.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "npx eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
+    "prettier": "npx prettier --write ."
   },
   "lint-staged": {
     "src/**/*.{js,jsx,vue}": "eslint --cache --fix",
