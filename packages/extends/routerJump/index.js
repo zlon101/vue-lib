@@ -35,8 +35,8 @@ function jump(routeConfig, args) {
   }
 };
 
-export default function(Vue) {
+export default function(app) {
   if (jump.installed) return;
   jump.installed = true;
-  Vue.prototype.$routerJump = jump;
+  app.config.globalProperties.$routerJump = jump;
 }

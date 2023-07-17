@@ -64,13 +64,13 @@ export default {
 <style lang="less" scoped>
 .c-editor {
   &.preview {
-    /deep/ .ql-toolbar.ql-snow {
+    :deep(.ql-toolbar.ql-snow) {
       display: none;
     }
     .textarea {
       border: none;
     }
-    /deep/ .ql-editor {
+    :deep(.ql-editor) {
       padding: 0;
     }
   }

@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: 'LoadinWrap',
   props: {
     title: String,
     isBlur: {

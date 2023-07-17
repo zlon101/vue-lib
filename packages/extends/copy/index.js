@@ -10,8 +10,8 @@ export const copyAndToast = str => {
   toast(toastCfg);
 };
 
-export default function install(Vue) {
+export default function install(app) {
   if (install.installed) return;
   install.installed = true;
-  Vue.prototype.$copy = copyAndToast;
+  app.config.globalProperties.$copy = copyAndToast;
 }

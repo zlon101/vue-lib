@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { nextTick } from 'vue';
 
 let listenAction;
 let stickyTop;
@@ -141,7 +141,7 @@ function insertedFn(el, binding) {
 
 export default {
   inserted(el, binding) {
-    Vue.nextTick(() => insertedFn(el, binding));
+    nextTick(() => insertedFn(el, binding));
   },
   unbind: unwatch,
 };

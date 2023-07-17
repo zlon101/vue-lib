@@ -6,11 +6,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import LinkBtn from '../src/linkBtn.vue';
 import jump from '@zl/extend-router';
 
-Vue.use(jump);
+window._APP.use(jump);
 
 export default {
   components: {

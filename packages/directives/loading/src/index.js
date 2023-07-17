@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import loading from './loading.vue';
 
 // 默认参数
@@ -35,16 +35,14 @@ function insertHtmlAfterParent(el, params) {
     return;
   }
   // render
-  const instance = new Vue({
-    ...loading,
-    name: 'LoadinWrap',
-    propsData: params,
-  }).$mount();
+  const mountedEle = document.createElement('div');
+  const instance = createApp(loading, params);
+  instance.mount(mountedEle);
   const styleObj = {};
   styleObj.position = params.page ? 'fixed' : 'absolute';
-  instance.$el.style = cssObjToStr(styleObj);
+  mountedEle.style = cssObjToStr(styleObj);
   el._instance = instance;
-  el._container.appendChild(instance.$el);
+  el._container.appendChild(mountedEle);
 }
 
 function removeLoadingDom(el) {

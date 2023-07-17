@@ -1,10 +1,10 @@
 import vLoading from './src';
 export { default as example } from './example/usage';
 
-vLoading.install = function (Vue) {
+vLoading.install = function(app) {
   if (vLoading.installed) return;
   vLoading.installed = true;
-  Vue.directive('loading', vLoading);
-}
+  app.directive('loading', vLoading);
+};
 
 export default vLoading;

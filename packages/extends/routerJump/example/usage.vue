@@ -6,10 +6,9 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import routeJump from '../index.js';
 
-Vue.use(routeJump);
+window._APP.use(routeJump);
 
 export default {
   methods: {
@@ -19,7 +18,7 @@ export default {
       } else {
         this.$routerJump('/basecmp/button');
       }
-    }
-  }
+    },
+  },
 };
 </script>

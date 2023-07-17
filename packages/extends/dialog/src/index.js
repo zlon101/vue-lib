@@ -1,16 +1,13 @@
-import Vue from 'vue';
-import dialogVue from './dialog.vue';
-
-const DialogComponent = Vue.extend(dialogVue);
+import { createApp } from 'vue';
+import DialogComponent from './dialog.vue';
 
 const Dialog = () => {
   const parent = document.body;
-  const instance = new DialogComponent({
-    el: document.createElement('div'),
-  });
+  const container = document.createElement('div');
+  const instance = createApp(DialogComponent);
+  instance.mount(container);
 
-  parent.appendChild(instance.$el);
-
+  parent.appendChild(container);
   return instance;
 };
 

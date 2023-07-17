@@ -4,11 +4,11 @@ import DialogComponent from './src/dialog.vue';
 /**
  * 可以使用模板和命令两种方式调用
  */
-dialog.install = function(Vue) {
+dialog.install = function(app) {
   if (dialog.installed) return;
   dialog.installed = true;
-  Vue.prototype.$dialog = dialog();
-  Vue.component(DialogComponent.name, DialogComponent);
+  app.config.globalProperties.$dialog = dialog();
+  app.component(DialogComponent.name, DialogComponent);
 };
 
 export default dialog;

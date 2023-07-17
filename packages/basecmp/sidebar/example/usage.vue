@@ -16,20 +16,15 @@
 </template>
 
 <script>
+import { RouterView } from 'vue-router';
 import Sidebar from '../src/sidebar';
 import { IconYes, IconGithub } from '../../icon';
-
-const RouteView = {
-  render() {
-    return (<router-view />);
-  },
-};
 
 // 路由配置列表
 const RouterCfg = [
   {
     path: 'case',
-    component: RouteView,
+    component: RouterView,
     redirect: 'case/list',
     meta: { title: '标题A', icon: 'IconYes', sort: 0 },
     children: [
@@ -44,7 +39,7 @@ const RouterCfg = [
   },
   {
     path: 'fghq',
-    component: RouteView,
+    component: RouterView,
     redirect: 'case/list',
     meta: { title: '标题B', icon: 'IconGithub', sort: 3 },
     children: [

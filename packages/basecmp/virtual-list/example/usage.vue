@@ -14,9 +14,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import VirtualList from '../src';
-Vue.component('virtual-list', VirtualList);
+window._APP.component('virtual-list', VirtualList);
 
 const requireGlobal = require.context('./components', false, /\w+\.(vue|js)$/);
 const successCmp = [];
@@ -28,7 +27,7 @@ requireGlobal.keys().forEach(fileName => {
     return;
   }
   successCmp.push(cmp.name);
-  Vue.component(cmp.name, cmp);
+  window._APP.component(cmp.name, cmp);
 });
 
 // 批量注册局部组件

@@ -1,9 +1,9 @@
 import RichText from './src/editor.vue';
 
-RichText.install = function(Vue) {
+RichText.install = function(app) {
   if (RichText.installed) return;
   RichText.installed = true;
-  Vue.component(RichText.name, RichText);
+  app.component(RichText.name, RichText);
 };
 
 export default RichText;

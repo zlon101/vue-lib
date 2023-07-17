@@ -1,12 +1,6 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 import RouterView from '../router-view';
 import Home from '../pages/home';
-import ImagePage from '../pages/image';
-import ToolPage from '../pages/tool';
-import StylePage from '../pages/style';
-
-Vue.use(VueRouter);
 
 const IgnoreDirs = ['node_modules'];
 const loadFile = (filePath, compDir, list) => {
@@ -56,17 +50,17 @@ const routeList = [
   {
     path: '/image',
     name: 'Image',
-    component: ImagePage,
+    component: () => import('../pages/image'),
   },
   {
     path: '/tool',
     name: 'Tool',
-    component: ToolPage,
+    component: () => import('../pages/tool'),
   },
   {
     path: '/style',
     name: 'Style',
-    component: StylePage,
+    component: () => import('../pages/style'),
   },
   {
     path: '/basecmp', // 和文件目录相同
@@ -93,12 +87,12 @@ const routeList = [
     children: GlobalMethod,
   },
   {
-    path: '*',
+    path: '/:catchAll(.*)',
     redirect: '/',
   },
 ];
-const router = new VueRouter({
-  // mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes: routeList,
 });
 

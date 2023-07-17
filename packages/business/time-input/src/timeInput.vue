@@ -121,7 +121,7 @@ export default {
       margin-right: 0;
     }
   }
-  /deep/ input {
+  :deep(input) {
     padding: 0 8px !important;
     text-align: center;
   }

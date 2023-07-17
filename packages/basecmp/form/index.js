@@ -1,10 +1,10 @@
 import Form from './src/form.vue';
-export { default as example } from './examples/usage';
+export { default as example } from './examples/usage.vue';
 
-Form.install = function(Vue) {
+Form.install = function(app) {
   if (Form.installed) return;
   Form.installed = true;
-  Vue.component('form', Form);
+  app.component('ZlForm', Form);
 };
 
 export default Form;

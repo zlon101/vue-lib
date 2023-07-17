@@ -1,7 +1,6 @@
-import Vue from 'vue';
-import toastVue from './toast.vue';
+import { createApp } from 'vue';
+import ToastComponent from './toast.vue';
 
-const ToastComponent = Vue.extend(toastVue);
 const defaults = {
   type: 'success',
   text: '',
@@ -10,8 +9,7 @@ const defaults = {
 let instance;
 
 const Toast = (options = {}) => {
-  const typeList = ['string', 'number'];
-  if (typeList.includes(typeof options)) {
+  if (['string', 'number'].includes(typeof options)) {
     options = { text: options };
   }
 
@@ -20,23 +18,16 @@ const Toast = (options = {}) => {
     ...options,
   };
 
-  const parent = document.body;
-
   if (!instance) {
-    instance = new ToastComponent({
-      el: document.createElement('div'),
-      data: options,
-    });
-    parent.appendChild(instance.$el);
+    const el = document.createElement('div');
+    instance = createApp(ToastComponent);
+    instance.mount(el);
+    document.body.appendChild(el);
   }
   Object.keys(options).forEach(key => {
     instance[key] = options[key];
   });
-
-  Vue.nextTick(() => {
-    instance.show();
-  });
-
+  instance.show();
   return instance;
 };
 

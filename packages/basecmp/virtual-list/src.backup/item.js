@@ -4,7 +4,6 @@
  * we need to know their size change at any time
  */
 
-import Vue from 'vue';
 import { ItemProps, SlotProps } from './props';
 
 const Wrapper = {
@@ -47,7 +46,7 @@ const Wrapper = {
 };
 
 // wrapping for item
-export const Item = Vue.component('virtual-list-item', {
+export const Item = app.component('virtual-list-item', {
   mixins: [Wrapper],
 
   props: ItemProps,
@@ -81,7 +80,7 @@ export const Item = Vue.component('virtual-list-item', {
 });
 
 // wrapping for slot
-export const Slot = Vue.component('virtual-list-slot', {
+export const Slot = app.component('virtual-list-slot', {
   mixins: [Wrapper],
 
   props: SlotProps,

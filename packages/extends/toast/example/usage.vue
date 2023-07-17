@@ -24,10 +24,9 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import toast from '../index';
 
-Vue.use(toast);
+window._APP.use(toast);
 
 export default {
   methods: {
@@ -45,7 +44,7 @@ export default {
       this.$toast({
         timeout: 3000,
         text: '操作失败',
-        type: 'error'
+        type: 'error',
       });
     },
   },

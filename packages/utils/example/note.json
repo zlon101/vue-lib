@@ -101,15 +101,23 @@
       },
       {
         "fnName": "export const isFullScreen = ()",
-        "note": "let hidden, visibilityEventName;\r\n  // Opera 12.10 and Firefox 18 and later support\r\n  if (typeof document.hidden !== 'undefined') {\r\n    hidden = 'hidden';\r\n    visibilityEventName = 'visibilitychange';\r\n  } else if (typeof document.msHidden !== 'undefined') {\r\n    hidden = 'msHidden';\r\n    visibilityEventName = 'msvisibilitychange';\r\n  } else if (typeof document.webkitHidden !== 'undefined') {\r\n    hidden = 'webkitHidden';\r\n    visibilityEventName = 'webkitvisibilitychange';\r\n  }\r\n\r\n  const onVisibilityChange = (e) => cb(document[hidden], e);\r\n\r\n  // 如果浏览器不支持 addEventListener 或 Page Visibility API 给出警告\r\n  if (typeof document.addEventListener !== 'function' || typeof document[hidden] === 'undefined') {\r\n    throw new Error('The browser not support Visibility API.');\r\n  }\r\n  document.addEventListener(visibilityEventName, onVisibilityChange, false);\r\n  return () => document.removeEventListener(visibilityEventName, onVisibilityChange, false);\r\n}"
+        "note": "let hidden, visibilityEventName;\r\n  // Opera 12.10 and Firefox 18 and later support\r\n  if (typeof document.hidden !== 'undefined') {\r\n    hidden = 'hidden';\r\n    visibilityEventName = 'visibilitychange';\r\n  } else if (typeof document.msHidden !== 'undefined') {\r\n    hidden = 'msHidden';\r\n    visibilityEventName = 'msvisibilitychange';\r\n  } else if (typeof document.webkitHidden !== 'undefined') {\r\n    hidden = 'webkitHidden';\r\n    visibilityEventName = 'webkitvisibilitychange';\r\n  }\r\n\r\n  const onVisibilityChange = e => cb(document[hidden], e);\r\n\r\n  // 如果浏览器不支持 addEventListener 或 Page Visibility API 给出警告\r\n  if (typeof document.addEventListener !== 'function' || typeof document[hidden] === 'undefined') {\r\n    throw new Error('The browser not support Visibility API.');\r\n  }\r\n  document.addEventListener(visibilityEventName, onVisibilityChange, false);\r\n  return () => document.removeEventListener(visibilityEventName, onVisibilityChange, false);\r\n}"
       },
       {
-        "fnName": "export const handleFullscreen = (container)",
+        "fnName": "export const handleFullscreen = container =>",
         "note": "return !!(\r\n    document.fullScreen ||\r\n    document.webkitIsFullScreen ||\r\n    document.mozFullScreen ||\r\n    document.msFullscreenElement ||\r\n    document.fullscreenElement\r\n  );\r\n};\r\n// 全屏某个元素"
       },
       {
-        "fnName": "export const HtmlEscapes = {\r\n  '&': '&amp;',\r\n  '<': '&lt;',\r\n  '>': '&gt;',\r\n  '\"': '&quot;',\r\n  '\\'': '&#39;',\r\n}",
+        "fnName": "export const HtmlEscapes = {\r\n  '&': '&amp;',\r\n  '<': '&lt;',\r\n  '>': '&gt;',\r\n  '\"': '&quot;',\r\n  // eslint-disable-next-line\r\n  \"'\": '&#39;',\r\n}",
         "note": "// If fullscreen mode is active...\r\n  if (isFullScreen()) {\r\n    // ...exit fullscreen mode\r\n    // (Note: this can only be called on document)\r\n    if (document.exitFullscreen) document.exitFullscreen();\r\n    else if (document.mozCancelFullScreen) document.mozCancelFullScreen();\r\n    else if (document.webkitCancelFullScreen) document.webkitCancelFullScreen();\r\n    else if (document.msExitFullscreen) document.msExitFullscreen();\r\n  } else {\r\n    // ...otherwise enter fullscreen mode\r\n    // (Note: can be called on document, but here the specific element is used as it will also ensure that the element's children, e.g. the custom controls, go fullscreen also)\r\n    if (container.requestFullscreen) {\r\n      container.requestFullscreen();\r\n    } else if (container.mozRequestFullScreen) {\r\n      container.mozRequestFullScreen();\r\n    } else if (container.webkitRequestFullScreen) {\r\n      // Safari 5.1 only allows proper fullscreen on the video element. This also works fine on other WebKit browsers as the following CSS (set in styles.css) hides the default controls that appear again, and\r\n      // ensures that our custom controls are visible:\r\n      // figure[data-fullscreen=true] video::-webkit-media-controls { display:none !important; }\r\n      // figure[data-fullscreen=true] .controls { z-index:2147483647; }\r\n      container.webkitRequestFullScreen();\r\n    } else if (container.msRequestFullscreen) {\r\n      container.msRequestFullscreen();\r\n    }\r\n  }\r\n};\r\n\r\n// html 字符转义"
+      },
+      {
+        "fnName": "export function insertScript(url)",
+        "note": "'&': '&amp;',\r\n  '<': '&lt;',\r\n  '>': '&gt;',\r\n  '\"': '&quot;',\r\n  // eslint-disable-next-line\r\n  \"'\": '&#39;',\r\n};\r\n\r\n// 动态插入script"
+      },
+      {
+        "fnName": "export function insertStyle(url)",
+        "note": "const script = document.createElement('script');\r\n  script.src = url;\r\n  script.async = false;\r\n  script.defer = true;\r\n  document.body.appendChild(script);\r\n}\r\n// 动态插入css"
       }
     ]
   },

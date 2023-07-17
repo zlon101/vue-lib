@@ -1,27 +1,20 @@
-import Vue from 'vue';
-import watermarkVue from './watermark.vue';
+import {createApp} from 'vue';
+import WatermarkComponent from './watermark.vue';
 
-const WatermarkComponent = Vue.extend(watermarkVue);
 let instance;
 
 const Watermark = (name, phone) => {
   const parent = document.body;
 
   if (!instance) {
-    instance = new WatermarkComponent({
-      el: document.createElement('div'),
-      data: { name, phone },
-    });
-    parent.appendChild(instance.$el);
+    instance = createApp(WatermarkComponent);
+    const container = document.createElement('div');
+    instance.mount(container);
+    parent.appendChild(container);
   }
-
   instance.name = name;
   instance.phone = phone;
-
-  Vue.nextTick(() => {
-    instance.show();
-  });
-
+  instance.show();
   return instance;
 };
 

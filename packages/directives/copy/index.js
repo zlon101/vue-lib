@@ -38,10 +38,10 @@ const option = {
   },
 };
 
-option.install = function (Vue) {
+option.install = function(app) {
   if (option.installed) return;
   option.installed = true;
-  Vue.directive('copy', option);
-}
+  app.directive('copy', option);
+};
 
 export default option;

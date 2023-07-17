@@ -19,10 +19,9 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import dialog from '../index.js';
 
-Vue.use(dialog);
+window._APP.use(dialog);
 
 export default {
   data() {
@@ -51,16 +50,16 @@ export default {
       this.$dialog.show({
         type: 'warn',
         title: '标题标题标题',
-        desc: '描述描述描述描述'
+        desc: '描述描述描述描述',
       });
     },
     onAlert() {
       this.$dialog.show({
         type: 'warn_y',
         title: '标题标题标题',
-        desc: '描述描述描述描述'
+        desc: '描述描述描述描述',
       });
     },
-  }
+  },
 };
 </script>

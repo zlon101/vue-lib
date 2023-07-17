@@ -1,12 +1,11 @@
-import Vue from 'vue';
 import './src/font.less';
 import * as TotalIcon from './src/icon';
 
-export const registor = (name) => {
+export const registor = (app, name) => {
   const component = TotalIcon[name];
   if (component && !component.installed) {
     component.installed = true;
-    Vue.component(name, component);
+    app.component(name, component);
   }
 };
 

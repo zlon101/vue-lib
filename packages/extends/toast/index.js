@@ -1,9 +1,9 @@
 import toast from './src';
 
-toast.install = function(Vue) {
+toast.install = function(app) {
   if (toast.installed) return;
   toast.installed = true;
-  Vue.prototype.$toast = toast;
+  app.config.globalProperties.$toast = toast;
 };
 
 export default toast;

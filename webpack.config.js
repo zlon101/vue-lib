@@ -1,6 +1,7 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -19,7 +20,7 @@ const commonCfg = {
   entry: './src/main.js',
   output: {
     publicPath: isProd ? './' : '/',
-    path: getAbsPath('docs'),
+    path: getAbsPath('dist'),
     filename: isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js',
     assetModuleFilename: 'assets/[contenthash:8][ext][query]',
     clean: true,
@@ -37,6 +38,12 @@ const commonCfg = {
     ]
   },
   plugins: [
+    new DefinePlugin({
+      // enable/disable Options API support, default: true
+      __VUE_OPTIONS_API__: true,
+      // enable/disable devtools support in production, default: false
+      __VUE_PROD_DEVTOOLS__: false,
+    }),
     new HtmlWebpackPlugin({
       title: 'npm lib',
       template: 'public/index.html',

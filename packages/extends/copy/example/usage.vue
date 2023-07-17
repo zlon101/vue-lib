@@ -5,16 +5,15 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import copy from '../index';
 
-Vue.use(copy);
+window._APP.use(copy);
 
 export default {
   methods: {
     onCopy() {
       this.$copy('复制的文本');
-    }
-  }
+    },
+  },
 };
 </script>

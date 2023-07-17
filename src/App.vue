@@ -111,7 +111,6 @@ export default {
         <router-link to="/tool">工具函数</router-link>
         <router-link to="/style">全局样式</router-link>
         <router-link to="/image">所有图像</router-link>
-        <!--<a href="http://127.0.0.1:xx" target="_blank" rel="noopener noreferrer">Registry</a>-->
         <a href="https://github.com/zlon101/npm-lib" target="_blank" rel="noopener noreferrer">
           <IconGithub s="24px" />
         </a>
@@ -133,7 +132,9 @@ export default {
           <p class="desc" :title="item.desc">{{ item.desc }}</p>
         </router-link>
       </div>
-      <router-view class="page-content" />
+      <div class="page-content">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
