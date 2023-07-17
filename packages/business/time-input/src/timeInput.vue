@@ -1,8 +1,7 @@
 <template>
   <div class="c-time-input">
-    <template v-for="(item, ind) in Cfg">
+    <template v-for="(item, ind) in Cfg" :key="ind">
       <ZInput
-        :key="ind"
         class="input-item"
         purenumber
         v-model="$data[item[0]][item[1]]"

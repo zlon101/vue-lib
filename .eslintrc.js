@@ -31,6 +31,7 @@ module.exports = {
     'no-redeclare': 2, // 禁止多次声明同一变量
     'no-dupe-keys': 2, // 在创建对象字面量时不允许键重复
     'no-underscore-dangle': 0, // 允许下划线开头结尾
+    'vue/no-v-for-template-key': 'off',
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': [
       'error',

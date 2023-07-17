@@ -1,4 +1,5 @@
-<script>
+<script setup>
+import {ref, reactive, defineOptions, computed} from 'vue';
 import { IconGithub } from '@/icon';
 
 window._IsProd = process.env.NODE_ENV === 'production';
@@ -24,7 +25,7 @@ const loadFile = (filePath, cfg) => {
   }
 };
 
-const CompCfg = {
+const CompCfg = reactive({
   base: {
     router: [],
     text: '基础组件',
@@ -45,7 +46,7 @@ const CompCfg = {
     text: '原型链方法',
     dir: 'extends',
   },
-};
+});
 
 // 基础组件
 const reqCtx = require.context('../packages/basecmp', true, /index\.vue$/);
@@ -63,42 +64,35 @@ reqCtx3.keys().forEach(filePath => loadFile(filePath, CompCfg.directive));
 const reqCtx4 = require.context('../packages/extends', true, /index\.vue$/);
 reqCtx4.keys().forEach(filePath => loadFile(filePath, CompCfg.extend));
 
-export default {
+// 组件script
+defineOptions({
   name: 'App',
-  components: { IconGithub },
-  data() {
-    return {
-      CompCfg,
-      searchVal: '',
-      Indexs: Object.keys(CompCfg),
-      curInd: 'base',
-      homeUrl: window._IsProd ? 'https://zlon101.github.io/npm-lib/#/' : '/',
-    };
-  },
-  created() {
-    const fullpath = window.location.href;
-    const idx = this.Indexs.findIndex(k => fullpath.includes(CompCfg[k].dir));
-    if (idx !== -1) {
-      this.curInd = this.Indexs[idx];
-    }
-  },
-  computed: {
-    sideRoutes({ searchVal, curInd }) {
-      const curList = CompCfg[curInd].router;
-      if (!searchVal) return curList;
-      const reg = new RegExp(searchVal, 'i');
-      const all = Object.keys(CompCfg).reduce((acc, k) => acc.concat(CompCfg[k].router), []);
-      return all.filter(item => reg.exec(item.pkgName + item.desc));
-    },
-  },
-  methods: {
-    onChangeIndex(val) {
-      this.curInd = val;
-    },
-    onInputSearch(e) {
-      this.searchVal = e.target.value.trim();
-    },
-  },
+});
+
+const Indexs = Object.keys(CompCfg);
+const homeUrl = window._IsProd ? 'https://zlon101.github.io/npm-lib/#/' : '/';
+const searchVal = ref('');
+const curInd = ref('base');
+
+const fullpath = window.location.href;
+const idx = Indexs.findIndex(k => fullpath.includes(CompCfg[k].dir));
+if (idx !== -1) {
+  curInd.value = Indexs[idx];
+}
+
+const sideRoutes = computed(() => {
+  const curList = CompCfg[curInd.value].router;
+  if (!searchVal.value) return curList;
+  const reg = new RegExp(searchVal.value, 'i');
+  const all = Object.keys(CompCfg).reduce((acc, k) => acc.concat(CompCfg[k].router), []);
+  return all.filter(item => reg.exec(item.pkgName + item.desc));
+});
+
+const onChangeIndex = (_val) => {
+  curInd.value = _val;
+};
+const onInputSearch = e => {
+  searchVal.value = e.target.value.trim();
 };
 </script>
 

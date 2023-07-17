@@ -20,7 +20,7 @@ const commonCfg = {
   entry: './src/main.js',
   output: {
     publicPath: isProd ? './' : '/',
-    path: getAbsPath('dist'),
+    path: getAbsPath('docs'),
     filename: isProd ? 'js/[name].[contenthash:8].js' : 'js/[name].js',
     assetModuleFilename: 'assets/[contenthash:8][ext][query]',
     clean: true,
