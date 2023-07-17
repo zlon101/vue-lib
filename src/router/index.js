@@ -1,45 +1,41 @@
-import {createRouter, createWebHistory} from 'vue-router';
-import RouterView from '../router-view';
-import Home from '../pages/home';
+import { createRouter, createWebHistory, RouterView } from 'vue-router';
+import Home from '../pages/home/index.vue';
 
 const IgnoreDirs = ['node_modules'];
-const loadFile = (filePath, compDir, list) => {
-  // filePath: ./input/example/index.vue
-  if (IgnoreDirs.some(item => filePath.includes(item))) {
+const loadFile = (pkgPath, component, compDir, list) => {
+  // pkgPath: ./input/example/index.vue
+  if (IgnoreDirs.some(item => pkgPath.includes(item))) {
     return;
   }
-  if (/example\/index\.vue$/.test(filePath)) {
-    filePath = filePath.replace(/^\.\//, '');
-    const name = filePath.split('/')[0];
-    const caseName = compDir.replace(/^\w/, c => c.toUpperCase()) + name.replace(/^\w/, c => c.toUpperCase());
-    list.push({
-      name: caseName,
-      path: name,
-      component: () => import(`../../packages/${compDir}/${name}/example/index.vue`),
-    });
-  }
+  const paths = pkgPath.split('/');
+  const pkgName = paths[paths.length - 3];
+  const caseName = compDir.replace(/^\w/, c => c.toUpperCase()) + pkgName.replace(/^\w/, c => c.toUpperCase());
+  list.push({
+    name: caseName,
+    path: pkgName,
+    component,
+  });
 };
 
 // 基础组件
 const BaseCmp = [];
-const requireRoutes = require.context('../../packages/basecmp', true, /index\.vue$/);
-requireRoutes.keys().forEach(path => loadFile(path, 'basecmp', BaseCmp));
-// console.debug('BaseCmp\n', BaseCmp);
+let pkgMap = import.meta.glob('../../packages/**/example/index.vue');
+Object.keys(pkgMap).forEach(pkgPath => loadFile(pkgPath, pkgMap[pkgPath], 'basecmp', BaseCmp));
 
 // 业务组件
 const BusinessCmp = [];
-const require2 = require.context('../../packages/business', true, /index\.vue$/);
-require2.keys().forEach(path => loadFile(path, 'business', BusinessCmp));
+pkgMap = import.meta.glob('../../packages/business/**/example/index.vue');
+Object.keys(pkgMap).forEach(pkgPath => loadFile(pkgPath, pkgMap[pkgPath], 'business', BusinessCmp));
 
 // 指令
 const Directive = [];
-const require3 = require.context('../../packages/directives', true, /index\.vue$/);
-require3.keys().forEach(path => loadFile(path, 'directives', Directive));
+pkgMap = import.meta.glob('../../packages/directives/**/example/index.vue');
+Object.keys(pkgMap).forEach(pkgPath => loadFile(pkgPath, pkgMap[pkgPath], 'directives', Directive));
 
 // 扩展的全局vue方法
 const GlobalMethod = [];
-const require4 = require.context('../../packages/extends', true, /index\.vue$/);
-require4.keys().forEach(path => loadFile(path, 'extends', GlobalMethod));
+pkgMap = import.meta.glob('../../packages/extends/**/example/index.vue');
+Object.keys(pkgMap).forEach(pkgPath => loadFile(pkgPath, pkgMap[pkgPath], 'extends', GlobalMethod));
 
 const routeList = [
   {
@@ -50,17 +46,17 @@ const routeList = [
   {
     path: '/image',
     name: 'Image',
-    component: () => import('../pages/image'),
+    component: () => import('../pages/image/index.vue'),
   },
   {
     path: '/tool',
     name: 'Tool',
-    component: () => import('../pages/tool'),
+    component: () => import('../pages/tool/index.vue'),
   },
   {
     path: '/style',
     name: 'Style',
-    component: () => import('../pages/style'),
+    component: () => import('../pages/style/index.vue'),
   },
   {
     path: '/basecmp', // 和文件目录相同
@@ -91,9 +87,15 @@ const routeList = [
     redirect: '/',
   },
 ];
-const router = createRouter({
+
+const Route = createRouter({
   history: createWebHistory(),
   routes: routeList,
 });
 
-export default router;
+// 全局导航守卫
+Route.beforeEach((to, from) => {
+  console.debug(`to: ${to.path} from: ${from.path}`);
+});
+
+export default Route;

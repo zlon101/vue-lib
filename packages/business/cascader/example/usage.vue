@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AreaSelect from '../src/index';
+import AreaSelect from '../src/index.vue';
 import AreaJson from '../area.json';
 
 export default {

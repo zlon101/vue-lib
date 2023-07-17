@@ -2,7 +2,7 @@
 import ProjectReadme from '../../../README.md';
 export default {
   components: { ProjectReadme },
-}
+};
 </script>
 
 <template>

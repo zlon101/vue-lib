@@ -21,8 +21,8 @@
 
 <script>
 import '../src/font.less';
-import * as Icon from '../src/icon.js';
-import { IconCross } from '../src/icon.js';
+import * as Icon from '../src/icon.jsx';
+import { IconCross } from '../src/icon.jsx';
 
 const names = Object.keys(Icon);
 const comps = names.reduce((acc, name) => {

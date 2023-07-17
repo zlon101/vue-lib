@@ -17,25 +17,27 @@
 import VirtualList from '../src';
 window._APP.component('virtual-list', VirtualList);
 
-const requireGlobal = require.context('./components', false, /\w+\.(vue|js)$/);
-const successCmp = [];
-requireGlobal.keys().forEach(fileName => {
-  const componentConfig = requireGlobal(fileName);
-  const cmp = componentConfig.default || componentConfig;
+const requireGlobal = import.meta.glob('./components/*.vue', {
+  import: 'default',
+  eager: true,
+});
+Object.keys(requireGlobal).forEach(fileName => {
+  const cmp = requireGlobal[fileName];
   if (!cmp.name) {
     console.error(`${fileName} no component name!`);
     return;
   }
-  successCmp.push(cmp.name);
   window._APP.component(cmp.name, cmp);
 });
 
 // 批量注册局部组件
-const requireComponent = require.context('./views', true, /(Main|index)\.(vue|js)$/);
+const requireComponent = import.meta.glob('./views/**/(index|Main).vue', {
+  import: 'default',
+  eager: true,
+});
 const cmps = {};
 requireComponent.keys().map(fileName => {
-  const componentConfig = requireComponent(fileName);
-  const cmp = requireComponent(fileName).default || componentConfig;
+  const cmp = requireComponent[fileName];
   if (!cmp.name) {
     console.error(`${fileName} no component name!`);
     return;
@@ -52,8 +54,7 @@ export default {
   },
   methods: {
     toggleAct(e) {
-      const cmp = e.target.getAttribute('data-k');
-      this.who = cmp;
+      this.who = e.target.getAttribute('data-k');
     },
   },
 };

@@ -1,4 +1,4 @@
-import Scrollbar from './src/main';
+import Scrollbar from './src/main.jsx';
 import './src/scrollbar.css';
 export { default as example } from './example/usage';
 

@@ -1,5 +1,5 @@
 import './src/font.less';
-import * as TotalIcon from './src/icon';
+import * as TotalIcon from './src/icon.jsx';
 
 export const registor = (app, name) => {
   const component = TotalIcon[name];
@@ -9,5 +9,5 @@ export const registor = (app, name) => {
   }
 };
 
-export * from './src/icon';
+export * from './src/icon.jsx';
 export { default as example } from './example/usage.vue';

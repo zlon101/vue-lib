@@ -1,6 +1,6 @@
 import { addResizeListener, removeResizeListener, toObject } from './util';
 import scrollbarWidth from './scrollbarWidth';
-import Bar from './bar';
+import Bar from './bar.jsx';
 
 export default {
   name: 'Scrollbar',

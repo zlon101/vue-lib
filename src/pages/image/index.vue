@@ -9,19 +9,20 @@
 </template>
 
 <script>
-const IgnoreDirs = ['node_modules'];
 const imgStore = [];
 
-const req = require.context('../../../packages', true, /\.(svg)|(png)$/);
-req.keys().forEach(filePath => {
-  if (IgnoreDirs.some(item => filePath.includes(item))) {
+const moduleMap = import.meta.glob(['../../../**/*.{svg,png}', '!**/node_modules/*'], {
+  as: 'url',
+  eager: true,
+});
+Object.keys(moduleMap).forEach(filePath => {
+  if (['node_modules'].some(item => filePath.includes(item))) {
     return;
   }
-  // filePath: ./basecmp/icon/assets/icon-err.svg
   if (filePath.includes('iconfont.svg')) return;
   imgStore.push({
-    path: filePath,
-    url: req(filePath),
+    path: filePath.replace('../../../', ''),
+    url: moduleMap[filePath],
   });
 });
 

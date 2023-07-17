@@ -1,30 +1,27 @@
-<script>
+<script setup>
+import {ref, reactive, defineOptions, computed, unref, toRaw, toRef} from 'vue';
 import { IconGithub } from '@/icon';
 
-window._IsProd = process.env.NODE_ENV === 'production';
-console.debug(`环境: ${process.env.NODE_ENV}`);
+window._IsProd = import.meta.env.PROD;
 const IgnoreDirs = ['node_modules'];
-const loadFile = (filePath, cfg) => {
+const loadFile = (filePath, loader, cfg) => {
   if (IgnoreDirs.some(item => filePath.includes(item))) {
     return;
   }
-  // filePath: button/example/index.vue
-  if (/example\/index\.vue$/.test(filePath)) {
-    filePath = filePath.replace(/^\.\//, '');
-    const compDir = filePath.split('/')[0];
-    import(/* webpackInclude: /\package.json$/ */ `../packages/${cfg.dir}/${compDir}/package.json`).then(res => {
-      const pkgName = res.name.split('/').pop();
-      cfg.router.push({
-        name: res.name,
-        path: `/${cfg.dir}/${compDir}`,
-        desc: res.description,
-        pkgName,
-      });
+  // filePath: '../packages/business/time-input/package.json'
+  const pathFras = filePath.split('/');
+  loader().then(res => {
+    const pkgName = res.name.split('/').pop();
+    cfg.router.push({
+      name: res.name,
+      path: `/${cfg.dir}/${pathFras[pathFras.length - 2]}`,
+      desc: res.description,
+      pkgName,
     });
-  }
+  });
 };
 
-const CompCfg = {
+const CompCfg = reactive({
   base: {
     router: [],
     text: '基础组件',
@@ -45,60 +42,54 @@ const CompCfg = {
     text: '原型链方法',
     dir: 'extends',
   },
-};
+});
 
 // 基础组件
-const reqCtx = require.context('../packages/basecmp', true, /index\.vue$/);
-reqCtx.keys().forEach(filePath => loadFile(filePath, CompCfg.base));
+let moduleObj = import.meta.glob(['../packages/basecmp/**/package.json', '!../packages/**/node_modules']);
+// ['../packages/business/time-input/package.json']
+Object.keys(moduleObj).forEach(filePath => loadFile(filePath, moduleObj[filePath], CompCfg.base));
 
 // 业务组件
-const reqCtx2 = require.context('../packages/business', true, /index\.vue$/);
-reqCtx2.keys().forEach(filePath => loadFile(filePath, CompCfg.business));
+moduleObj = import.meta.glob(['../packages/business/**/package.json', '!../packages/**/node_modules']);
+Object.keys(moduleObj).forEach(filePath => loadFile(filePath, moduleObj[filePath], CompCfg.business));
 
 // 指令
-const reqCtx3 = require.context('../packages/directives', true, /index\.vue$/);
-reqCtx3.keys().forEach(filePath => loadFile(filePath, CompCfg.directive));
+moduleObj = import.meta.glob(['../packages/directives/**/package.json', '!../packages/**/node_modules']);
+Object.keys(moduleObj).forEach(filePath => loadFile(filePath, moduleObj[filePath], CompCfg.directive));
 
 // 扩展的全局vue方法
-const reqCtx4 = require.context('../packages/extends', true, /index\.vue$/);
-reqCtx4.keys().forEach(filePath => loadFile(filePath, CompCfg.extend));
+moduleObj = import.meta.glob(['../packages/extends/**/package.json', '!../packages/**/node_modules']);
+Object.keys(moduleObj).forEach(filePath => loadFile(filePath, moduleObj[filePath], CompCfg.extend));
 
-export default {
+// 组件script
+defineOptions({
   name: 'App',
-  components: { IconGithub },
-  data() {
-    return {
-      CompCfg,
-      searchVal: '',
-      Indexs: Object.keys(CompCfg),
-      curInd: 'base',
-      homeUrl: window._IsProd ? 'https://zlon101.github.io/npm-lib/#/' : '/',
-    };
-  },
-  created() {
-    const fullpath = window.location.href;
-    const idx = this.Indexs.findIndex(k => fullpath.includes(CompCfg[k].dir));
-    if (idx !== -1) {
-      this.curInd = this.Indexs[idx];
-    }
-  },
-  computed: {
-    sideRoutes({ searchVal, curInd }) {
-      const curList = CompCfg[curInd].router;
-      if (!searchVal) return curList;
-      const reg = new RegExp(searchVal, 'i');
-      const all = Object.keys(CompCfg).reduce((acc, k) => acc.concat(CompCfg[k].router), []);
-      return all.filter(item => reg.exec(item.pkgName + item.desc));
-    },
-  },
-  methods: {
-    onChangeIndex(val) {
-      this.curInd = val;
-    },
-    onInputSearch(e) {
-      this.searchVal = e.target.value.trim();
-    },
-  },
+});
+
+const Indexs = Object.keys(CompCfg);
+const homeUrl = window._IsProd ? 'https://zlon101.github.io/npm-lib/#/' : '/';
+const searchVal = ref('');
+const curInd = ref('base');
+
+const fullpath = window.location.href;
+const idx = Indexs.findIndex(k => fullpath.includes(CompCfg[k].dir));
+if (idx !== -1) {
+  curInd.value = Indexs[idx];
+}
+
+const sideRoutes = computed(() => {
+  const curList = CompCfg[curInd.value].router;
+  if (!searchVal.value) return curList;
+  const reg = new RegExp(searchVal.value, 'i');
+  const all = Object.keys(CompCfg).reduce((acc, k) => acc.concat(CompCfg[k].router), []);
+  return all.filter(item => reg.exec(item.pkgName + item.desc));
+});
+
+const onChangeIndex = (_val) => {
+  curInd.value = _val;
+};
+const onInputSearch = e => {
+  searchVal.value = e.target.value.trim();
 };
 </script>
 
