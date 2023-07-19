@@ -7,7 +7,7 @@
     "deploy": "node scripts/upload-server.js",
     "dev": "vite",
     "serve": "node serve-config/serve.js",
-    "build": "node scripts/predev.js -build && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "build:lib": "node scripts/build-lib.js",
     "minSvg": "node packages/basecmp/icon/scripts/min-svg.cjs",
