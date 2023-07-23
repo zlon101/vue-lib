@@ -2,8 +2,10 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import Markdown from 'vite-plugin-vue-markdown'
+import Markdown from 'vite-plugin-vue-markdown';
 import eslintPlugin from 'vite-plugin-eslint';
+// 调式插件
+import VueDevTools from 'vite-plugin-vue-devtools';
 
 const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
 
@@ -17,6 +19,7 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json', '.vue'],
   },
   plugins: [
+    VueDevTools(),
     vue({
       include: [/\.vue$/, /\.md$/],
     }),
