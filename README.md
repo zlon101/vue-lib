@@ -195,3 +195,14 @@ npm install @zl/xx
 
 1. 项目A 使用编译后的组件代码开发，不用关心组件的依赖（包括样式变量），但是项目A 编译生成的代码可能包含不需要的代码，特别是 @zl/icon 和 @zl/tool 这类会 `export` 很多独立模块的 npm 包。
 2. 项目A 使用组件源码（未编译）代码开发，可以解决第一条问题，但是需要在组件的 package.json 中声明依赖（dependencies、peerDependencies），当组件内使用了@zl/style/var.less 中的变量，需要在组件内引入该文件，或者在项目A中配置style-resources-loader
+
+
+# 参与共建
+
+欢迎所有的贡献！
+
+推荐阅读 [《提问的智慧》](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way)、[《如何向开源社区提问题》](https://github.com/seajs/seajs/issues/545) 和 [《如何有效地报告 Bug》](http://www.chiark.greenend.org.uk/%7Esgtatham/bugs-cn.html)、[《如何向开源项目提交无法解答的问题》](https://zhuanlan.zhihu.com/p/25795393)，更好的问题更容易获得帮助。
+
+# License
+
+This is provided under [MIT License](https://opensource.org/licenses/MIT)
