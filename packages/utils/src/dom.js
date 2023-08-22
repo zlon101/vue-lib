@@ -135,3 +135,30 @@ export function insertStyle(url) {
   link.href = url;
   document.body.appendChild(link);
 }
+
+// 判断node是否不可见
+function isHideNode(node) {
+  // Element
+  if (node.nodeType === 1) {
+    return isHideElement(node);
+  }
+  // Text
+  if (node.nodeType === 3) {
+    return isHideElement(node.parentElement);
+  }
+  return false;
+}
+
+function isHideElement(element) {
+  if (!element || element.offsetHeight < 2 || element.offsetWidth < 2) {
+    return true;
+  }
+  if (typeof element.checkVisibility === 'function') {
+    return !element.checkVisibility({
+      checkOpacity: true,      // Check CSS opacity property too
+      checkVisibilityCSS: true, // Check CSS visibility property too
+    });
+  }
+  const styleAttr = window.getComputedStyle(element);
+  return styleAttr.display === 'none' || styleAttr.visibility === 'hidden' || styleAttr.opacity === '0';
+}
