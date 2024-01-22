@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-export default function log(...args) {
+export default function log1(...args) {
   if (args.length === 0) {
     console.log('\n');
     return;
@@ -39,4 +39,17 @@ export default function log(...args) {
   }
 }
 
-window.log = log;
+export const log = (label, data, type = 'debug') => {
+  const Color = {
+    info: 'color: #fff',
+    debug: 'color: #0af4f4',
+    warn: 'color: #f4f40a',
+    error: 'color: red'
+  }
+  const msg = ['undefined', 'object'].includes(typeof data) ? JSON.stringify(data, null, 2) : data;
+  if (data === undefined) {
+    console.debug(`\n%c${label}`, Color[type]);
+  } else {
+    console.debug(`\n%c${label}:\n ${msg}`, Color[type]);
+  }
+};
