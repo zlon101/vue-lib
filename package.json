@@ -42,6 +42,11 @@
     "node": ">=16",
     "npm": ">=8"
   },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zlon101/npm-lib/issues"
+  },
+  "homepage": "https://zlon101.github.io/npm-lib/#/",
   "dependencies": {
     "core-js": "3.24.1",
     "highlight.js": "11.7.0",
