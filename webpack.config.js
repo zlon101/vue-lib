@@ -45,7 +45,7 @@ const commonCfg = {
       __VUE_PROD_DEVTOOLS__: false,
     }),
     new HtmlWebpackPlugin({
-      title: 'npm lib',
+      title: 'vue lib',
       template: 'public/index.html',
     }),
     new VueLoaderPlugin(),

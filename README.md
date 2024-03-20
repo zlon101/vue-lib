@@ -3,7 +3,7 @@
 - [ ] gitlab Hook 自动上传到服务器？
 - [x] ie浏览器测试图标是否正常
 
-## [example](https://zlon101.github.io/npm-lib/#/)
+## [example](https://zlon101.github.io/vue-lib/#/)
 
 ----------------------------------------------------------------
 
