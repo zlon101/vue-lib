@@ -106,10 +106,10 @@ git commit 会触发 pre-commit 钩子，对暂存区中的文件进行 eslint �
 
 ## 开发规范
 
-- 首次执行 `npm install` 后，需要执行 `npm run link:all type=c`（注：不要在 Webstorm 的终端中执行，IDE 会执行 npm install）
+- ~~首次执行 `npm install` 后，需要执行 `npm run link:all type=c`（注：不要在 Webstorm 的终端中执行，IDE 会执行 npm install）~~
 - `scripts/cfg.js` 中配置和项目相关的信息，包括 private-address、private-scope
 - 组件的 package.json 中 name 字段必须以 `@zl/` 为前缀，并且必须配置 publishConfig 字段
-- 组件 A 使用组件 B 时，在 A 的 package.json 中将组件 B 配置到 `dependencies` 字段，并在 A 的 packages.json -> scripts.link-local 中添加命令（参考已有示例）
+- 组件 A 使用组件 B 时，在 A 的 package.json 中将组件 B 配置到 `dependencies` 字段
 - 组件的 example 写法参考 button 组件写法，只需要修改 example/index.vue 中的 `compPath` 参数。
 
 > 组件发布
@@ -152,7 +152,6 @@ npm install @zl/xx
 - `npm run build:icon`: 生成 icon 组件和 iconfont 样式文件
 - `npm run edit:pkg`: 修改指定目录下所有 package.json 配置，默认修改 `name` 和 `publishConfig` 字段，也可以用参数指定其他字段
 - `npm run scripts/edit-package.js`: 可以批量将修改组件的 package.json 中的 name 和 publishConfig 字段
-- `npm run link:all`: 执行 packages 目录下所有组件内部的 npm run link-local，为所有组件的依赖创建本地软链接
 - `npm run update:registry`: 批量 publish 或 unpublish 指定目录下的组件
 - `npm run create:comp`: 已 packages/template 为模板创建新的组件
 
@@ -183,8 +182,8 @@ npm install @zl/xx
 
 - vue-template-compiler 和 vue 的版本必须保持一样
 - husky 版本不能更新
-- vue-loader vue-markdown-loader 版本不能更新
-- style-resources-loader vue-cli-plugin-style-resources-loader 用作导入全局less
+- vue-loader、vue-markdown-loader 版本不能更新
+- style-resources-loader、vue-cli-plugin-style-resources-loader 用作导入全局less
 - 使用该组件库开发其他项目时，项目的依赖 dependencies、devDependencies 和 vue.config.js 最好和该组件库一样
 
 ## Q

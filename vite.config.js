@@ -7,7 +7,9 @@ import eslintPlugin from 'vite-plugin-eslint';
 // 调式插件
 import VueDevTools from 'vite-plugin-vue-devtools';
 
+const isProd = process.env.NODE_ENV === 'production';
 const getAbsPath = relatePath => path.resolve(__dirname, relatePath);
+console.log(`$ ${isProd ? '生产' : '开发'}环境`);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -38,6 +40,19 @@ export default defineConfig({
         additionalData: `@import "${getAbsPath('./packages/styles/var.less')}";`,
       },
     },
+  },
+  build: {
+    // rollupOptions: {
+    //   // https://rollupjs.org/configuration-options/
+    // },
+    outDir: 'docs',
+  },
+  // 处理源码中的 umd 格式
+  optimizeDeps: {
+    include: [
+      'mock',
+      'ua'
+    ]
   },
   server: {
     port: 9003,

@@ -4,7 +4,6 @@
   "description": "侧边导航栏",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../icon && npx link ../scrollbar"
   },
   "keywords": [],
   "author": "Pikachu",

@@ -4,7 +4,6 @@
   "description": "复选框",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../tooltip"
   },
   "keywords": [],
   "author": "Pikachu",

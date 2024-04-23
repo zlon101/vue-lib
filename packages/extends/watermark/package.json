@@ -4,7 +4,6 @@
   "description": "页面水印",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../../utils && npx link ../toast"
   },
   "keywords": [],
   "author": "Pikachu",

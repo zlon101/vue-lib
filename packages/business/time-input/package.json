@@ -4,7 +4,6 @@
   "description": "时间范围输入框组件",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../../basecmp/input"
   },
   "keywords": [],
   "author": "Pikachu",

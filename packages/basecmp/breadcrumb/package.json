@@ -4,7 +4,6 @@
   "description": "导航条、面包屑",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../icon",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],

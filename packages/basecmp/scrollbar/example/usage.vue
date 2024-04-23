@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Scrollbar from '../src/main.js';
+import Scrollbar from '../src/main.jsx';
 
 export default {
   components: {

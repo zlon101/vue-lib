@@ -4,7 +4,6 @@
   "description": "dialog，对话框",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../../basecmp/icon && npx link ../../basecmp/button && npx link ../../basecmp/modal"
   },
   "keywords": [],
   "author": "Pikachu",

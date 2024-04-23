@@ -4,7 +4,6 @@
   "description": "tooltip，hover 提示框",
   "main": "index.js",
   "scripts": {
-    "link-local": "npx link ../../directives/transfer && npx link ../../utils"
   },
   "keywords": [],
   "author": "Pikachu",
