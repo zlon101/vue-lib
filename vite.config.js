@@ -47,13 +47,6 @@ export default defineConfig({
     // },
     outDir: 'docs',
   },
-  // 处理源码中的 umd 格式
-  optimizeDeps: {
-    include: [
-      'mock',
-      'ua'
-    ]
-  },
   server: {
     port: 9003,
     open: false,

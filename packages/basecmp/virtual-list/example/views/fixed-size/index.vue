@@ -23,7 +23,7 @@
 import Item from './Item';
 import Code from './Code';
 
-import { Random } from '../../common/mock';
+import { Random } from 'mockjs';
 import genUniqueId from '../../common/gen-unique-id';
 import { TAB_TYPE, DEFAULT_TAB } from '../../common/const';
 

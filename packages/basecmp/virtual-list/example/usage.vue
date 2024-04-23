@@ -17,14 +17,29 @@
 import VirtualList from '../src';
 window._APP.component('virtual-list', VirtualList);
 
+const IgnoreDirs = ['node_modules'];
+const loadFile = (pkgPath, component, compDir, list) => {
+  if (IgnoreDirs.some(item => pkgPath.includes(item))) {
+    return;
+  }
+  const paths = pkgPath.split('/');
+  const pkgName = paths[paths.length - 3];
+  const caseName = compDir.replace(/^\w/, c => c.toUpperCase()) + pkgName.replace(/^\w/, c => c.toUpperCase());
+  list.push({
+    name: caseName,
+    path: pkgName,
+    component,
+  });
+};
+
 const requireGlobal = import.meta.glob('./components/*.vue', {
   import: 'default',
   eager: true,
 });
-Object.keys(requireGlobal).forEach(fileName => {
-  const cmp = requireGlobal[fileName];
+Object.keys(requireGlobal).forEach(pkgPath => {
+  const cmp = requireGlobal[pkgPath];
   if (!cmp.name) {
-    console.error(`${fileName} no component name!`);
+    console.error(`${pkgPath} no component name!`);
     return;
   }
   window._APP.component(cmp.name, cmp);
@@ -36,7 +51,7 @@ const requireComponent = import.meta.glob('./views/**/(index|Main).vue', {
   eager: true,
 });
 const cmps = {};
-requireComponent.keys().map(fileName => {
+Object.keys(requireComponent).map(fileName => {
   const cmp = requireComponent[fileName];
   if (!cmp.name) {
     console.error(`${fileName} no component name!`);

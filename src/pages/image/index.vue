@@ -12,7 +12,8 @@
 const imgStore = [];
 
 const moduleMap = import.meta.glob(['../../../**/*.{svg,png}', '!**/node_modules/*'], {
-  as: 'url',
+  // as: 'url',
+  query: '?url',
   eager: true,
 });
 Object.keys(moduleMap).forEach(filePath => {

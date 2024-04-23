@@ -1,4 +1,4 @@
-import { Random } from '../../common/mock';
+import { Random } from 'mockjs';
 import getSentences from '../../common/sentences';
 import getUser from '../../common/user';
 

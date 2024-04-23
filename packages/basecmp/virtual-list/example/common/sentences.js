@@ -1,4 +1,4 @@
-import { Random } from './mock';
+import { Random } from 'mockjs';
 import { isMobile } from './ua';
 
 // retrun several random sentences

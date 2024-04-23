@@ -80,6 +80,7 @@
     "less-loader": "11.1.0",
     "lint-staged": "13.0.3",
     "mini-css-extract-plugin": "2.7.1",
+    "mockjs": "1.1.0",
     "multiparty": "4.2.3",
     "prettier": "2.7.1",
     "svgo": "2.8.0",
