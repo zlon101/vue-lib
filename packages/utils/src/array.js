@@ -31,10 +31,10 @@ export function arrayIntersection(...arrWarp) {
 }
 
 // 洗牌算法
-export function confused(arr) {
-  const N = (arr || []).length;
+export function confused(arr1) {
+  const N = (arr1 || []).length;
   if (N < 2) {
-    return arr;
+    return arr1;
   }
   const shuffle = (arr) => {
     let n = arr.length;
@@ -46,7 +46,7 @@ export function confused(arr) {
     }
     return arr;
   };
-  return shuffle([...arr]);
+  return shuffle([...arr1]);
 }
 
 // 打乱数组的顺序
